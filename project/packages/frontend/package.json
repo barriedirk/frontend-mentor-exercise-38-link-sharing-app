@@ -1,5 +1,13 @@
 {
   "name": "@project/frontend",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@preact/signals-react": "^3.3.0",
+    "clsx": "^2.1.1",
+    "react-router-dom": "^7.9.3"
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3"
+  }
 }

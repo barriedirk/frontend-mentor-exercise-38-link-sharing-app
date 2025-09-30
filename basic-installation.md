@@ -172,3 +172,20 @@ model Link {
 
 npx prisma migrate dev --name init
 
+
+pnpm add @preact/signals-react --filter=frontend
+
+pnpm add react-router-dom --filter=frontend
+pnpm add -D @types/react-router-dom --filter=frontend
+
+
+# update tailwind
+pnpm add -D tailwindcss@latest postcss@latest autoprefixer@latest --filter=frontend
+
+
+pnpm add -D @tailwindcss/vite --filter=frontend
+
+pnpm add @tailwindcss/postcss --filter=frontend
+
+
+NOTE: problem to update tailwind 4, try later
