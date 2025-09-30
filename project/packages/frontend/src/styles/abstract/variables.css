@@ -1,0 +1,57 @@
+:root {
+  --clr-white: hsl(0, 100%, 100%);
+  --clr-black: hsl(0, 0%, 0%);
+
+  --clr-grey-950: hsl(0, 0%, 10%);
+  --clr-grey-900: hsl(0, 0%, 20%);
+  --clr-grey-500: hsl(0, 0%, 45%);
+  --clr-grey-200: hsl(0, 0%, 85%);
+  --clr-grey-100: hsl(0, 0%, 93%);
+  --clr-grey-50: hsl(0, 0%, 90%);
+
+  --clr-blue-800: hsl(227, 97%, 42%);
+  --clr-blue-500: hsl(223, 100%, 59%);
+
+  --clr-purple-950: hsl(252, 50%, 27%);
+  --clr-purple-600: hsl(252, 100%, 62%);
+  --clr-purple-300: hsl(252, 100%, 84%);
+
+  --clr-red-550: hsl(0, 84%, 58%);
+  --clr-red-500: hsl(0, 100%, 61%);
+
+  --clr-pink-800: hsl(331, 68%, 32%);
+  --clr-pink-400: hsl(13, 83%, 75%);
+
+  --clr-orange-600: hsl(29, 100%, 46%);
+  --clr-orange-500: hsl(11, 83%, 53%);
+
+  --ff: 'Instrument Sans', sans-serif;
+
+  --fw-thin: 100;
+  --fw-extralight: 200;
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
+
+  --fs-100: 6.25rem;
+  --fs-96: 6rem;
+  --fs-80: 5rem;
+  --fs-72: 4.5rem;
+  --fs-56: 3.5rem;
+  --fs-48: 3rem;
+  --fs-40: 2.5rem;
+  --fs-32: 2rem;
+  --fs-28: 1.75rem;
+  --fs-24: 1.5rem;
+  --fs-20: 1.25rem;
+  --fs-18: 1.125rem;
+  --fs-16: 1rem;
+  --fs-14: 0.875rem;
+  --fs-13: 0.8125rem;
+  --fs-12: 0.75rem;
+  --fs-11: 0.6875rem;
+}

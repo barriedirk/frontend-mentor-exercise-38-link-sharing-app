@@ -1,0 +1,51 @@
+@tailwind utilities;
+
+@layer utilities {
+  .text-preset-1 {
+    font-family: var(--ff);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-32);
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-preset-2 {
+    font-family: var(--ff);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-24);
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-preset-3-bold {
+    font-family: var(--ff);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-16);
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-preset-3-semibold {
+    font-family: var(--ff);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-16);
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-preset-3-regular {
+    font-family: var(--ff);
+    font-weight: var(--fw-normal);
+    font-size: var(--fs-16);
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .text-preset-4 {
+    font-family: var(--ff);
+    font-weight: var(--fw-normal);
+    font-size: var(--fs-12);
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+}
