@@ -1,0 +1,81 @@
+.progress {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.bar {
+  width: 100%;
+  height: 5px;
+}
+
+.progress.infinite .bar {
+  background-image: linear-gradient(
+    to right,
+    var(--clr-grey-950),
+    var(--clr-grey-400),
+    var(--clr-grey-350),
+    var(--clr-grey-300),
+    var(--clr-grey-250),
+    var(--clr-grey-50)
+  );
+  animation: colorAnimation 1s infinite;
+}
+
+@keyframes colorAnimation {
+  0% {
+    background-image: linear-gradient(
+      to right,
+      var(--clr-grey-950),
+      var(--clr-grey-400),
+      var(--clr-grey-350),
+      var(--clr-grey-300),
+      var(--clr-grey-250),
+      var(--clr-grey-50)
+    );
+  }
+  20% {
+    background-image: linear-gradient(
+      to right,
+      var(--clr-grey-50),
+      var(--clr-grey-950),
+      var(--clr-grey-400),
+      var(--clr-grey-350),
+      var(--clr-grey-300),
+      var(--clr-grey-250)
+    );
+  }
+  40% {
+    background-image: linear-gradient(
+      to right,
+      var(--clr-grey-250),
+      var(--clr-grey-50),
+      var(--clr-grey-950),
+      var(--clr-grey-400),
+      var(--clr-grey-350),
+      var(--clr-grey-300)
+    );
+  }
+  60% {
+    background-image: linear-gradient(
+      to right,
+      var(--clr-grey-300),
+      var(--clr-grey-250),
+      var(--clr-grey-50),
+      var(--clr-grey-950),
+      var(--clr-grey-400),
+      var(--clr-grey-350)
+    );
+  }
+  100% {
+    background-image: linear-gradient(
+      to right,
+      var(--clr-grey-350),
+      var(--clr-grey-300),
+      var(--clr-grey-250),
+      var(--clr-grey-50),
+      var(--clr-grey-950),
+      var(--clr-grey-400)
+    );
+  }
+}

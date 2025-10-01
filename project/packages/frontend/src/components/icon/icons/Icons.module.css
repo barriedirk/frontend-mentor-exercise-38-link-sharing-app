@@ -1,0 +1,21 @@
+.icon-empty {
+  fill: var(--clr-blue-800);
+  stroke: var(--clr-white);
+  transition: all 0.3 ease;
+
+  &:hover {
+    fill: var(--clr-white);
+    stroke: var(--clr-blue-500);
+  }
+}
+
+.icon-full {
+  fill: var(--clr-white);
+  stroke: var(--clr-blue-800);
+  transition: all 0.3 ease;
+
+  &:hover {
+    fill: var(--clr-white);
+    stroke: var(--clr-blue-500);
+  }
+}

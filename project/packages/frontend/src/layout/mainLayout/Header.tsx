@@ -6,6 +6,8 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { useEffect, useRef, useState } from 'react';
 
+import Icon from '@src/components/icon/Icon';
+
 interface HeaderProps {
   className?: string;
 }
@@ -20,6 +22,8 @@ export default function Header({ className }: HeaderProps) {
         'flex flex-row justify-between items-center lg:flex-col lg:h-[90dvh] lg:max-h-[800px] lg:w-[96px] lg:justify-start lg:gap-16',
         styles['header']
       )}
-    ></header>
+    >
+      <Icon name="LogoDevlinksLarge" />
+    </header>
   );
 }

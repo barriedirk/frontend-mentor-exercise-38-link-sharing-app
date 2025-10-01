@@ -1,0 +1,132 @@
+@tailwind utilities;
+
+@layer utilities {
+  .text-white {
+    color: var(--clr-white);
+  }
+  .text-black {
+    color: var(--clr-black);
+  }
+
+  .text-grey-950 {
+    color: var(--clr-grey-950);
+  }
+  .text-grey-900 {
+    color: var(--clr-grey-900);
+  }
+  .text-grey-500 {
+    color: var(--clr-grey-500);
+  }
+  .text-grey-200 {
+    color: var(--clr-grey-200);
+  }
+  .text-grey-100 {
+    color: var(--clr-grey-100);
+  }
+  .text-grey-50 {
+    color: var(--clr-grey-50);
+  }
+
+  .text-blue-800 {
+    color: var(--clr-blue-800);
+  }
+  .text-blue-500 {
+    color: var(--clr-blue-500);
+  }
+
+  .text-purple-950 {
+    color: var(--clr-purple-950);
+  }
+  .text-purple-600 {
+    color: var(--clr-purple-600);
+  }
+  .text-purple-300 {
+    color: var(--clr-purple-300);
+  }
+
+  .text-red-550 {
+    color: var(--clr-red-550);
+  }
+  .text-red-500 {
+    color: var(--clr-red-500);
+  }
+
+  .text-pink-800 {
+    color: var(--clr-pink-800);
+  }
+  .text-pink-400 {
+    color: var(--clr-pink-400);
+  }
+
+  .text-orange-600 {
+    color: var(--clr-orange-600);
+  }
+  .text-orange-500 {
+    color: var(--clr-orange-500);
+  }
+
+  /* === Background Color Utilities === */
+  .bg-white {
+    background-color: var(--clr-white);
+  }
+  .bg-black {
+    background-color: var(--clr-black);
+  }
+
+  .bg-grey-950 {
+    background-color: var(--clr-grey-950);
+  }
+  .bg-grey-900 {
+    background-color: var(--clr-grey-900);
+  }
+  .bg-grey-500 {
+    background-color: var(--clr-grey-500);
+  }
+  .bg-grey-200 {
+    background-color: var(--clr-grey-200);
+  }
+  .bg-grey-100 {
+    background-color: var(--clr-grey-100);
+  }
+  .bg-grey-50 {
+    background-color: var(--clr-grey-50);
+  }
+
+  .bg-blue-800 {
+    background-color: var(--clr-blue-800);
+  }
+  .bg-blue-500 {
+    background-color: var(--clr-blue-500);
+  }
+
+  .bg-purple-950 {
+    background-color: var(--clr-purple-950);
+  }
+  .bg-purple-600 {
+    background-color: var(--clr-purple-600);
+  }
+  .bg-purple-300 {
+    background-color: var(--clr-purple-300);
+  }
+
+  .bg-red-550 {
+    background-color: var(--clr-red-550);
+  }
+  .bg-red-500 {
+    background-color: var(--clr-red-500);
+  }
+
+  .bg-pink-800 {
+    background-color: var(--clr-pink-800);
+  }
+  .bg-pink-400 {
+    background-color: var(--clr-pink-400);
+  }
+
+  .bg-orange-600 {
+    background-color: var(--clr-orange-600);
+  }
+  .bg-orange-500 {
+    background-color: var(--clr-orange-500);
+  }
+}

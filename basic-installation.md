@@ -189,3 +189,13 @@ pnpm add @tailwindcss/postcss --filter=frontend
 
 
 NOTE: problem to update tailwind 4, try later
+
+pnpm add @hookform/resolvers --filter=frontend
+
+pnpm add react-hook-form --filter=frontend
+
+pnpm add @tanstack/react-query --filter=frontend
+
+pnpm add zod --filter=frontend
+
+

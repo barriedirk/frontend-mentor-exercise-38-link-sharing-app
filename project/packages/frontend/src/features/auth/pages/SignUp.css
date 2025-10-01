@@ -1,0 +1,23 @@
+.sign-up {
+}
+
+.login {
+  border-radius: 20px;
+  background-color: var(--clr-blue-900);
+  padding: 20px;
+  width: 100%;
+}
+
+.login__btn {
+  background-color: var(--clr-red-500);
+  color: var(--clr-white);
+  border-radius: 6px;
+  width: 100%;
+  min-height: 48px;
+}
+
+@media screen and (min-width: 31em) {
+  .login {
+    padding: 30px;
+  }
+}

@@ -2,23 +2,21 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import AuthGuard from '@src/components/auth/AuthGuard';
+
 import AuthLayout from '@src/layout/authLayout/AuthLayout';
 import MainLayout from '@src/layout/mainLayout/MainLayout';
+import PublicLayout from '@src/layout/publicLayout/PublicLayout';
 
-// const Login = lazy(() => import("./features/auth/Login"));
-// const SignUp = lazy(() => import("./features/auth/SignUp"));
+const Login = lazy(() => import('../features/auth/pages/Login'));
+const SignUp = lazy(() => import('../features/auth/pages/SignUp'));
 
-function Login() {
-  return <div>Login</div>;
-}
+const Home = lazy(() => import('../features/links/pages/Home'));
 
-function Home() {
-  return <div>Home</div>;
-}
+const NotFound = lazy(() => import('../features/notFound/pages/NotFound'));
 
-function Mockup() {
-  return <div>Mockup</div>;
-}
+const PublicLinkPage = lazy(
+  () => import('../features/publicLink/pages/PublicLinkPage')
+);
 
 export function App() {
   return (
@@ -26,14 +24,21 @@ export function App() {
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Route>
 
         <Route element={<AuthGuard />}>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
-            <Route path="mockup" element={<Mockup />} />
           </Route>
         </Route>
+
+        <Route element={<PublicLayout />}>
+          <Route path="/view/:token" element={<PublicLinkPage />} />
+        </Route>
+
+        {/* 404 Fallback */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );

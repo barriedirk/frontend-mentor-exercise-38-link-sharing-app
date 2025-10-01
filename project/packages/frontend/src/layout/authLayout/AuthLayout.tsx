@@ -2,7 +2,7 @@ import './AuthLayout.css';
 
 import { Outlet } from 'react-router-dom';
 
-// import { Loading } from '@/components/loading/Loading';
+import { Loading } from '@src/components/loading/Loading';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -10,7 +10,7 @@ import Footer from './Footer';
 export default function AuthLayout() {
   return (
     <>
-      {/* <Loading /> */}
+      <Loading />
       <div className="auth-wrapper">
         <Header />
         <main className="auth-layout">

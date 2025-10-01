@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import styles from './MainLayout.module.css';
 
-// import { Loading } from "@/components/loading/Loading";
+import { Loading } from '@src/components/loading/Loading';
 
 import Footer from './Footer';
 import Header from './Header';
@@ -11,7 +11,7 @@ import Header from './Header';
 export default function MainLayout() {
   return (
     <>
-      {/* <Loading /> */}
+      <Loading />
       <div className={clsx(styles['ml'])}>
         <Header className={clsx(styles['ml__header'])} />
         <main className={clsx(styles['ml__main'])}>

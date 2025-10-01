@@ -1,5 +1,6 @@
 @import './styles/abstract/variables.css';
 @import './styles/utilities/typography.css';
+@import './styles/utilities/color.css';
 
 @tailwind base;
 @tailwind components;
@@ -8,8 +9,8 @@
 @layer base {
   html {
     font-family: var(--ff);
-    background-color: var(--clr-grey-100);
-    color: var(--clr-blue-500);
+    background-color: var(--clr-white);
+    color: var(--clr-grey-500);
     font-weight: var(--fw-medium);
     font-size: var(--fs-16);
   }
