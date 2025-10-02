@@ -1,7 +1,5 @@
 import './SignUp.css';
 
-import { useState, useEffect } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -33,95 +31,75 @@ function SignUp() {
     },
   });
 
-  // useEffect(() => {
-  //   let timeId: ReturnType<typeof setTimeout>;
-
-  //   if (errorApi) {
-  //     timeId = setTimeout(() => setErrorApi(''), 5000);
-  //   }
-
-  //   return () => {
-  //     if (timeId) clearTimeout(timeId);
-  //   };
-  // }, [errorApi]);
-
   const onSubmit: SubmitHandler<SignUpFormValues> = async ({
     email,
     password,
   }) => {
     loadingSignal.show();
-
-    // try {
-    //   const { error, data } = await supabase.auth.signUp({
-    //     email,
-    //     password,
-    //   });
-
-    //   if (data.session) {
-    //     navigate('/');
-    //   }
-
-    //   if (error) {
-    //     setErrorApi(error?.message);
-    //   }
-    // } finally {
-    //   loadingSignal.hide();
-    // }
   };
 
   return (
     <div className="signup">
-      <h1 id="signup-heading" className="text-preset-1 mb-[40px]">
-        Sign Up
+      <h1
+        id="signup-heading"
+        className="text-preset-2 md:text-preset-1 text-grey-900 mb-2.5"
+      >
+        Create account
       </h1>
+      <p className="text-preset-3-regular text-grey-500 mb-10">
+        Let’s get you started sharing your links!
+      </p>
+
       <form
         ref={containerRef}
         onSubmit={handleSubmit(onSubmit)}
         aria-labelledby="signup-heading"
+        className="flex flex-col gap-5"
       >
         <InputForm<SignUpFormValues>
           name="email"
           control={control}
-          label="Email"
+          label="Email Address"
           type="email"
           error={errors.email}
           autoComplete="email"
+          icon="IconEmail"
+          placeholder="e.g. alex@email.com"
         />
         <InputForm<SignUpFormValues>
           name="password"
           control={control}
-          label="Password"
+          label="Create password"
           type="password"
           error={errors.password}
           autoComplete="password"
+          icon="IconPassword"
+          placeholder="At least 8 characters"
         />
         <InputForm<SignUpFormValues>
           name="confirmPassword"
           control={control}
-          label="Repeat Password"
+          label="Confirm Password"
           type="password"
           error={errors.confirmPassword}
           autoComplete="confirmPassword"
+          icon="IconPassword"
+          placeholder="At least 8 characters"
+          helperText="Password must contain at least 8 characters"
         />
         <button
-          className="btn--submit mt-[40px] text-preset-4 flex justify-center items-center"
+          className="btn--submit mt-5 button button--primary"
           type="button"
           aria-label="Create your account"
           disabled={!isValid || isSubmitting}
         >
-          Create an account
+          Create new account
         </button>
-
-        {/* {errorApi && (
-          <p className="text-red-500 text-preset-3 text-center my-2">
-            {String(errorApi)}
-          </p>
-        )} */}
       </form>
 
       <p className="text-preset-4 mt-[20px] flex justify-center items-center gap-2">
         <span className="text-white-custom">Already have an account?</span>
-        <Link className="text-red-500" to="/login" aria-label="Sign Up">
+        <Link className="link" to="/login" aria-label="Sign Up">
           Login
         </Link>
       </p>

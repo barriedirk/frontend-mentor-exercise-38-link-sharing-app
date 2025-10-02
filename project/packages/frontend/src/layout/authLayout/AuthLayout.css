@@ -6,6 +6,7 @@
   align-items: center;
   gap: 50px;
   min-height: 100dvh;
+  background-color: var(--clr-white);
 }
 
 .auth-layout {
@@ -14,6 +15,10 @@
 }
 
 @media screen and (min-width: 31em) {
+  .auth-wrapper {
+    background-color: var(--clr-dr-white);
+  }
+
   .auth-layout {
     max-width: 400px;
   }

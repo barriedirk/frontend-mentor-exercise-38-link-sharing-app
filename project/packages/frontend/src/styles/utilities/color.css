@@ -65,6 +65,10 @@
     color: var(--clr-orange-500);
   }
 
+  .text-error {
+    color: var(--clr-pelati);
+  }
+
   /* === Background Color Utilities === */
   .bg-white {
     background-color: var(--clr-white);

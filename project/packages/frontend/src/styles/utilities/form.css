@@ -1,0 +1,56 @@
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-input-group {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 14px 20px;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--clr-grey-200);
+}
+
+.form-input-group:has(:focus, :active) {
+  border: 1px solid var(--clr-meteor-shower);
+
+  box-shadow: rgba(94, 62, 246, 0.4) 0px 8px 24px;
+}
+
+.form-group input {
+  border: none;
+  color: var(--clr-grey-900);
+  flex-grow: 1;
+  outline: none;
+}
+
+.form-group input:is(:hover, :active) {
+  outline: 1px solid var(--clr-grey-200);
+  outline-offset: 2px;
+}
+
+.form-group input::placeholder {
+  color: var(--clr-grey-200);
+}
+
+.form-input-group.is-invalid {
+  border-color: var(--clr-pelati);
+}
+
+.form-input-group.is-invalid input {
+  color: var(--clr-pelati);
+}
+
+.form-group .error {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-pelati);
+  max-width: 200px;
+}

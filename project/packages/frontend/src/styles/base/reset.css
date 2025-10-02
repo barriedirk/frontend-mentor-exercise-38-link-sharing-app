@@ -1,0 +1,77 @@
+/* // *,
+// *::after,
+// *::before {
+//   box-sizing: border-box;
+// }
+
+// * {
+//   padding: 0;
+//   margin: 0;
+// } */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+
+picture,
+img,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap-style: pretty;
+  max-width: 66ch;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+label,
+input,
+select,
+textarea {
+  font: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}

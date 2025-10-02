@@ -1,7 +1,5 @@
 import './Login.css';
 
-import { useState, useEffect } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -41,20 +39,24 @@ export default function Login() {
 
   const loginWithDemoCredential = () => {
     onSubmit({
-      email: 'demo-entertainment-web-app@fakeemail.com',
+      email: 'demo-devlinks-app@fakeemail.com',
       password: '3nT3rt4inMen1',
     });
   };
 
   return (
     <div className="login">
-      <h1 id="login-heading" className="text-preset-2 text-grey-900">
+      <h1
+        id="login-heading"
+        className="text-preset-2 md:text-preset-1 text-grey-900 mb-2.5"
+      >
         Login
       </h1>
-      <p className="text-preset-3-regular text-grey-500">
+      <p className="text-preset-3-regular text-grey-500 mb-10">
         Add your details below to get back into the app
       </p>
       <form
+        className="flex flex-col gap-5"
         ref={containerRef}
         onSubmit={handleSubmit(onSubmit)}
         aria-labelledby="login-heading"
@@ -62,10 +64,12 @@ export default function Login() {
         <InputForm<LoginFormValues>
           name="email"
           control={control}
-          label="Email"
+          label="Email Address"
           type="email"
           error={errors.email}
           autoComplete="email"
+          icon="IconEmail"
+          placeholder="e.g. alex@email.com"
         />
         <InputForm<LoginFormValues>
           name="password"
@@ -74,34 +78,31 @@ export default function Login() {
           type="password"
           error={errors.password}
           autoComplete="password"
+          icon="IconPassword"
+          placeholder="Enter your password"
         />
         <button
-          className="btn--submit mt-[40px] text-preset-4 flex justify-center items-center"
+          className="btn--submit mt-5 button button--primary"
           type="button"
           aria-label="Log in to your account"
           disabled={!isValid || isSubmitting}
         >
-          Login to your account
+          Login
         </button>
-
-        {/* {errorApi && (
-          <p className="text-red-500 text-preset-3 text-center my-2">
-            {String(errorApi)}
-          </p>
-        )} */}
       </form>
 
-      <p className="text-preset-4 mt-[20px] flex justify-center items-center gap-2">
+      <p className="text-preset-4 mt-3 flex justify-center items-center gap-2">
         <span className="text-white-custom">Don’t have an account?</span>
-        <Link className="text-red-500" to="/signup" aria-label="Sign Up">
+        <Link className="link" to="/signup" aria-label="Sign Up">
           Sign Up
         </Link>
       </p>
-      <div className="text-preset-5 mt-[20px] flex justify-center items-center gap-2 text-white-custom">
+
+      <div className="text-preset-4 mt-3 flex justify-center items-center gap-2 text-white-custom">
         <span>Use</span>
         <button
+          className="link"
           type="button"
-          className="text-red-500 underline"
           aria-label="Login with demo credentials"
           onClick={() => loginWithDemoCredential()}
         >

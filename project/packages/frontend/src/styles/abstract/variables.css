@@ -1,5 +1,6 @@
 :root {
   --clr-white: hsl(0, 100%, 100%);
+  --clr-dr-white: hsl(0, 0%, 98%);
   --clr-black: hsl(0, 0%, 0%);
 
   --clr-grey-950: hsl(0, 0%, 10%);
@@ -12,12 +13,21 @@
   --clr-blue-800: hsl(227, 97%, 42%);
   --clr-blue-500: hsl(223, 100%, 59%);
 
+  --clr-meteor-shower: hsl(250, 91%, 60%);
+  --clr-purple-illusion: hsl(250, 86%, 83%);
+  --clr-neon-boneyani: hsl(252, 88%, 90%);
+  --clr-neon-boneyard: hsl(252, 88%, 90%);
+  --clr-foundation-white: hsl(250, 82%, 96%);
+
   --clr-purple-950: hsl(252, 50%, 27%);
   --clr-purple-600: hsl(252, 100%, 62%);
   --clr-purple-300: hsl(252, 100%, 84%);
 
   --clr-red-550: hsl(0, 84%, 58%);
   --clr-red-500: hsl(0, 100%, 61%);
+
+  --clr-lipstic-illusion: hsl(2, 44%, 60%);
+  --clr-pelati: hsl(3, 80%, 59%);
 
   --clr-pink-800: hsl(331, 68%, 32%);
   --clr-pink-400: hsl(13, 83%, 75%);

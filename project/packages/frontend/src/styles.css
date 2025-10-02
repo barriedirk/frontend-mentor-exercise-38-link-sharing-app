@@ -1,6 +1,13 @@
+@import './styles/base/reset.css';
+/* @import './styles/base/debug.css'; */
+
 @import './styles/abstract/variables.css';
 @import './styles/utilities/typography.css';
 @import './styles/utilities/color.css';
+
+@import './styles/utilities/form.css';
+@import './styles/utilities/button.css';
+@import './styles/utilities/link.css';
 
 @tailwind base;
 @tailwind components;
@@ -13,5 +20,6 @@
     color: var(--clr-grey-500);
     font-weight: var(--fw-medium);
     font-size: var(--fs-16);
+    font-display: swap;
   }
 }

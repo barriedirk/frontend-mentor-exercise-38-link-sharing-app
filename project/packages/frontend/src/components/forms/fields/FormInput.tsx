@@ -8,8 +8,7 @@ import {
 
 import Icon from '@src/components/icon/Icon';
 import { IconProps } from '@src/components/icon/Icon';
-
-import './FormInput.css';
+import clsx from 'clsx';
 
 interface Props<T extends FieldValues> {
   name: Path<T>;
@@ -19,6 +18,8 @@ interface Props<T extends FieldValues> {
   error?: FieldError;
   autoComplete?: string;
   icon?: IconProps['name'];
+  placeholder?: string;
+  helperText?: string;
 }
 
 const InputForm = <T extends FieldValues>({
@@ -29,25 +30,36 @@ const InputForm = <T extends FieldValues>({
   error,
   autoComplete,
   icon,
+  placeholder,
+  helperText,
 }: Props<T>) => {
   const inputId = `${name}-input`;
   const errorId = `${name}-error`;
 
   return (
     <fieldset
-      className="form-group"
+      className={clsx('form-group', error && 'form-group--error')}
       role="group"
       aria-labelledby={`${name}-label`}
     >
       <label
         id={`${name}-label`}
-        className="text-preset-4 text-grey-900"
+        className={clsx(
+          'text-preset-4',
+          !error && 'text-grey-900',
+          error && 'text-error'
+        )}
         htmlFor={inputId}
       >
         {label}
       </label>
 
-      <div className="form-input-group">
+      <div
+        className={clsx(
+          'form-input-group text-preset-3 relative',
+          error && 'is-invalid'
+        )}
+      >
         {icon && <Icon name={icon} />}
         <Controller
           name={name}
@@ -58,21 +70,21 @@ const InputForm = <T extends FieldValues>({
               type={type}
               {...field}
               autoComplete={autoComplete}
-              placeholder=" "
-              className={`form-control text-preset-4-mobile md:text-preset-4 ${
-                error ? 'is-invalid' : ''
-              }`}
+              placeholder={placeholder}
+              className={`form-control  ${error ? 'is-invalid' : ''}`}
               aria-invalid={!!error}
               aria-describedby={error ? errorId : undefined}
             />
           )}
         />
+        {error && (
+          <span id={errorId} role="alert" className="text-preset-4 error">
+            {error.message}
+          </span>
+        )}
       </div>
-
-      {error && (
-        <span id={errorId} role="alert" className="text-preset-4-mobile error">
-          {error.message}
-        </span>
+      {helperText && (
+        <p className="text-preset-4 text-grey-500">{helperText}</p>
       )}
     </fieldset>
   );

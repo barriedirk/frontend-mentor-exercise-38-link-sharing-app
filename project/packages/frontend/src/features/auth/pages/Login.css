@@ -1,12 +1,11 @@
 .login {
-  border-radius: 20px;
-  background-color: var(--clr-blue-900);
-  padding: 20px;
   width: 100%;
+  background: var(--clr-white);
 }
 
 @media screen and (min-width: 31em) {
   .login {
     padding: 30px;
+    max-width: 29.75rem;
   }
 }

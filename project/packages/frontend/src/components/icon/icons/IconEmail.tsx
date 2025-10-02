@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function IconEmail({ className }: { className?: string }) {
   return (
     <svg
@@ -10,7 +8,7 @@ export default function IconEmail({ className }: { className?: string }) {
       height="16"
       fill="none"
       viewBox="0 0 16 16"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <path
