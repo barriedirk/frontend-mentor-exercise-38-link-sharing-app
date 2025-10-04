@@ -9,7 +9,7 @@ function AuthGuard() {
   //   return <div>Loading...</div>;
   // }
 
-  const user = false;
+  const user = true;
 
   return user ? <Outlet /> : <Navigate to="/login" replace />;
 }

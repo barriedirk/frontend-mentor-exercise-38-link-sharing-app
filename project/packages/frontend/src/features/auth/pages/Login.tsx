@@ -7,7 +7,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 
 import { loginFormSchema, type LoginFormValues } from '../schemas/login';
 
-import InputForm from '@src/components/forms/fields/FormInput';
+import InputForm from '@src/components/forms/fields/InputForm';
 
 import { useFocusFirstInput } from '@src/hooks/useFocusFirstInput';
 

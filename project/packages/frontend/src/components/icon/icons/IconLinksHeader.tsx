@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function IconLinksHeader({ className }: { className?: string }) {
   return (
     <svg
@@ -10,7 +8,7 @@ export default function IconLinksHeader({ className }: { className?: string }) {
       height="20"
       fill="none"
       viewBox="0 0 21 20"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <path

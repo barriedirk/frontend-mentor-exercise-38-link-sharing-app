@@ -1,0 +1,29 @@
+.tab {
+  padding: 13px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  min-height: 52px;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  color: var(--clr-grey-500);
+
+  font-family: var(--ff);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-16);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.tab:is(:hover, :active) {
+  color: var(--clr-purple-600);
+}
+
+.tab.tab--current {
+  color: var(--clr-purple-600);
+  background: var(--clr-grey-100);
+}

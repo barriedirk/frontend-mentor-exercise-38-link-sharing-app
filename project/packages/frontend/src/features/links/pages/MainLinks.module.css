@@ -1,0 +1,19 @@
+.links {
+}
+
+.links__main {
+}
+
+@media screen and (max-width: 50em) {
+  .links__pre-view {
+    display: none;
+  }
+}
+
+.links__editor-wrapper {
+  padding: 20px;
+}
+.links__editor {
+  background-color: var(--clr-white);
+  width: 100%;
+}

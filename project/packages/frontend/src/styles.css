@@ -6,8 +6,10 @@
 @import './styles/utilities/color.css';
 
 @import './styles/utilities/form.css';
+@import './styles/utilities/tab.css';
 @import './styles/utilities/button.css';
 @import './styles/utilities/link.css';
+@import './styles/utilities/helpers.css';
 
 @tailwind base;
 @tailwind components;

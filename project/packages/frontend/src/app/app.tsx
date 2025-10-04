@@ -10,7 +10,7 @@ import PublicLayout from '@src/layout/publicLayout/PublicLayout';
 const Login = lazy(() => import('../features/auth/pages/Login'));
 const SignUp = lazy(() => import('../features/auth/pages/SignUp'));
 
-const Home = lazy(() => import('../features/links/pages/Home'));
+const MainLinks = lazy(() => import('../features/links/pages/MainLinks'));
 
 const NotFound = lazy(() => import('../features/notFound/pages/NotFound'));
 
@@ -29,7 +29,7 @@ export function App() {
 
         <Route element={<AuthGuard />}>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
+            <Route index element={<MainLinks />} />
           </Route>
         </Route>
 

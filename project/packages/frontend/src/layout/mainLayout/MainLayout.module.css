@@ -3,49 +3,20 @@
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    'mlHeader'
     'mlMain'
     'mlFooter';
   min-height: 100dvh;
-}
-
-.ml__header {
-  grid-name: mlHeader;
+  background-color: var(--clr-dr-white);
 }
 
 .ml__main {
   grid-name: mlMain;
+  max-width: 87rem;
+  width: 100%;
+  margin-inline: auto;
 }
 
 .ml__footer {
   grid-name: mlFooter;
   width: 100%;
-}
-
-@media screen and (min-width: 48em) {
-  .ml {
-    padding: 25px;
-  }
-}
-
-@media screen and (min-width: 64em) {
-  .ml {
-    grid-template-columns: 100px 1fr;
-    grid-template-rows: 1fr auto;
-    grid-template-areas:
-      'mlHeader mlMain'
-      'mlFooter mlFooter';
-    gap: 10px;
-  }
-
-  .ml__footer {
-    grid-column: span 2;
-  }
-}
-
-@media screen and (min-width: 90em) {
-  .ml {
-    margin-inline: auto;
-    max-width: 1560px;
-  }
 }

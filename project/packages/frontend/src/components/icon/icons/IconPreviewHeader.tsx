@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function IconPreviewHeader({
   className,
 }: {
@@ -14,7 +12,7 @@ export default function IconPreviewHeader({
       height="20"
       fill="none"
       viewBox="0 0 20 20"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <path
