@@ -71,7 +71,7 @@ const InputForm = <T extends FieldValues>({
               {...field}
               autoComplete={autoComplete}
               placeholder={placeholder}
-              className={`form-control  ${error ? 'is-invalid' : ''}`}
+              className={`form-control ${error ? 'is-invalid' : ''}`}
               aria-invalid={!!error}
               aria-describedby={error ? errorId : undefined}
             />

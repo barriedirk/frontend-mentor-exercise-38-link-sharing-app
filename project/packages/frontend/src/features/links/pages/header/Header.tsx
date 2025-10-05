@@ -1,7 +1,5 @@
 import './Header.css';
 
-import clsx from 'clsx';
-
 import Icon from '@src/components/icon/Icon';
 
 export default function Header() {
@@ -44,7 +42,9 @@ export default function Header() {
             title="Preview"
           >
             <Icon name="IconPreviewHeader" className="header__icon" />
-            <span className="header__text text-preset-3-semibold">Preview</span>
+            <span className="header__text text-preset-3-semibold px-3">
+              Preview
+            </span>
           </button>
         </div>
       </nav>

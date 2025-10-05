@@ -1,5 +1,4 @@
 .button {
-  /* padding: 20px; */
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -28,6 +27,11 @@
 
 .button--primary:is(:hover, :active) {
   background-color: var(--clr-purple-illusion);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.button--simple:is(:hover, :active) {
+  padding: 2px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 

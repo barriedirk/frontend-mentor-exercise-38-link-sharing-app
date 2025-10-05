@@ -1,5 +1,6 @@
 import React from 'react';
 
+import IconRemove from './icons/IconRemove';
 import IconArrowRight from './icons/IconArrowRight';
 import IconChangesSaved from './icons/IconChangesSaved';
 import IconChevronDown from './icons/IconChevronDown';
@@ -28,11 +29,10 @@ import IconUploadImage from './icons/IconUploadImage';
 import IconYoutube from './icons/IconYoutube';
 import IllustrationEmpty from './icons/IllustrationEmpty';
 import IllustrationPhoneMockup from './icons/IllustrationPhoneMockup';
-// import LogoDevlinksLarge from './icons/LogoDevlinksLarge';
-// import LogoDevlinksSmall from './icons/LogoDevlinksSmall';
 
 export interface IconProps {
   name:
+    | 'IconRemove'
     | 'IconArrowRight'
     | 'IconChangesSaved'
     | 'IconChevronDown'
@@ -68,6 +68,7 @@ export interface IconProps {
 }
 
 const spriteIcons = [
+  'IconRemove',
   'IconArrowRight',
   'IconChangesSaved',
   'IconChevronDown',
@@ -107,6 +108,7 @@ const iconMap = {
     '../../assets/logo-devlinks-small.svg',
     import.meta.url
   ).href,
+  IconRemove: IconRemove,
   IconArrowRight: IconArrowRight,
   IconChangesSaved: IconChangesSaved,
   IconChevronDown: IconChevronDown,

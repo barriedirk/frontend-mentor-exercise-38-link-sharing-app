@@ -1,3 +1,15 @@
 .link-form {
   background-color: var(--clr-dr-white);
 }
+
+.link-list {
+}
+
+.link-actions {
+  position: sticky;
+  bottom: 0;
+
+  padding-block: 20px;
+  border-top: 1px solid var(--clr-grey-200);
+  background-color: var(--clr-white);
+}

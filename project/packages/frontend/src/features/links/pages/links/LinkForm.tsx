@@ -7,29 +7,27 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { linkFormSchema, type LinkFormValues } from './schemas/link';
 
 import InputForm from '@src/components/forms/fields/InputForm';
-import SelectForm, { Option } from '@src/components/forms/fields/SelectForm';
+import SelectForm from '@src/components/forms/fields/SelectForm';
 
 import Icon from '@src/components/icon/Icon';
 
-const options: Option[] = [
-  {
-    value: 'Github',
-    label: 'Github',
-    icon: <Icon name="IconGithub" />,
-  },
-  {
-    value: 'Gitlab',
-    label: 'Gitlab',
-    icon: <Icon name="IconGitlab" />,
-  },
-  {
-    value: 'Youtube',
-    label: 'Youtube',
-    icon: <Icon name="IconYoutube" />,
-  },
-];
+import { platforms } from './platforms';
 
-export default function LinkForm() {
+interface LinkFormProps {
+  idx: number;
+  value: number;
+  onDragStart: () => void;
+  onDragOver: (e: React.DragEvent<HTMLFormElement>) => void;
+  onDrop: () => void;
+}
+
+export default function LinkForm({
+  idx,
+  value,
+  onDragStart,
+  onDragOver,
+  onDrop,
+}: LinkFormProps) {
   const {
     control,
     handleSubmit,
@@ -38,17 +36,27 @@ export default function LinkForm() {
     resolver: zodResolver(linkFormSchema),
     mode: 'onChange',
     defaultValues: {
-      option: '',
+      platform: '',
       url: '',
     },
   });
 
   return (
-    <form className={clsx(styles['link-form'], 'flex flex-col gap-2 p-2.5')}>
+    <form
+      draggable
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      className={clsx(styles['link-form'], 'flex flex-col gap-2 px-4 py-6')}
+    >
       <header className="flex justify-between">
-        <span className="flex-row-center">
+        <span
+          className="flex-row-center gap-2 cursor-pointer"
+          tabIndex={0}
+          aria-label={`Drag and Drop for Link #${1}`}
+        >
           <Icon name="IconDragAndDrop" />
-          Link #1
+          Link #{value}
         </span>
 
         <button type="button" className="link">
@@ -57,12 +65,12 @@ export default function LinkForm() {
       </header>
 
       <SelectForm<LinkFormValues>
-        name="option"
+        name="platform"
         control={control}
         label="Platform"
-        error={errors.option}
+        error={errors.platform}
         placeholder="Select Platform"
-        options={options}
+        options={platforms}
       />
 
       <InputForm<LinkFormValues>

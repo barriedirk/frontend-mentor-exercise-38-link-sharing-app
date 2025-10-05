@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function IconDragAndDrop({ className }: { className?: string }) {
   return (
     <svg
@@ -10,7 +8,7 @@ export default function IconDragAndDrop({ className }: { className?: string }) {
       height="6"
       fill="none"
       viewBox="0 0 12 6"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <path fill="#737373" d="M0 0h12v1H0zM0 5h12v1H0z" />

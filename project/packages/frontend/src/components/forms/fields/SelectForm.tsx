@@ -44,7 +44,11 @@ const SelectForm = <T extends FieldValues>({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef<HTMLFieldSetElement>(null);
 
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    setIsOpen((prev) => !prev);
+  };
   const closeDropdown = () => {
     setIsOpen(false);
     setHighlightedIndex(-1);
@@ -85,6 +89,14 @@ const SelectForm = <T extends FieldValues>({
 
         const handleSelect = (option: Option) => {
           field.onChange(option.value);
+
+          closeDropdown();
+        };
+
+        const clearSelection = (e: React.MouseEvent) => {
+          e.stopPropagation();
+          field.onChange('');
+
           closeDropdown();
         };
 
@@ -173,10 +185,37 @@ const SelectForm = <T extends FieldValues>({
                 aria-describedby={error ? errorId : undefined}
               >
                 {selected?.icon}
-                <span className={clsx(!selected && 'text-grey-400')}>
+                <span
+                  className={clsx(
+                    !selected?.label ? 'text-grey-200' : 'txt-grey-900'
+                  )}
+                >
                   {selected?.label || placeholder}
                 </span>
               </div>
+
+              {selected && (
+                <button
+                  type="button"
+                  onClick={clearSelection}
+                  aria-label="Clear selected option"
+                  className="button--simple text-red-500 hover:text-red-550 ml-auto"
+                >
+                  <Icon name="IconRemove" className="h-[12px] w-[12px]" />
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={toggleDropdown}
+                aria-label="Clear selected option"
+                className={clsx(
+                  'button--simple text-purple-600 hover:text-purple-950 h-[12px] w-[12px]',
+                  !selected && 'ml-auto'
+                )}
+              >
+                <Icon name="IconChevronDown" />
+              </button>
             </div>
 
             {/* Error Message */}
@@ -195,8 +234,7 @@ const SelectForm = <T extends FieldValues>({
                 id={listboxId}
                 role="listbox"
                 ref={dropdownRef}
-                className="absolute left-0 right-0 z-10 mt-1 max-h-60 overflow-auto rounded-md border border-grey-300 bg-white shadow-md"
-                style={{ top: '100%' }}
+                className="select-dropdown"
               >
                 {options.map((option, index) => {
                   const isSelected = field.value === option.value;
@@ -212,8 +250,8 @@ const SelectForm = <T extends FieldValues>({
                       onClick={() => handleSelect(option)}
                       className={clsx(
                         'flex cursor-pointer items-center gap-2 px-4 py-2',
-                        isSelected && 'bg-grey-100 font-semibold',
-                        isHighlighted && 'bg-grey-200'
+                        isSelected && 'bg-purple-600 text-white font-semibold',
+                        isHighlighted && 'bg-purple-950 text-white'
                       )}
                     >
                       {option.icon}
