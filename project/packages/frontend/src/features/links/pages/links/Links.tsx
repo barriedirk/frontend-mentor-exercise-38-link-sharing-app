@@ -15,7 +15,7 @@ export default function Links() {
   };
 
   const onDragOver = (e: React.DragEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Required to allow dropping
+    e.preventDefault();
   };
 
   const onDrop = (index: number) => {
@@ -23,6 +23,7 @@ export default function Links() {
 
     const updatedItems = [...links];
     const [draggedItem] = updatedItems.splice(draggedItemIndex, 1);
+
     updatedItems.splice(index, 0, draggedItem);
 
     setLinks(updatedItems);
@@ -30,6 +31,10 @@ export default function Links() {
   };
 
   const addNewLink = () => {
+    return;
+  };
+
+  const save = () => {
     return;
   };
 
@@ -73,7 +78,7 @@ export default function Links() {
           className="button button--primary w-full"
           type="button"
           aria-label="Save"
-          onClick={() => addNewLink()}
+          onClick={() => save()}
         >
           Save
         </button>

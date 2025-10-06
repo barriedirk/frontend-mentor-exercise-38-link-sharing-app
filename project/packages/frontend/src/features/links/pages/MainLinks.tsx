@@ -16,8 +16,8 @@ export default function MainLinks() {
         </aside>
         <div className={clsx(styles['links__editor'])}>
           <div className={clsx(styles['links__editor-wrapper'])}>
-            {/* <Profile /> */}
-            <Links />
+            <Profile />
+            {/* <Links /> */}
           </div>
         </div>
       </div>

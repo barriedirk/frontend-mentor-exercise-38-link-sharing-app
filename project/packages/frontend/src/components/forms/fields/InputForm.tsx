@@ -19,6 +19,7 @@ interface Props<T extends FieldValues> {
   autoComplete?: string;
   icon?: IconProps['name'];
   placeholder?: string;
+  styleName?: 'column' | 'row' | undefined;
   helperText?: string;
 }
 
@@ -31,6 +32,7 @@ const InputForm = <T extends FieldValues>({
   autoComplete,
   icon,
   placeholder,
+  styleName,
   helperText,
 }: Props<T>) => {
   const inputId = `${name}-input`;
@@ -38,14 +40,18 @@ const InputForm = <T extends FieldValues>({
 
   return (
     <fieldset
-      className={clsx('form-group', error && 'form-group--error')}
+      className={clsx(
+        'form-group input-text',
+        styleName,
+        error && 'form-group--error'
+      )}
       role="group"
       aria-labelledby={`${name}-label`}
     >
       <label
         id={`${name}-label`}
         className={clsx(
-          'text-preset-4',
+          'form-label',
           !error && 'text-grey-900',
           error && 'text-error'
         )}

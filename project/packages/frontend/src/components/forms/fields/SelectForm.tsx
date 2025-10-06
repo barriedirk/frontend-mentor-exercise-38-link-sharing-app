@@ -135,7 +135,7 @@ const SelectForm = <T extends FieldValues>({
           <fieldset
             ref={selectRef}
             className={clsx(
-              'form-group',
+              'form-group input-select',
               error && 'form-group--error',
               'relative'
             )}
@@ -218,7 +218,6 @@ const SelectForm = <T extends FieldValues>({
               </button>
             </div>
 
-            {/* Error Message */}
             {error && (
               <span id={errorId} role="alert" className="text-preset-4 error">
                 {error.message}
