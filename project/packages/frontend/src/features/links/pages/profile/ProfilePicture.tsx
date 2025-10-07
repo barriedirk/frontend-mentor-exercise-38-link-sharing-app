@@ -7,7 +7,7 @@ import {
   profilePictureSchema,
   type ProfilePictureValues,
 } from './schemas/picture';
-import FileUploadForm from '@src/components/forms/fields/FileForm';
+import FileUploadForm from '@src/components/forms/fields/FileUploadForm';
 import clsx from 'clsx';
 
 export default function ProfilePicture() {

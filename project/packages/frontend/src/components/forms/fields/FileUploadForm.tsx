@@ -34,6 +34,9 @@ const FileUploadForm = <T extends FieldValues>({
   styleName,
   icon,
 }: FileUploadFormProps<T>) => {
+  const inputId = `${name}-input`;
+  const errorId = `${name}-error`;
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const fileList = useWatch({ name, control });
 
@@ -82,7 +85,7 @@ const FileUploadForm = <T extends FieldValues>({
           !error && 'text-grey-900',
           error && 'text-error'
         )}
-        htmlFor={`${name}-input`}
+        htmlFor={inputId}
       >
         {label}
       </label>
@@ -98,7 +101,7 @@ const FileUploadForm = <T extends FieldValues>({
             )}
           >
             <input
-              id={`${name}-input`}
+              id={inputId}
               type="file"
               accept="image/*"
               ref={inputRef}
@@ -127,7 +130,7 @@ const FileUploadForm = <T extends FieldValues>({
                 />
               )}
               {!previewUrl && icon && (
-                <div className="flex flex-col  gap-3 items-center justify-center w-full h-full ">
+                <div className="flex flex-col gap-3 items-center justify-center w-full h-full ">
                   <Icon name={icon} />
                   <p className="text-preset-3-semibold">+ Upload Image</p>
                 </div>
@@ -139,12 +142,11 @@ const FileUploadForm = <T extends FieldValues>({
               )}
             </div>
 
-            {/* Remove button */}
             {previewUrl && (
               <button
                 type="button"
                 onClick={() => handleRemove(onChange)}
-                className="absolute top-0 right-0 bg-white border border-grey-300 rounded-full p-1 text-xs text-red-550"
+                className="absolute top-0 right-0 bg-white border rounded-full p-1 text-xs text-red-550"
                 aria-label="Remove image"
                 title="Remove image"
               >
@@ -156,8 +158,8 @@ const FileUploadForm = <T extends FieldValues>({
       />
 
       {error && (
-        <span role="alert" className="text-preset-4 text-error block mt-2">
-          {String(error.message)}
+        <span id={errorId} role="alert" className="text-preset-4 error">
+          {error.message}
         </span>
       )}
 

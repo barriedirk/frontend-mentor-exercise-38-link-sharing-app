@@ -27,8 +27,6 @@ import IconTwitch from './icons/IconTwitch';
 import IconTwitter from './icons/IconTwitter';
 import IconUploadImage from './icons/IconUploadImage';
 import IconYoutube from './icons/IconYoutube';
-import IllustrationEmpty from './icons/IllustrationEmpty';
-import IllustrationPhoneMockup from './icons/IllustrationPhoneMockup';
 
 export interface IconProps {
   name:
@@ -59,8 +57,6 @@ export interface IconProps {
     | 'IconTwitter'
     | 'IconUploadImage'
     | 'IconYoutube'
-    | 'IllustrationEmpty'
-    | 'IllustrationPhoneMockup'
     | 'LogoDevlinksLarge'
     | 'LogoDevlinksSmall';
   className?: string;
@@ -95,8 +91,6 @@ const spriteIcons = [
   'IconTwitter',
   'IconUploadImage',
   'IconYoutube',
-  'IllustrationEmpty',
-  'IllustrationPhoneMockup',
 ];
 
 const iconMap = {
@@ -135,8 +129,6 @@ const iconMap = {
   IconTwitter: IconTwitter,
   IconUploadImage: IconUploadImage,
   IconYoutube: IconYoutube,
-  IllustrationEmpty: IllustrationEmpty,
-  IllustrationPhoneMockup: IllustrationPhoneMockup,
 };
 
 export default function Icon({ name, className, alt }: IconProps) {

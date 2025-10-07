@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function IllustrationEmpty({
   className,
 }: {
@@ -14,7 +12,7 @@ export default function IllustrationEmpty({
       height="161"
       fill="none"
       viewBox="0 0 250 161"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <path

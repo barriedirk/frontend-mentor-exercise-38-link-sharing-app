@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function IllustrationPhoneMockup({
   className,
 }: {
@@ -14,7 +12,7 @@ export default function IllustrationPhoneMockup({
       height="632"
       fill="none"
       viewBox="0 0 308 632"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <path

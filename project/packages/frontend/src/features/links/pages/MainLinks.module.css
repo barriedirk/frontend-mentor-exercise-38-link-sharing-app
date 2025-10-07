@@ -2,18 +2,35 @@
 }
 
 .links__main {
-}
-
-@media screen and (max-width: 50em) {
-  .links__pre-view {
-    display: none;
-  }
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
 }
 
 .links__editor-wrapper {
-  padding: 20px;
-}
-.links__editor {
   background-color: var(--clr-white);
+  padding: 20px;
+  max-width: 50.5rem;
   width: 100%;
+  border-radius: 12px;
+}
+
+.links__editor {
+  width: 100%;
+}
+
+.links__phone-preview {
+  background-color: var(--clr-white);
+  max-width: 35rem;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 50em) {
+  .links__phone-preview {
+    display: none;
+  }
 }
