@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: devlinks-backend
+    env: node
+    plan: free
+    buildCommand: pnpm install && pnpm nx build backend
+    startCommand: node packages/backend/dist/main.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000 # Or any available port
+      - key: JWT_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false

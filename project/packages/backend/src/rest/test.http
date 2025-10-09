@@ -1,0 +1,22 @@
+### Test
+GET http://localhost:1234/api/devlinks/test HTTP/1.1
+
+### Create an account
+POST http://localhost:1234/api/devlinks/create HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "acmeP4ssw0rd"
+}
+
+### login
+POST http://localhost:1234/api/devlinks/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "acmeP4ssw0rd"
+}
+
+###
