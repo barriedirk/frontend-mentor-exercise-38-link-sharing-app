@@ -5,6 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
+import { loginUser } from '@src/services/authApi';
+import { useAuthStore } from '@src/store/useAuthStore';
+
 import { loginFormSchema, type LoginFormValues } from '../schemas/login';
 
 import InputForm from '@src/components/forms/fields/InputForm';
@@ -12,6 +15,8 @@ import InputForm from '@src/components/forms/fields/InputForm';
 import { useFocusFirstInput } from '@src/hooks/useFocusFirstInput';
 
 import { loadingSignal } from '@src/services/loadingSignal';
+
+import toast from 'react-hot-toast';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,7 +39,26 @@ export default function Login() {
     email,
     password,
   }) => {
-    loadingSignal.show();
+    const toastId = toast.loading('Logging in...');
+
+    try {
+      loadingSignal.show();
+
+      const { user, token } = await loginUser({ email, password });
+
+      useAuthStore.getState().login(user, token);
+
+      toast.success('Success!', { id: toastId });
+
+      navigate('/');
+    } catch (err) {
+      useAuthStore.getState().logout();
+      console.error(err);
+
+      toast.error('Invalid credentials. Please try again.', { id: toastId });
+    } finally {
+      loadingSignal.hide();
+    }
   };
 
   const loginWithDemoCredential = () => {
@@ -83,7 +107,7 @@ export default function Login() {
         />
         <button
           className="btn--submit mt-5 button button--primary"
-          type="button"
+          type="submit"
           aria-label="Log in to your account"
           disabled={!isValid || isSubmitting}
         >
