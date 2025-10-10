@@ -55,7 +55,10 @@ export default function Login() {
       useAuthStore.getState().logout();
       console.error(err);
 
-      toast.error('Invalid credentials. Please try again.', { id: toastId });
+      const error =
+        (err as any)['message'] || 'Invalid credentials. Please try again.';
+
+      toast.error(error, { id: toastId });
     } finally {
       loadingSignal.hide();
     }

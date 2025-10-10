@@ -5,6 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
+import { signUpUser } from '@src/services/authApi';
+import { useAuthStore } from '@src/store/useAuthStore';
+
 import { signUpFormSchema, type SignUpFormValues } from '../schemas/signUp';
 
 import InputForm from '@src/components/forms/fields/InputForm';
@@ -12,6 +15,8 @@ import InputForm from '@src/components/forms/fields/InputForm';
 import { useFocusFirstInput } from '@src/hooks/useFocusFirstInput';
 
 import { loadingSignal } from '@src/services/loadingSignal';
+
+import toast from 'react-hot-toast';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -35,7 +40,29 @@ function SignUp() {
     email,
     password,
   }) => {
-    loadingSignal.show();
+    const toastId = toast.loading('SignUp ...');
+
+    try {
+      loadingSignal.show();
+
+      const { user, token } = await signUpUser({ email, password });
+
+      useAuthStore.getState().login(user, token);
+
+      toast.success('Success!', { id: toastId });
+
+      navigate('/');
+    } catch (err) {
+      useAuthStore.getState().logout();
+      console.error(err);
+
+      const error =
+        (err as any)['message'] || 'Invalid credentials. Please try again.';
+
+      toast.error(error, { id: toastId });
+    } finally {
+      loadingSignal.hide();
+    }
   };
 
   return (
@@ -89,7 +116,7 @@ function SignUp() {
         />
         <button
           className="btn--submit mt-5 button button--primary"
-          type="button"
+          type="submit"
           aria-label="Create your account"
           disabled={!isValid || isSubmitting}
         >
