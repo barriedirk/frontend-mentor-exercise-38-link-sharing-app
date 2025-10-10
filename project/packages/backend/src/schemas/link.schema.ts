@@ -6,4 +6,6 @@ export const linkSchema = z.object({
   position: z.number().optional(),
 });
 
+export const linkArraySchema = z.array(linkSchema);
+
 export type LinkInput = z.infer<typeof linkSchema>;

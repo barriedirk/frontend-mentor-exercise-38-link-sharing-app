@@ -1,0 +1,35 @@
+### Login to get JWT token
+
+POST http://localhost:1234/api/devlinks/login
+Content-Type: application/json
+
+{
+    "email": "demo-devlinks-app@fakeemail.com",
+    "password": "3nT3rt4inMen1"
+}
+
+
+### 📥 Get links (REQUIRES TOKEN)
+GET http://localhost:1234/api/devlinks/links
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInRva2VuVmVyc2lvbiI6MCwiaWF0IjoxNzYwMDY1MDE4LCJleHAiOjE3NjAwNjg2MTh9.efXDuCMZawBdTMubzvR7UvyuCZYOaM6bLjzqQfUh_ZA
+
+
+### 📝 Replace links (REQUIRES TOKEN)
+PUT http://localhost:1234/api/devlinks/links
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInRva2VuVmVyc2lvbiI6MCwiaWF0IjoxNzYwMDY1MDE4LCJleHAiOjE3NjAwNjg2MTh9.efXDuCMZawBdTMubzvR7UvyuCZYOaM6bLjzqQfUh_ZA
+
+[
+  {
+    "platform": "GitHub",
+    "url": "https://github.com/testuser"
+  },
+  {
+    "platform": "LinkedIn",
+    "url": "https://linkedin.com/in/testuser"
+  },
+  {
+    "platform": "Portfolio",
+    "url": "https://my-portfolio.com"
+  }
+]

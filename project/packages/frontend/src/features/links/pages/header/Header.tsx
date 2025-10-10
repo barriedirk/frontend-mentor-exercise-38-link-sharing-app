@@ -1,8 +1,14 @@
 import './Header.css';
 
+import { useSignals } from '@preact/signals-react/runtime';
+import { tabHeader } from '../MainLinksStateSignal';
+
+import clsx from 'clsx';
 import Icon from '@src/components/icon/Icon';
 
 export default function Header() {
+  useSignals();
+
   return (
     <div className="header">
       <nav className="header__navigation">
@@ -15,8 +21,14 @@ export default function Header() {
           <button
             type="button"
             aria-current="false"
-            className="flex-row-center tab"
+            className={clsx(
+              'flex-row-center tab',
+              tabHeader.value === 'link' && 'tab--current'
+            )}
             title="Links"
+            onClick={() => {
+              tabHeader.value = 'link';
+            }}
           >
             <Icon name="IconLinksHeader" className="header__icon" />
             <span className="header__text text-preset-3-semibold">Links</span>
@@ -25,8 +37,14 @@ export default function Header() {
           <button
             type="button"
             aria-current="true"
-            className="flex-row-center tab tab--current"
+            className={clsx(
+              'flex-row-center tab',
+              tabHeader.value === 'profile' && 'tab--current'
+            )}
             title="Profile Details"
+            onClick={() => {
+              tabHeader.value = 'profile';
+            }}
           >
             <Icon name="IconPreviewHeader" className="header__icon" />
             <span className="header__text text-preset-3-semibold">

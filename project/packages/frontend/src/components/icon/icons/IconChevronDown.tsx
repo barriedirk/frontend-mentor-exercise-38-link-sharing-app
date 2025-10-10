@@ -11,7 +11,7 @@ export default function IconChevronDown({ className }: { className?: string }) {
       className={clsx(className)}
       aria-hidden="true"
     >
-      <path stroke="#633CFF" stroke-width="2" d="m1 1 6 6 6-6" />
+      <path stroke="#633CFF" strokeWidth="2" d="m1 1 6 6 6-6" />
     </svg>
   );
 }

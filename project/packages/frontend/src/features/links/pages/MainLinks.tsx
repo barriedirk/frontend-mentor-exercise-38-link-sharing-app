@@ -1,11 +1,23 @@
+import { useSignals } from '@preact/signals-react/runtime';
+
+import { tabHeader } from './MainLinksStateSignal';
+
 import Header from './header/Header';
 import Preview from './preview/Preview';
 import Profile from './profile/Profile';
+import Links from './links/Links';
 
 import clsx from 'clsx';
 import styles from './MainLinks.module.css';
+import { useEffect } from 'react';
 
 export default function MainLinks() {
+  useSignals();
+
+  useEffect(() => {
+    tabHeader.value = 'link';
+  }, []);
+
   return (
     <div className={clsx(styles['links'], 'md:p-5')}>
       <Header />
@@ -16,8 +28,8 @@ export default function MainLinks() {
 
         <div className={clsx(styles['links__editor-wrapper'])}>
           <div className={clsx(styles['links__editor'])}>
-            <Profile />
-            {/* <Links /> */}
+            {tabHeader.value === 'profile' && <Profile />}
+            {tabHeader.value === 'link' && <Links />}
           </div>
         </div>
       </div>

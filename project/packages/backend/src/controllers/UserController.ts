@@ -14,7 +14,7 @@ import {
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 
-export class DevLinksController {
+export class UserController {
   static async helloWorld(req: Request, res: Response) {
     res.json({ message: 'Hello World!' });
   }
