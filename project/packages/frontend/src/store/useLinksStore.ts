@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 import { Link } from '@src/models/Types';
 import { LinkState } from './LinkState';
+import { generateTempId } from '@src/shared/utils';
 
 export const useLinksStore = create<LinkState>((set) => ({
   links: [],
   isLinksValid: false,
   addNewLink: () =>
     set((state) => ({
-      links: [...state.links, { url: '', platform: '' }],
+      links: [...state.links, { id: generateTempId(), url: '', platform: '' }],
     })),
   update: (links: Link[]) => set({ links }),
   updateLink: (link: Link, idx: number) => {
@@ -34,6 +35,8 @@ export const useLinksStore = create<LinkState>((set) => ({
       const [draggedItem] = updatedLinks.splice(draggedItemIndex, 1);
 
       updatedLinks.splice(idx, 0, draggedItem);
+
+      console.log(updatedLinks);
 
       return { links: updatedLinks };
     });

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import LinkForm from './LinkForm';
 
 import styles from './LinkForm.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { updateLinks } from '@src/services/linksApi';
 import { loadingSignal } from '@src/services/loadingSignal';
@@ -17,8 +17,18 @@ export default function Links() {
   const updateLink = useLinksStore((state) => state.updateLink);
   const switchPosition = useLinksStore((state) => state.switchPosition);
 
+  const prevLinksCountRef = useRef<number>(links.length);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
   const [formValidities, setFormValidities] = useState<boolean[]>([]);
   const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    if (links.length > prevLinksCountRef.current) {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    prevLinksCountRef.current = links.length;
+  }, [links.length]);
 
   useEffect(() => {
     setFormValidities(() =>
@@ -99,7 +109,7 @@ export default function Links() {
       <div id="link-list" className={clsx('link-list flex flex-col gap-5')}>
         {links.map((value, index) => (
           <LinkForm
-            key={index}
+            key={value.id}
             idx={index}
             value={value}
             onDragStart={() => onDragStart(index)}
@@ -113,6 +123,11 @@ export default function Links() {
           />
         ))}
       </div>
+      <div
+        ref={bottomRef}
+        className="h-px pointer-events-none select-none"
+        aria-hidden="true"
+      />
 
       <div id="link-actions" className={clsx(styles['link-actions'], 'mt-5')}>
         <button
