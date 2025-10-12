@@ -1,6 +1,6 @@
 export type Link = {
-  id: string;
-  title: string;
+  id?: number;
+  platform: string;
   url: string;
 };
 

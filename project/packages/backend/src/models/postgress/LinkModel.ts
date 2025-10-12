@@ -64,7 +64,6 @@ export class LinkModel {
     userId: number,
     link: { platform?: string; url?: string; position?: number }
   ): Promise<LinkRow | null> {
-    // Only update fields that are provided
     const fields: string[] = [];
     const values: any[] = [];
     let idx = 1;
@@ -82,11 +81,9 @@ export class LinkModel {
       values.push(link.position);
     }
     if (fields.length === 0) {
-      // Nothing to update
       return null;
     }
 
-    // Add user_id and linkId constraints to ensure user owns this link
     values.push(userId);
     values.push(linkId);
 

@@ -8,11 +8,11 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       token: null,
-      login: (user, token) => set({ user, token }),
-      logout: () => set({ user: null, token: null }),
+      shouldRedirect: false,
+      login: (user, token) => set({ user, token, shouldRedirect: false }),
+      logout: () => set({ user: null, token: null, shouldRedirect: true }),
+      resetRedirect: () => set({ shouldRedirect: false }),
     }),
-    {
-      name: 'auth-storage',
-    }
+    { name: 'auth-storage' }
   )
 );

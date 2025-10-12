@@ -1,17 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-// import useAuth from '@/context/useAuth';
+import { useAuthStore } from '@src/store/useAuthStore';
 
 function AuthGuard() {
-  // const { user, loading } = useAuth();
+  const { token } = useAuthStore();
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  const user = true;
-
-  return user ? <Outlet /> : <Navigate to="/login" replace />;
+  return token ? <Outlet /> : <Navigate to="/login" replace />;
 }
 
 export default AuthGuard;

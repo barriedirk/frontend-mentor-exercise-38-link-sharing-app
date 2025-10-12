@@ -2,13 +2,29 @@ import clsx from 'clsx';
 import LinkForm from './LinkForm';
 
 import styles from './LinkForm.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const mockupLinks = Array.from({ length: 3 }, (_, index) => index + 1);
+import { updateLinks } from '@src/services/linksApi';
+import { loadingSignal } from '@src/services/loadingSignal';
+
+import { useLinksStore } from '@src/store/useLinksStore';
+import { linkFormSchema } from './schemas/link';
 
 export default function Links() {
-  const [links, setLinks] = useState<number[]>(mockupLinks);
+  const links = useLinksStore((state) => state.links);
+  const addNewLink = useLinksStore((state) => state.addNewLink);
+  const removeLink = useLinksStore((state) => state.removeLink);
+  const updateLink = useLinksStore((state) => state.updateLink);
+  const switchPosition = useLinksStore((state) => state.switchPosition);
+
+  const [formValidities, setFormValidities] = useState<boolean[]>([]);
   const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    setFormValidities(() =>
+      links.map((link) => linkFormSchema.safeParse(link).success)
+    );
+  }, [links, links.length]);
 
   const onDragStart = (index: number) => {
     setDraggedItemIndex(index);
@@ -21,21 +37,41 @@ export default function Links() {
   const onDrop = (index: number) => {
     if (draggedItemIndex === null || draggedItemIndex === index) return;
 
-    const updatedItems = [...links];
-    const [draggedItem] = updatedItems.splice(draggedItemIndex, 1);
+    switchPosition(draggedItemIndex, index);
 
-    updatedItems.splice(index, 0, draggedItem);
-
-    setLinks(updatedItems);
     setDraggedItemIndex(null);
   };
 
-  const addNewLink = () => {
-    return;
+  const handleValidityChange = (index: number, isValid: boolean) => {
+    setFormValidities((prev) => {
+      if (prev[index] === isValid) return prev;
+
+      const updated = [...prev];
+
+      updated[index] = isValid;
+
+      return updated;
+    });
   };
 
-  const save = () => {
-    return;
+  const allFormsValid = links.length === 0 || formValidities.every(Boolean);
+
+  const save = async () => {
+    if (!allFormsValid) return;
+
+    console.log('Saving links:', links);
+
+    loadingSignal.show();
+
+    try {
+      const fetchedLinks = await updateLinks(links);
+
+      console.log('@fetchedLinks => ', fetchedLinks);
+    } catch (error) {
+      console.error('Failed to save links', error);
+    } finally {
+      loadingSignal.hide();
+    }
   };
 
   return (
@@ -55,7 +91,7 @@ export default function Links() {
         className="button button--secondary w-full button--small"
         type="button"
         aria-label="+ Add new link"
-        onClick={() => addNewLink()}
+        onClick={addNewLink}
       >
         + Add new link
       </button>
@@ -69,6 +105,11 @@ export default function Links() {
             onDragStart={() => onDragStart(index)}
             onDragOver={(e: React.DragEvent<HTMLFormElement>) => onDragOver(e)}
             onDrop={() => onDrop(index)}
+            onChange={(updated) => {
+              updateLink(updated, index);
+            }}
+            onValidityChange={(isValid) => handleValidityChange(index, isValid)}
+            onRemove={() => removeLink(index)}
           />
         ))}
       </div>
@@ -76,9 +117,10 @@ export default function Links() {
       <div id="link-actions" className={clsx(styles['link-actions'], 'mt-5')}>
         <button
           className="button button--primary w-full"
+          disabled={!allFormsValid}
           type="button"
           aria-label="Save"
-          onClick={() => save()}
+          onClick={save}
         >
           Save
         </button>

@@ -6,12 +6,11 @@ import AuthGuard from '@src/components/auth/AuthGuard';
 import AuthLayout from '@src/layout/authLayout/AuthLayout';
 import MainLayout from '@src/layout/mainLayout/MainLayout';
 import PublicLayout from '@src/layout/publicLayout/PublicLayout';
+import { AuthRedirect } from '@src/components/auth/AuthRedirect';
 
 const Login = lazy(() => import('../features/auth/pages/Login'));
 const SignUp = lazy(() => import('../features/auth/pages/SignUp'));
-
 const MainLinks = lazy(() => import('../features/links/pages/MainLinks'));
-
 const NotFound = lazy(() => import('../features/notFound/pages/NotFound'));
 
 const PublicLinkPage = lazy(
@@ -21,6 +20,7 @@ const PublicLinkPage = lazy(
 export function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <AuthRedirect />
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />

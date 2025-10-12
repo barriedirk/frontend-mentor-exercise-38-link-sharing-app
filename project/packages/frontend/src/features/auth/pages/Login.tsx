@@ -56,7 +56,8 @@ export default function Login() {
       console.error(err);
 
       const error =
-        (err as any)['message'] || 'Invalid credentials. Please try again.';
+        (err as { message: string })['message'] ||
+        'Invalid credentials. Please try again.';
 
       toast.error(error, { id: toastId });
     } finally {

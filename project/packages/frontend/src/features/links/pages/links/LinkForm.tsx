@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import styles from './LinkForm.module.css';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type SubmitHandler, useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 import { linkFormSchema, type LinkFormValues } from './schemas/link';
 
@@ -12,34 +12,67 @@ import SelectForm from '@src/components/forms/fields/SelectForm';
 import Icon from '@src/components/icon/Icon';
 
 import { platforms } from './platforms';
+import { Link } from '@src/models/Types';
+import { useEffect, useMemo, useRef } from 'react';
 
 interface LinkFormProps {
   idx: number;
-  value: number;
+  value: Link;
   onDragStart: () => void;
   onDragOver: (e: React.DragEvent<HTMLFormElement>) => void;
   onDrop: () => void;
+  onChange: (link: Link) => void;
+  onValidityChange: (isValid: boolean) => void;
+  onRemove: () => void;
 }
 
 export default function LinkForm({
   idx,
-  value,
+  value: { id, platform, url },
   onDragStart,
   onDragOver,
   onDrop,
+  onChange,
+  onValidityChange,
+  onRemove,
 }: LinkFormProps) {
   const {
     control,
-    handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
   } = useForm<LinkFormValues>({
     resolver: zodResolver(linkFormSchema),
     mode: 'onChange',
     defaultValues: {
-      platform: '',
-      url: '',
+      platform: platform,
+      url: url,
     },
   });
+
+  const previousIsValidRef = useRef<boolean | null>(null);
+
+  const watched = useWatch({ control });
+
+  const newLink = useMemo(
+    () => ({
+      id,
+      platform: watched.platform ?? '',
+      url: watched.url ?? '',
+    }),
+    [id, watched.platform, watched.url]
+  );
+
+  useEffect(() => {
+    if (newLink.platform !== platform || newLink.url !== url) {
+      onChange(newLink);
+    }
+  }, [newLink, onChange, platform, url]);
+
+  useEffect(() => {
+    if (isValid !== previousIsValidRef.current) {
+      onValidityChange?.(isValid);
+      previousIsValidRef.current = isValid;
+    }
+  }, [isValid, onValidityChange]);
 
   return (
     <form
@@ -53,13 +86,18 @@ export default function LinkForm({
         <span
           className="flex-row-center gap-2 cursor-pointer"
           tabIndex={0}
-          aria-label={`Drag and Drop for Link #${1}`}
+          aria-label={`Drag and Drop for Link #${idx + 1}`}
         >
           <Icon name="IconDragAndDrop" />
-          Link #{value}
+          Link #{idx + 1}
         </span>
 
-        <button type="button" className="link">
+        <button
+          type="button"
+          className="link"
+          aria-label={`Remove Link #${idx + 1}`}
+          onClick={onRemove}
+        >
           remove
         </button>
       </header>
