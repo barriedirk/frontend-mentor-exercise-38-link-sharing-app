@@ -5,7 +5,11 @@ import styles from './Profile.module.css';
 import ProfilePicture from './ProfilePicture';
 import ProfileForm from './ProfileForm';
 
+import { useProfileStore } from '@src/store/useProfileStore';
+
 export default function Profile() {
+  const profile = useProfileStore((state) => state.profile);
+
   const save = () => {
     return;
   };
@@ -22,9 +26,9 @@ export default function Profile() {
         Add your details to create a personal touch to your profile.
       </p>
 
-      <ProfilePicture />
+      <ProfilePicture profile={profile!} />
 
-      <ProfileForm />
+      <ProfileForm profile={profile!} />
 
       <div id="link-actions" className={clsx(styles['link-actions'], 'mt-5')}>
         <button

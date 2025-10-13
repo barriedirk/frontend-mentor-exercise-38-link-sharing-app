@@ -1,14 +1,17 @@
 import { create } from 'zustand';
 import { Link } from '@src/models/Types';
 import { LinkState } from './LinkState';
-import { generateTempId } from '@src/shared/utils';
+import { generateNumericId } from '@src/shared/utils';
 
 export const useLinksStore = create<LinkState>((set) => ({
   links: [],
   isLinksValid: false,
   addNewLink: () =>
     set((state) => ({
-      links: [...state.links, { id: generateTempId(), url: '', platform: '' }],
+      links: [
+        ...state.links,
+        { id: generateNumericId(), url: '', platform: '' },
+      ],
     })),
   update: (links: Link[]) => set({ links }),
   updateLink: (link: Link, idx: number) => {

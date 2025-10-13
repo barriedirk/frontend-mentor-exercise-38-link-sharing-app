@@ -1,9 +1,10 @@
-// mappers/user.mapper.ts
 import { User } from '@src/models/User';
 
 export const mapUserFromApi = (apiUser: any): User => ({
   id: apiUser.id,
   email: apiUser.email,
-  fullName: apiUser.full_name,
+  firstName: apiUser.first_name,
+  lastName: apiUser.last_name,
+  slug: apiUser.slug,
   avatarUrl: apiUser.avatar_url ?? undefined,
 });

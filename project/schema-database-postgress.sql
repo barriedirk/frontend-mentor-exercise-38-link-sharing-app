@@ -3,7 +3,9 @@ CREATE TABLE devlinks_users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
   password TEXT NOT NULL,                      -- hashed password
-  full_name VARCHAR(100),                      -- optional display name
+  first_name VARCHAR(100),                      -- display first name
+  last_name VARCHAR(100),                      -- display last name
+  slug VARCHAR(100) UNIQUE NOT NULL,
   avatar_url TEXT,                             -- profile image URL
   token_version INT DEFAULT 0,                 -- for JWT invalidation
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import clsx from 'clsx';
+
 import styles from './ProfilePicture.module.css';
 
 import {
@@ -8,9 +10,14 @@ import {
   type ProfilePictureValues,
 } from './schemas/picture';
 import FileUploadForm from '@src/components/forms/fields/FileUploadForm';
-import clsx from 'clsx';
 
-export default function ProfilePicture() {
+import { useProfileStore } from '@src/store/useProfileStore';
+import { User } from '@src/models/User';
+
+interface ProfilePictureProps {
+  profile: User;
+}
+export default function ProfilePicture({ profile }: ProfilePictureProps) {
   const {
     control,
     handleSubmit,

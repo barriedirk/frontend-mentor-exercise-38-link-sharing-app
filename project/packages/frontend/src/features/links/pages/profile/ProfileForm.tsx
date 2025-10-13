@@ -8,7 +8,14 @@ import { profileFormSchema, type ProfileFormValues } from './schemas/profile';
 
 import InputForm from '@src/components/forms/fields/InputForm';
 
-export default function ProfileForm() {
+import { useProfileStore } from '@src/store/useProfileStore';
+import { User } from '@src/models/User';
+
+interface ProfileFormProps {
+  profile: User;
+}
+
+export default function ProfileForm({ profile }: ProfileFormProps) {
   const {
     control,
     handleSubmit,
@@ -19,6 +26,7 @@ export default function ProfileForm() {
     defaultValues: {
       firstName: '',
       lastName: '',
+      slug: '',
       email: '',
     },
   });
@@ -60,6 +68,17 @@ export default function ProfileForm() {
         error={errors.lastName}
         autoComplete="email"
         placeholder="e.g. ben@example.com"
+        styleName="row"
+      />
+
+      <InputForm<ProfileFormValues>
+        name="slug"
+        control={control}
+        label="Slug"
+        type="text"
+        error={errors.lastName}
+        autoComplete="slug"
+        placeholder="e.g. ben-wright"
         styleName="row"
       />
     </form>

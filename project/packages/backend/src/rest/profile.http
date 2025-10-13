@@ -1,0 +1,19 @@
+### login
+POST http://localhost:1234/api/devlinks/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "acmeP4ssw0rd"
+}
+
+
+
+### Get profile
+POST http://localhost:1234/api/devlinks/get HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInRva2VuVmVyc2lvbiI6MCwiaWF0IjoxNzYwMzI0Mzc0LCJleHAiOjE3NjAzMjc5NzR9.CX7LDKAA_BrGWsEVIpX07MqavgU1TpPdzJMYdUBsgY8
+
+{
+    "id": 1
+}

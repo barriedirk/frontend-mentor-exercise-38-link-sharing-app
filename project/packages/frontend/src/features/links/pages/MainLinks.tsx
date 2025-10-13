@@ -3,6 +3,7 @@ import { loadingSignal } from '@src/services/loadingSignal';
 import { useEffect, useState } from 'react';
 
 import { getLinks } from '@src/services/linksApi';
+import { getProfile } from '@src/services/profileApi';
 
 import { useSignals } from '@preact/signals-react/runtime';
 
@@ -17,30 +18,39 @@ import clsx from 'clsx';
 import styles from './MainLinks.module.css';
 
 import { useLinksStore } from '@src/store/useLinksStore';
+import { useAuthStore } from '@src/store/useAuthStore';
+import { useProfileStore } from '@src/store/useProfileStore';
 
 export default function MainLinks() {
   useSignals();
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+  const user = useAuthStore((state) => state.user);
   const updateLinks = useLinksStore((state) => state.update);
+  const updateProfile = useProfileStore((state) => state.update);
 
   useEffect(() => {
-    tabHeader.value = 'link';
+    tabHeader.value = 'profile';
   }, []);
 
   useEffect(() => {
     loadingSignal.show();
     setIsLoaded(false);
     updateLinks([]);
+    updateProfile(null);
 
     const fetchLinks = async () => {
       try {
-        const fetchedLinks = await getLinks();
+        const [fetchedLinks, fetchedProfile] = await Promise.all([
+          getLinks(),
+          getProfile(user?.id ?? 0),
+        ]);
 
-        console.log('@todo MainLinks', fetchedLinks);
+        console.log('@todo MainLinks', fetchedLinks, fetchedProfile);
 
         updateLinks(fetchedLinks);
+        updateProfile(fetchedProfile);
 
         setIsLoaded(true);
       } catch (error) {

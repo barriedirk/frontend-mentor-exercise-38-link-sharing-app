@@ -11,6 +11,7 @@ devLinksRouter.get('/test', UserController.helloWorld);
 devLinksRouter.post('/create', UserController.create);
 devLinksRouter.post('/login', UserController.login);
 devLinksRouter.get('/me', authenticateJWT, UserController.getProfile);
+devLinksRouter.post('/get', authenticateJWT, UserController.getProfileById);
 
 devLinksRouter.get('/links', authenticateJWT, LinksController.getLinks);
 devLinksRouter.put('/links', authenticateJWT, LinksController.replaceAllLinks);
