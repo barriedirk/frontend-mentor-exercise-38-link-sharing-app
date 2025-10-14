@@ -12,6 +12,7 @@ export const loginUser = async (data: { email: string; password: string }) => {
 
   if (!res.ok) {
     const error = await res.json();
+
     throw new Error(error?.error || 'Login failed');
   }
 
@@ -32,6 +33,7 @@ export const signUpUser = async (data: { email: string; password: string }) => {
 
   if (!res.ok) {
     const error = await res.json();
+
     throw new Error(error?.error || 'Login failed');
   }
 

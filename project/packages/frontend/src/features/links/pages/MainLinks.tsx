@@ -28,7 +28,8 @@ export default function MainLinks() {
 
   const user = useAuthStore((state) => state.user);
   const updateLinks = useLinksStore((state) => state.update);
-  const updateProfile = useProfileStore((state) => state.update);
+  const updateProfile = useProfileStore((state) => state.updateProfile);
+  const resetProfile = useProfileStore((state) => state.reset);
 
   useEffect(() => {
     tabHeader.value = 'profile';
@@ -38,7 +39,7 @@ export default function MainLinks() {
     loadingSignal.show();
     setIsLoaded(false);
     updateLinks([]);
-    updateProfile(null);
+    resetProfile();
 
     const fetchLinks = async () => {
       try {
@@ -46,8 +47,6 @@ export default function MainLinks() {
           getLinks(),
           getProfile(user?.id ?? 0),
         ]);
-
-        console.log('@todo MainLinks', fetchedLinks, fetchedProfile);
 
         updateLinks(fetchedLinks);
         updateProfile(fetchedProfile);

@@ -16,6 +16,11 @@
   border: 1px solid var(--clr-grey-200);
 }
 
+.input-checkbox input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+}
+
 .input-select .form-input-group,
 .input-text .form-input-group {
   background-color: var(--clr-white);
@@ -52,7 +57,9 @@
   outline: none;
 }
 
-.form-group input {
+.form-group input[type='text'],
+.form-group input[type='password'],
+.form-group input[type='file'] {
   border: none;
   color: var(--clr-grey-900);
   flex-grow: 1;

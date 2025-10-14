@@ -1,35 +1,68 @@
-import clsx from 'clsx';
-
 import styles from './ProfileForm.module.css';
 
+import clsx from 'clsx';
+
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type SubmitHandler, useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { profileFormSchema, type ProfileFormValues } from './schemas/profile';
 
-import InputForm from '@src/components/forms/fields/InputForm';
-
-import { useProfileStore } from '@src/store/useProfileStore';
 import { User } from '@src/models/User';
 
+import InputForm from '@src/components/forms/fields/InputForm';
+import ChecboxForm from '@src/components/forms/fields/ChecboxForm';
+import { useEffect, useRef } from 'react';
+import { shallowEqual } from '@src/shared/utils';
+
 interface ProfileFormProps {
+  onChange: (profile: User, isValid: boolean) => void;
   profile: User;
 }
 
-export default function ProfileForm({ profile }: ProfileFormProps) {
+export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
   const {
     control,
-    handleSubmit,
     formState: { errors, isValid, isSubmitting },
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     mode: 'onChange',
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      slug: '',
-      email: '',
+      updatePassword: false,
+      firstName: profile.firstName.trim(),
+      lastName: profile.lastName.trim(),
+      slug: profile.slug,
+      email: profile.email.trim(),
+      password: '',
+      confirmPassword: '',
     },
   });
+
+  const prevDataRef = useRef<User | null>(null);
+  const prevUpdatePasswordRef = useRef<boolean>(false);
+
+  const watched = useWatch({ control });
+
+  const updatePassword = useWatch({
+    control,
+    name: 'updatePassword',
+  });
+
+  useEffect(() => {
+    const newData: User = {
+      email: watched.email ?? '',
+      firstName: watched.firstName ?? '',
+      lastName: watched.lastName ?? '',
+      slug: watched.slug ?? '',
+      password: updatePassword ? watched.password ?? '' : '',
+    };
+
+    const hasChanged = !shallowEqual(prevDataRef.current, newData);
+
+    if (hasChanged || prevUpdatePasswordRef.current !== updatePassword) {
+      prevDataRef.current = newData;
+      prevUpdatePasswordRef.current = updatePassword;
+      onChange(newData, isValid);
+    }
+  }, [watched, onChange, isValid, updatePassword]);
 
   return (
     <form
@@ -38,6 +71,13 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
         'flex flex-col gap-5 px-4 py-6 mb-5'
       )}
     >
+      <ChecboxForm<ProfileFormValues>
+        name="updatePassword"
+        control={control}
+        label="Update Password"
+        error={errors.updatePassword}
+      />
+
       <InputForm<ProfileFormValues>
         name="firstName"
         control={control}
@@ -81,6 +121,33 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
         placeholder="e.g. ben-wright"
         styleName="row"
       />
+
+      {updatePassword && (
+        <>
+          <InputForm<ProfileFormValues>
+            name="password"
+            control={control}
+            label="Update password"
+            type="password"
+            error={errors.password}
+            autoComplete="password"
+            icon="IconPassword"
+            placeholder="At least 8 characters"
+          />
+
+          <InputForm<ProfileFormValues>
+            name="confirmPassword"
+            control={control}
+            label="Confirm Password"
+            type="password"
+            error={errors.confirmPassword}
+            autoComplete="confirmPassword"
+            icon="IconPassword"
+            placeholder="At least 8 characters"
+            helperText="Password must contain at least 8 characters"
+          />
+        </>
+      )}
     </form>
   );
 }

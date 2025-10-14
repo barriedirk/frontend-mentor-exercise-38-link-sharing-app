@@ -85,7 +85,7 @@ export class UserModel {
   static async update(user: {
     id: number;
     email: string;
-    password: string;
+    password?: string;
     first_name: string;
     last_name: string;
     slug: string;
@@ -93,15 +93,33 @@ export class UserModel {
   }): Promise<UserRow> {
     const { id, email, password, first_name, last_name, slug, avatar_url } =
       user;
-    const result = await pool.query<UserRow>(
-      `UPDATE devlinks_users
-       SET
-       email=$1, password=$2, first_name=$3, last_name=$4, slug=$5, avatar_url=$6
-       WHERE id = $7
-       RETURNING *`,
-      [email, password, first_name, last_name, slug, avatar_url ?? null, id]
-    );
 
+    const values: any[] = [
+      email,
+      first_name,
+      last_name,
+      slug,
+      avatar_url ?? null,
+    ];
+    let query = `
+    UPDATE devlinks_users
+    SET
+      email = $1,
+      first_name = $2,
+      last_name = $3,
+      slug = $4,
+      avatar_url = $5
+  `;
+
+    if (password) {
+      values.push(password);
+      query += `, password = $6`;
+    }
+
+    values.push(id);
+    query += ` WHERE id = $${values.length} RETURNING *`;
+
+    const result = await pool.query<UserRow>(query, values);
     return result.rows[0];
   }
 

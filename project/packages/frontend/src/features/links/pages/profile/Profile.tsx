@@ -6,12 +6,41 @@ import ProfilePicture from './ProfilePicture';
 import ProfileForm from './ProfileForm';
 
 import { useProfileStore } from '@src/store/useProfileStore';
+import { useState } from 'react';
+import { User } from '@src/models/User';
+import { loadingSignal } from '@src/services/loadingSignal';
+import { replaceProfile } from '@src/services/profileApi';
+import { useSignals } from '@preact/signals-react/runtime';
 
 export default function Profile() {
-  const profile = useProfileStore((state) => state.profile);
+  useSignals();
 
-  const save = () => {
-    return;
+  const profile = useProfileStore((state) => state.profile);
+  const updateProfile = useProfileStore((state) => state.updateProfile);
+
+  const [isValidForm, setIsValidForm] = useState(false);
+
+  const onChangeProfile = (profile: User, isValid: boolean) => {
+    updateProfile(profile);
+    setIsValidForm(isValid);
+  };
+
+  const save = async () => {
+    if (!isValidForm || !profile) return;
+
+    console.log(profile);
+
+    loadingSignal.show();
+
+    try {
+      const value = await replaceProfile(profile);
+
+      console.log('@fetchedLinks => ', value);
+    } catch (error) {
+      console.error('Failed to save links', error);
+    } finally {
+      loadingSignal.hide();
+    }
   };
 
   return (
@@ -28,10 +57,14 @@ export default function Profile() {
 
       <ProfilePicture profile={profile!} />
 
-      <ProfileForm profile={profile!} />
+      <ProfileForm
+        profile={profile!}
+        onChange={(profile, isValid) => onChangeProfile(profile, isValid)}
+      />
 
       <div id="link-actions" className={clsx(styles['link-actions'], 'mt-5')}>
         <button
+          disabled={!isValidForm}
           className="button button--primary w-full"
           type="button"
           aria-label="Save"

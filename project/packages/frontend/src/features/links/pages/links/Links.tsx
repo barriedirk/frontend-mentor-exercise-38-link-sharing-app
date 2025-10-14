@@ -69,8 +69,6 @@ export default function Links() {
   const save = async () => {
     if (!allFormsValid) return;
 
-    console.log('Saving links:', links);
-
     loadingSignal.show();
 
     try {

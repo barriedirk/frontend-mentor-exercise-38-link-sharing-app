@@ -24,3 +24,23 @@ export const getProfile = async (id: number): Promise<User> => {
 
   return mapProfileFromApi(json.user);
 };
+
+export const replaceProfile = async (profile: User): Promise<void> => {
+  const res = await fetchWithAuth(`${API_URL}/put`, {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ profile }),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+
+    throw new Error(error?.error || 'Failed to update profile');
+  }
+
+  const json = await res.json();
+
+  return;
+};

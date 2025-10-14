@@ -67,28 +67,34 @@ export class UserController {
     const result = registerSchema.safeParse(req.body);
 
     if (!result.success) {
-      const flattened = result.error.flatten();
-      return res.status(400).json({ errors: flattened.fieldErrors });
+      const errors = result.error.flatten().fieldErrors;
+      return res.status(400).json({ errors });
     }
 
     const data: RegisterInput = result.data;
 
-    // Check if email or slug already exists
-    const existing = await UserModel.checkEmailAndSlugNotDuplicated(
-      data.email,
-      data.slug,
-      data.id ?? 0
-    );
-
-    if (existing) {
-      return res.status(409).json({ error: 'Email/Slug already in use' });
+    if (!data.id) {
+      return res.status(400).json({ error: 'Missing user ID' });
     }
 
-    const hashed = await bcrypt.hash(data.password, 10);
+    const duplicate = await UserModel.checkEmailAndSlugNotDuplicated(
+      data.email,
+      data.slug,
+      data.id
+    );
 
-    const user = await UserModel.create({
+    if (duplicate) {
+      return res.status(409).json({ error: 'Email or slug already in use' });
+    }
+
+    const hashedPassword = data.password
+      ? await bcrypt.hash(data.password, 10)
+      : undefined;
+
+    const updatedUser = await UserModel.update({
+      id: data.id,
       email: data.email,
-      password: hashed,
+      password: hashedPassword,
       first_name: data.first_name,
       last_name: data.last_name,
       slug: data.slug,
@@ -97,17 +103,17 @@ export class UserController {
 
     const token = jwt.sign(
       {
-        userId: user.id,
-        tokenVersion: user.token_version,
+        userId: updatedUser.id,
+        tokenVersion: updatedUser.token_version,
       },
       JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    const { password: _, ...userWithoutPwd } = user;
+    const { password: _pw, ...safeUser } = updatedUser;
 
-    return res.status(201).json({
-      user: userWithoutPwd,
+    return res.status(200).json({
+      user: safeUser,
       token,
     });
   }
