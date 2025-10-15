@@ -8,7 +8,7 @@ content-type: application/json
 
 {
     "email": "demo-devlinks-app@fakeemail.com",
-    "password": "3nT3rt4inMen1"
+    "password": "3nT3rt#4inMen1"
 }
 
 
@@ -32,4 +32,11 @@ content-type: application/json
 }
 
 
-###
+### login
+POST http://localhost:1234/api/devlinks/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "demo-devlinks-app@fakeemail.com",
+    "password": "3nT3rt#4inMen1"
+}

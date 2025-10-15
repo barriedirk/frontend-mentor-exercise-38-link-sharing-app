@@ -1,5 +1,5 @@
-import { useAuthStore } from '@src/store/authStore';
-import { toast } from 'react-hot-toast';
+import { useAuthStore } from '@src/store/useAuthStore';
+import toast from 'react-hot-toast';
 
 async function fetchWithAuth(url: string, options: RequestInit = {}) {
   const token = useAuthStore.getState().token;

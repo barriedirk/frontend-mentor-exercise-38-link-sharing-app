@@ -68,7 +68,7 @@ export default function Login() {
   const loginWithDemoCredential = () => {
     onSubmit({
       email: 'demo-devlinks-app@fakeemail.com',
-      password: '3nT3rt4inMen1',
+      password: '3nT3rt#4inMen1',
     });
   };
 

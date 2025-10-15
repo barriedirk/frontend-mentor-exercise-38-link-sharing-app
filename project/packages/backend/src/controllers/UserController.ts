@@ -12,6 +12,8 @@ import {
   type LoginInput,
   idSchema,
   IdInput,
+  updateSchema,
+  UpdateInput,
 } from '../schemas/auth.schema';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
@@ -64,14 +66,24 @@ export class UserController {
   }
 
   static async update(req: Request, res: Response) {
-    const result = registerSchema.safeParse(req.body);
+    const result = updateSchema.safeParse(req.body);
 
     if (!result.success) {
       const errors = result.error.flatten().fieldErrors;
+
       return res.status(400).json({ errors });
     }
 
-    const data: RegisterInput = result.data;
+    let avatarUrl = undefined;
+    if (req.file) {
+      avatarUrl = `/uploads/${req.file.filename}`;
+    } else if (req.body.avatar_url) {
+      avatarUrl = req.body.avatar_url;
+    } else {
+      console.log('No file uploaded');
+    }
+
+    const data: UpdateInput = result.data;
 
     if (!data.id) {
       return res.status(400).json({ error: 'Missing user ID' });
@@ -98,7 +110,7 @@ export class UserController {
       first_name: data.first_name,
       last_name: data.last_name,
       slug: data.slug,
-      avatar_url: data.avatar_url,
+      avatar_url: avatarUrl,
     });
 
     const token = jwt.sign(
@@ -168,7 +180,7 @@ export class UserController {
     });
   }
 
-  static async login(req: Request, res: Response, next: NextFunction) {
+  static async login(req: Request, res: Response) {
     const result = loginSchema.safeParse(req.body);
 
     if (!result.success) {

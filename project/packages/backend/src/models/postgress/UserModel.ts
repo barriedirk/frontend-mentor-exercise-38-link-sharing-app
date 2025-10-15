@@ -89,7 +89,7 @@ export class UserModel {
     first_name: string;
     last_name: string;
     slug: string;
-    avatar_url?: string;
+    avatar_url?: string | null;
   }): Promise<UserRow> {
     const { id, email, password, first_name, last_name, slug, avatar_url } =
       user;

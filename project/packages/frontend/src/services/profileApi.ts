@@ -25,8 +25,8 @@ export const getProfile = async (id: number): Promise<User> => {
   return mapProfileFromApi(json.user);
 };
 
-export const replaceProfile = async (profile: User): Promise<void> => {
-  const res = await fetchWithAuth(`${API_URL}/put`, {
+export const updateProfile = async (profile: User): Promise<void> => {
+  const res = await fetchWithAuth(`${API_URL}/update`, {
     method: 'put',
     headers: {
       'Content-Type': 'application/json',

@@ -3,11 +3,16 @@ import { useAuthStore } from '@src/store/useAuthStore';
 export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
   const { token, logout } = useAuthStore.getState();
 
-  const headers: HeadersInit = {
+  const isFormData = options.body instanceof FormData;
+
+  let headers: HeadersInit = {
     ...options.headers,
     Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
   };
+
+  if (!isFormData) {
+    headers = { ...headers, 'Content-Type': 'application/json' };
+  }
 
   const res = await fetch(url, { ...options, headers });
 

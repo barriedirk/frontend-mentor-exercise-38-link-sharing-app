@@ -9,7 +9,7 @@ import { useProfileStore } from '@src/store/useProfileStore';
 import { useState } from 'react';
 import { User } from '@src/models/User';
 import { loadingSignal } from '@src/services/loadingSignal';
-import { replaceProfile } from '@src/services/profileApi';
+import { updateProfile } from '@src/services/profileApi';
 import { useSignals } from '@preact/signals-react/runtime';
 
 export default function Profile() {
@@ -33,7 +33,7 @@ export default function Profile() {
     loadingSignal.show();
 
     try {
-      const value = await replaceProfile(profile);
+      const value = await updateProfile(profile);
 
       console.log('@fetchedLinks => ', value);
     } catch (error) {

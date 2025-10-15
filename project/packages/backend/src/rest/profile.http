@@ -12,8 +12,23 @@ content-type: application/json
 ### Get profile
 POST http://localhost:1234/api/devlinks/get HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInRva2VuVmVyc2lvbiI6MCwiaWF0IjoxNzYwMzI0Mzc0LCJleHAiOjE3NjAzMjc5NzR9.CX7LDKAA_BrGWsEVIpX07MqavgU1TpPdzJMYdUBsgY8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInRva2VuVmVyc2lvbiI6MCwiaWF0IjoxNzYwNDkwNTI3LCJleHAiOjE3NjA0OTQxMjd9.Vcw3gZKjZSach59RsEFH1J0v6TU4hf9L5DZtZXvPpnQ
 
 {
     "id": 1
+}
+
+### update profile
+PUT http://localhost:1234/api/devlinks/update HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInRva2VuVmVyc2lvbiI6MCwiaWF0IjoxNzYwNDkwNTI3LCJleHAiOjE3NjA0OTQxMjd9.Vcw3gZKjZSach59RsEFH1J0v6TU4hf9L5DZtZXvPpnQ
+
+
+{
+    "id": 1,
+    "email": "test@test.com",
+    "first_name": "test",
+    "last_name": "Last Test",
+    "slug": "test-last",
+    "avatar_url": null
 }

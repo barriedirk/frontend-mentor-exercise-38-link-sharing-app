@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import { devLinksRouter } from './routes/devlink';
-import { corsMiddleware } from './middlewares/cors.js';
+import { corsMiddleware } from './middlewares/cors.middleware';
+import path from 'path';
 
 console.log('main.ts loaded');
 
@@ -10,6 +11,7 @@ try {
 
   app.use(json());
   app.use(corsMiddleware());
+  app.use('/uploads', express.static(path.join(__dirname, './uploads')));
   app.disable('x-powered-by');
 
   app.use('/api/devlinks', devLinksRouter);
