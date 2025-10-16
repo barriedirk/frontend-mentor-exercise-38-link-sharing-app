@@ -11,11 +11,14 @@ import {
 } from './schemas/picture';
 import FileUploadForm from '@src/components/forms/fields/FileUploadForm';
 
-import { useProfileStore } from '@src/store/useProfileStore';
 import { User } from '@src/models/User';
+import { useEffect } from 'react';
+
+const API_URL =
+  import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks/uploads/';
 
 interface ProfilePictureProps {
-  onChange: (profile: User) => void;
+  onChange: (avatar: FileList | undefined) => void;
   profile: User;
 }
 export default function ProfilePicture({
@@ -24,21 +27,27 @@ export default function ProfilePicture({
 }: ProfilePictureProps) {
   const {
     control,
-    handleSubmit,
     formState: { errors },
   } = useForm<ProfilePictureValues>({
     resolver: zodResolver(profilePictureSchema),
     mode: 'onChange',
   });
 
-  const onSubmit = (data: ProfilePictureValues) => {
-    const file = data.picture?.[0];
-    console.log('Uploading file:', file);
-  };
+  const picture = useWatch({
+    control,
+    name: 'picture',
+  });
+
+  useEffect(() => {
+    onChange(picture);
+  }, [picture, onChange]);
+
+  const defaultImage = profile.avatarUrl
+    ? `${API_URL}${profile.avatarUrl}`
+    : undefined;
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
       className={clsx(
         styles['picture-form'],
         'flex flex-col gap-2 px-4 py-6 mb-5'
@@ -52,7 +61,7 @@ export default function ProfilePicture({
         helperText="Image must be below 1024x1024px. Use PNG or JPG format."
         icon="IconUploadImage"
         styleName="row"
-        defaultImage={profile.avatarUrl ?? undefined}
+        defaultImage={defaultImage}
       />
     </form>
   );

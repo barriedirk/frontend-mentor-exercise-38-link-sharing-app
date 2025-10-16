@@ -6,7 +6,7 @@ import ProfilePicture from './ProfilePicture';
 import ProfileForm from './ProfileForm';
 
 import { useProfileStore } from '@src/store/useProfileStore';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { User } from '@src/models/User';
 import { loadingSignal } from '@src/services/loadingSignal';
 import { updateProfile as updateProfileApi } from '@src/services/profileApi';
@@ -21,20 +21,39 @@ export default function Profile() {
   const updateProfile = useProfileStore((state) => state.updateProfile);
 
   const [isValidForm, setIsValidForm] = useState(false);
+  const [pictureAvatar, setPictureAvatar] = useState<File | undefined>(
+    undefined
+  );
 
-  const onChangeProfile = (profile: User, isValid: boolean) => {
-    updateProfile(profile);
-    setIsValidForm(isValid);
-  };
+  const onChangeProfile = useCallback(
+    (profile: User, isValid: boolean) => {
+      updateProfile(profile);
+      setIsValidForm(isValid);
+    },
+    [updateProfile, setIsValidForm]
+  );
+
+  const onChangeAvatar = useCallback(
+    (avatar: FileList | undefined) => {
+      console.log('onchangeAvatar', avatar);
+      if (avatar && avatar.length > 0) {
+        setPictureAvatar(avatar[0]);
+      } else {
+        setPictureAvatar(undefined);
+      }
+    },
+    [setPictureAvatar]
+  );
 
   const save = async () => {
     if (!isValidForm || !profile) return;
 
+    const idToast = toast.loading('Saving profile ...');
+
     loadingSignal.show();
-    const idToast = toast.loading('Saving');
 
     try {
-      await updateProfileApi(profile);
+      await updateProfileApi(profile, pictureAvatar);
 
       toast.success('Successed to save Profile', { id: idToast });
     } catch (error) {
@@ -58,7 +77,10 @@ export default function Profile() {
         Add your details to create a personal touch to your profile.
       </p>
 
-      <ProfilePicture profile={profile!} onChange={(profile) => {}} />
+      <ProfilePicture
+        profile={profile!}
+        onChange={(avatar) => onChangeAvatar(avatar)}
+      />
 
       <ProfileForm
         profile={profile!}

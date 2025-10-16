@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express from 'express';
 import { devLinksRouter } from './routes/devlink';
 import { corsMiddleware } from './middlewares/cors.middleware';
 import path from 'path';
@@ -10,12 +10,14 @@ try {
   const app = express();
 
   app.use(corsMiddleware());
-  app.use('/uploads', express.static(path.join(__dirname, './uploads')));
+  app.use(
+    '/api/devlinks/uploads',
+    express.static(path.join(__dirname, '../uploads'))
+  );
 
   // app.use(json()); because, we receive a Picture File
   app.use((req, res, next) => {
     const contentType = req.headers['content-type'] || '';
-    console.log('contentType => ', contentType);
 
     if (contentType.includes('multipart/form-data')) {
       return next();

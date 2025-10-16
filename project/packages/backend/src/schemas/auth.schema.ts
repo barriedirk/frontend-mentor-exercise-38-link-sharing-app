@@ -6,13 +6,13 @@ export const idSchema = z.object({
 
 export const registerSchema = z
   .object({
-    id: z.number().optional(),
+    id: z.coerce.number().optional(),
     email: z.email(),
     password: z.string().min(8, 'Password must be at least 8 characters'),
     firstName: z.string().min(1, 'First name is required'),
     lastName: z.string().min(1, 'Last name is required'),
     slug: z.string().min(1, 'Slug is required'),
-    avatar_url: z.string().url().optional(),
+    avatar_url: z.string().nullable().optional(),
   })
   .superRefine((data, ctx) => {
     if (
@@ -32,19 +32,20 @@ export const registerSchema = z
 
 export const updateSchema = z
   .object({
-    id: z
-      .string()
-      .optional()
-      .transform((val) => (val ? Number(val) : undefined))
-      .refine((val) => val === undefined || !isNaN(val), {
-        message: 'Invalid ID',
-      }),
+    id: z.coerce.number().optional(),
+    // id: z
+    //   .string()
+    //   .optional()
+    //   .transform((val) => (val ? Number(val) : undefined))
+    //   .refine((val) => val === undefined || !isNaN(val), {
+    //     message: 'Invalid ID',
+    //   }),
     email: z.email(),
     password: z.string().optional(),
     firstName: z.string().min(1, 'First name is required'),
     lastName: z.string().min(1, 'Last name is required'),
     slug: z.string().min(1, 'Slug is required'),
-    avatar_url: z.string().url().nullable().optional(),
+    avatar_url: z.string().nullable().optional(),
   })
   .superRefine((data, ctx) => {
     if (

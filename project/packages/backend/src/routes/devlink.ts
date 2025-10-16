@@ -17,7 +17,7 @@ devLinksRouter.post('/get', authenticateJWT, UserController.getProfileById);
 devLinksRouter.put(
   '/update',
   authenticateJWT,
-  upload.single('avatar_url'),
+  upload.single('avatar'),
   UserController.update
 );
 

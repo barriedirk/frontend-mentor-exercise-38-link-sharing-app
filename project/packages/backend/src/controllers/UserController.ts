@@ -15,6 +15,7 @@ import {
   updateSchema,
   UpdateInput,
 } from '../schemas/auth.schema';
+import { removeAvatar } from '../utils/utils';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 
@@ -66,7 +67,8 @@ export class UserController {
   }
 
   static async update(req: Request, res: Response) {
-    console.log('update => ', req.body);
+    console.log('update body => ', req.body);
+    console.log('update file => ', req.file);
 
     const result = updateSchema.safeParse(req.body);
 
@@ -78,7 +80,7 @@ export class UserController {
 
     let avatarUrl = undefined;
     if (req.file) {
-      avatarUrl = `/uploads/${req.file.filename}`;
+      avatarUrl = `${req.file.filename}`;
     } else if (req.body.avatar_url) {
       avatarUrl = req.body.avatar_url;
     } else {
@@ -105,7 +107,6 @@ export class UserController {
       ? await bcrypt.hash(data.password, 10)
       : undefined;
 
-    console.log('update', data);
     const updatedUser = await UserModel.update({
       id: data.id,
       email: data.email,
@@ -115,6 +116,10 @@ export class UserController {
       slug: data.slug,
       avatar_url: avatarUrl,
     });
+
+    if (req.file && req.body.avatar_url) {
+      removeAvatar(req.body.avatar_url);
+    }
 
     const token = jwt.sign(
       {
