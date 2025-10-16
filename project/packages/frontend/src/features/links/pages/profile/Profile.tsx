@@ -9,8 +9,10 @@ import { useProfileStore } from '@src/store/useProfileStore';
 import { useState } from 'react';
 import { User } from '@src/models/User';
 import { loadingSignal } from '@src/services/loadingSignal';
-import { updateProfile } from '@src/services/profileApi';
+import { updateProfile as updateProfileApi } from '@src/services/profileApi';
 import { useSignals } from '@preact/signals-react/runtime';
+
+import toast from 'react-hot-toast';
 
 export default function Profile() {
   useSignals();
@@ -28,16 +30,17 @@ export default function Profile() {
   const save = async () => {
     if (!isValidForm || !profile) return;
 
-    console.log(profile);
-
     loadingSignal.show();
+    const idToast = toast.loading('Saving');
 
     try {
-      const value = await updateProfile(profile);
+      await updateProfileApi(profile);
 
-      console.log('@fetchedLinks => ', value);
+      toast.success('Successed to save Profile', { id: idToast });
     } catch (error) {
-      console.error('Failed to save links', error);
+      console.error('Failed to save profile', error);
+
+      toast.error('Failed to save Profile', { id: idToast });
     } finally {
       loadingSignal.hide();
     }
@@ -55,7 +58,7 @@ export default function Profile() {
         Add your details to create a personal touch to your profile.
       </p>
 
-      <ProfilePicture profile={profile!} />
+      <ProfilePicture profile={profile!} onChange={(profile) => {}} />
 
       <ProfileForm
         profile={profile!}

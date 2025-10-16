@@ -9,8 +9,8 @@ export const registerSchema = z
     id: z.number().optional(),
     email: z.email(),
     password: z.string().min(8, 'Password must be at least 8 characters'),
-    first_name: z.string().min(1, 'First name is required'),
-    last_name: z.string().min(1, 'Last name is required'),
+    firstName: z.string().min(1, 'First name is required'),
+    lastName: z.string().min(1, 'Last name is required'),
     slug: z.string().min(1, 'Slug is required'),
     avatar_url: z.string().url().optional(),
   })
@@ -32,11 +32,17 @@ export const registerSchema = z
 
 export const updateSchema = z
   .object({
-    id: z.number().optional(),
+    id: z
+      .string()
+      .optional()
+      .transform((val) => (val ? Number(val) : undefined))
+      .refine((val) => val === undefined || !isNaN(val), {
+        message: 'Invalid ID',
+      }),
     email: z.email(),
     password: z.string().optional(),
-    first_name: z.string().min(1, 'First name is required'),
-    last_name: z.string().min(1, 'Last name is required'),
+    firstName: z.string().min(1, 'First name is required'),
+    lastName: z.string().min(1, 'Last name is required'),
     slug: z.string().min(1, 'Slug is required'),
     avatar_url: z.string().url().nullable().optional(),
   })

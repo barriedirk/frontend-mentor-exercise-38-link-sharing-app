@@ -66,6 +66,8 @@ export class UserController {
   }
 
   static async update(req: Request, res: Response) {
+    console.log('update => ', req.body);
+
     const result = updateSchema.safeParse(req.body);
 
     if (!result.success) {
@@ -103,12 +105,13 @@ export class UserController {
       ? await bcrypt.hash(data.password, 10)
       : undefined;
 
+    console.log('update', data);
     const updatedUser = await UserModel.update({
       id: data.id,
       email: data.email,
       password: hashedPassword,
-      first_name: data.first_name,
-      last_name: data.last_name,
+      first_name: data.firstName,
+      last_name: data.lastName,
       slug: data.slug,
       avatar_url: avatarUrl,
     });

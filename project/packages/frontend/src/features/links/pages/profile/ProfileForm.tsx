@@ -21,7 +21,7 @@ interface ProfileFormProps {
 export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
   const {
     control,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     mode: 'onChange',

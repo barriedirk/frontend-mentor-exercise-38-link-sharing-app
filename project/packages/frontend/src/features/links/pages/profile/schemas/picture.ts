@@ -20,10 +20,14 @@ export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 export const profilePictureSchema = z.object({
   picture: z
     .custom<FileList>()
-    .refine((file) => file?.length === 1, 'Image is required')
-    .refine((file) => file[0]?.size <= MAX_FILE_SIZE, 'Max file size is 5MB')
+    .optional()
+    .refine((file) => !file || file?.length === 1, 'Image is required')
     .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file[0]?.type),
+      (file) => !file || file[0]?.size <= MAX_FILE_SIZE,
+      'Max file size is 5MB'
+    )
+    .refine(
+      (file) => !file || ACCEPTED_IMAGE_TYPES.includes(file[0]?.type),
       'Only .jpg, .png, .webp formats are supported'
     ),
 });

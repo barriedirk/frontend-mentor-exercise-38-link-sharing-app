@@ -25,13 +25,27 @@ export const getProfile = async (id: number): Promise<User> => {
   return mapProfileFromApi(json.user);
 };
 
-export const updateProfile = async (profile: User): Promise<void> => {
+export const updateProfile = async (
+  profile: User,
+  pictureFile?: File
+): Promise<void> => {
+  const formData = new FormData();
+
+  formData.append('email', profile.email);
+  formData.append('firstName', profile.firstName);
+  formData.append('lastName', profile.lastName);
+  formData.append('slug', profile.slug);
+  if (profile.id !== undefined) formData.append('id', String(profile.id));
+  if (profile.password) formData.append('password', profile.password);
+  if (profile.avatarUrl) formData.append('avatar_url', profile.avatarUrl);
+
+  if (pictureFile) {
+    formData.append('avatar', pictureFile);
+  }
+
   const res = await fetchWithAuth(`${API_URL}/update`, {
     method: 'put',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ profile }),
+    body: formData,
   });
 
   if (!res.ok) {

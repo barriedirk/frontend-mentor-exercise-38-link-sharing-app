@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import clsx from 'clsx';
@@ -15,9 +15,13 @@ import { useProfileStore } from '@src/store/useProfileStore';
 import { User } from '@src/models/User';
 
 interface ProfilePictureProps {
+  onChange: (profile: User) => void;
   profile: User;
 }
-export default function ProfilePicture({ profile }: ProfilePictureProps) {
+export default function ProfilePicture({
+  profile,
+  onChange,
+}: ProfilePictureProps) {
   const {
     control,
     handleSubmit,
@@ -25,9 +29,6 @@ export default function ProfilePicture({ profile }: ProfilePictureProps) {
   } = useForm<ProfilePictureValues>({
     resolver: zodResolver(profilePictureSchema),
     mode: 'onChange',
-    defaultValues: {
-      picture: undefined,
-    },
   });
 
   const onSubmit = (data: ProfilePictureValues) => {
@@ -51,6 +52,7 @@ export default function ProfilePicture({ profile }: ProfilePictureProps) {
         helperText="Image must be below 1024x1024px. Use PNG or JPG format."
         icon="IconUploadImage"
         styleName="row"
+        defaultImage={profile.avatarUrl ?? undefined}
       />
     </form>
   );

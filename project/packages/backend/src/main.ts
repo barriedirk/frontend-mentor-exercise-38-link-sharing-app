@@ -9,9 +9,21 @@ try {
   const PORT = process.env.PORT ?? 1234;
   const app = express();
 
-  app.use(json());
   app.use(corsMiddleware());
   app.use('/uploads', express.static(path.join(__dirname, './uploads')));
+
+  // app.use(json()); because, we receive a Picture File
+  app.use((req, res, next) => {
+    const contentType = req.headers['content-type'] || '';
+    console.log('contentType => ', contentType);
+
+    if (contentType.includes('multipart/form-data')) {
+      return next();
+    }
+
+    express.json()(req, res, next);
+  });
+
   app.disable('x-powered-by');
 
   app.use('/api/devlinks', devLinksRouter);
