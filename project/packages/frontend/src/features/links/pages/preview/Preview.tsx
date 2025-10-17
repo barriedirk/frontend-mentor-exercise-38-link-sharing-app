@@ -1,11 +1,12 @@
 import './Preview.css';
 
-import Icon from '@src/components/icon/Icon';
+import Icon, { IconProps } from '@src/components/icon/Icon';
 
 import IllustrationPhoneMockup from '@src/components/svg/IllustrationPhoneMockup';
 import { useLinksStore } from '@src/store/useLinksStore';
 
 import { useProfileStore } from '@src/store/useProfileStore';
+import clsx from 'clsx';
 
 const API_URL =
   import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks/uploads/';
@@ -60,10 +61,16 @@ export default function Preview() {
           {links.map(({ platform, url, id }, index) => (
             <li
               key={id}
-              className="profile__link text-preset-4 text-white bg-black"
+              className={clsx(
+                'profile__link text-preset-4 platform',
+                platform.toLowerCase()
+              )}
             >
               <button type="button">
-                <Icon name="IconGithub" className="text-white" />
+                <Icon
+                  name={platform as IconProps['name']}
+                  className="text-white"
+                />
                 <span>{platform}</span>
                 <Icon
                   name="IconArrowRight"
@@ -72,67 +79,6 @@ export default function Preview() {
               </button>
             </li>
           ))}
-
-          <li className="profile__link text-preset-4 text-white bg-black">
-            <button type="button">
-              <Icon name="IconGithub" className="text-white" />
-              <span>GitHub</span>
-              <Icon
-                name="IconArrowRight"
-                className="text-white ml-auto   icon-arrow-right"
-              />
-            </button>
-          </li>
-          <li className="profile__link text-preset-4 text-white bg-blue-800">
-            <button type="button">
-              <Icon name="IconFrontendMentor" className="text-white" />
-              <span>Frontend Mentor</span>
-              <Icon
-                name="IconArrowRight"
-                className="text-white ml-auto icon-arrow-right"
-              />
-            </button>
-          </li>
-          <li className="profile__link text-preset-4 text-white bg-red-550">
-            <button type="button">
-              <Icon name="IconYoutube" className="text-white" />
-              <span>Youtube</span>
-              <Icon
-                name="IconArrowRight"
-                className="text-white ml-auto icon-arrow-right"
-              />
-            </button>
-          </li>
-          <li className="profile__link text-preset-4 text-white bg-blue-500">
-            <button type="button">
-              <Icon name="IconLinkedin" className="text-white" />
-              <span>Linkedin</span>
-              <Icon
-                name="IconArrowRight"
-                className="text-white ml-auto icon-arrow-right"
-              />
-            </button>
-          </li>
-          <li className="profile__link text-preset-4 text-white bg-red-550">
-            <button type="button">
-              <Icon name="IconYoutube" className="text-white" />
-              <span>Youtube</span>
-              <Icon
-                name="IconArrowRight"
-                className="text-white ml-auto icon-arrow-right"
-              />
-            </button>
-          </li>
-          <li className="profile__link text-preset-4 text-white bg-red-550">
-            <button type="button">
-              <Icon name="IconYoutube" className="text-white" />
-              <span>Youtube</span>
-              <Icon
-                name="IconArrowRight"
-                className="text-white ml-auto icon-arrow-right"
-              />
-            </button>
-          </li>
         </ul>
       </div>
     </div>

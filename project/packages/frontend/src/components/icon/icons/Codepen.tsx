@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import styles from './Icons.module.css';
 
-export default function IconCodepen({ className }: { className?: string }) {
+export default function Codepen({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

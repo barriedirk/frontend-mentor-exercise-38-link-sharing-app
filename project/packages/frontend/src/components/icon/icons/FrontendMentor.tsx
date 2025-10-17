@@ -2,11 +2,7 @@ import clsx from 'clsx';
 
 import styles from './Icons.module.css';
 
-export default function IconFrontendMentor({
-  className,
-}: {
-  className?: string;
-}) {
+export default function FrontendMentor({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

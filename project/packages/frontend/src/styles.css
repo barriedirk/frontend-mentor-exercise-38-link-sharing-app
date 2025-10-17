@@ -10,6 +10,7 @@
 @import './styles/utilities/button.css';
 @import './styles/utilities/link.css';
 @import './styles/utilities/helpers.css';
+@import './styles/utilities/platforms.css';
 
 @tailwind base;
 @tailwind components;

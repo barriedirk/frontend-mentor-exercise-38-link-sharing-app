@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import styles from './Icons.module.css';
 
-export default function IconGitlab({ className }: { className?: string }) {
+export default function Gitlab({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

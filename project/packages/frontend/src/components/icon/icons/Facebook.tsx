@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import styles from './Icons.module.css';
 
-export default function IconFacebook({ className }: { className?: string }) {
+export default function Facebook({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

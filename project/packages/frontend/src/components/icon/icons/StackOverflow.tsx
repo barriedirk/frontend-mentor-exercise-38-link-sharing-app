@@ -2,11 +2,7 @@ import clsx from 'clsx';
 
 import styles from './Icons.module.css';
 
-export default function IconStackOverflow({
-  className,
-}: {
-  className?: string;
-}) {
+export default function StackOverflow({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
