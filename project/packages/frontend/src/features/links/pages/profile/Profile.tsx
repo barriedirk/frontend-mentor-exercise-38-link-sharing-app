@@ -18,12 +18,11 @@ export default function Profile() {
   useSignals();
 
   const profile = useProfileStore((state) => state.profile);
+  const avatar = useProfileStore((state) => state.avatar);
+  const updateAvatar = useProfileStore((state) => state.updateAvatar);
   const updateProfile = useProfileStore((state) => state.updateProfile);
 
   const [isValidForm, setIsValidForm] = useState(false);
-  const [pictureAvatar, setPictureAvatar] = useState<File | undefined>(
-    undefined
-  );
 
   const onChangeProfile = useCallback(
     (profile: User, isValid: boolean) => {
@@ -37,12 +36,12 @@ export default function Profile() {
     (avatar: FileList | undefined) => {
       console.log('onchangeAvatar', avatar);
       if (avatar && avatar.length > 0) {
-        setPictureAvatar(avatar[0]);
+        updateAvatar(avatar[0]);
       } else {
-        setPictureAvatar(undefined);
+        updateAvatar(null);
       }
     },
-    [setPictureAvatar]
+    [updateAvatar]
   );
 
   const save = async () => {
@@ -53,7 +52,7 @@ export default function Profile() {
     loadingSignal.show();
 
     try {
-      await updateProfileApi(profile, pictureAvatar);
+      await updateProfileApi(profile, avatar);
 
       toast.success('Successed to save Profile', { id: idToast });
     } catch (error) {

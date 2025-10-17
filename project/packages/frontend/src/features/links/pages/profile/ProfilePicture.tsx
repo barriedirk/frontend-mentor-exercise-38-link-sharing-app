@@ -42,7 +42,7 @@ export default function ProfilePicture({
     onChange(picture);
   }, [picture, onChange]);
 
-  const defaultImage = profile.avatarUrl
+  const currentImage = profile.avatarUrl
     ? `${API_URL}${profile.avatarUrl}`
     : undefined;
 
@@ -50,7 +50,7 @@ export default function ProfilePicture({
     <form
       className={clsx(
         styles['picture-form'],
-        'flex flex-col gap-2 px-4 py-6 mb-5'
+        'flex flex-col gap-2 px-4 py-6 mb-5 overflow-hidden'
       )}
     >
       <FileUploadForm<ProfilePictureValues>
@@ -61,7 +61,7 @@ export default function ProfilePicture({
         helperText="Image must be below 1024x1024px. Use PNG or JPG format."
         icon="IconUploadImage"
         styleName="row"
-        defaultImage={defaultImage}
+        currentImage={currentImage}
       />
     </form>
   );

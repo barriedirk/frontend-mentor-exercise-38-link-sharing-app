@@ -1,16 +1,10 @@
 import { create } from 'zustand';
 import { User } from '@src/models/User';
-
-interface LinkProfile {
-  profile: User | null;
-  updateProfile: (profile: Partial<User>) => void;
-  updateAvatar: (avatarUrl: string) => void;
-  reset: () => void;
-}
+import { LinkProfile } from './LinkProfile';
 
 export const useProfileStore = create<LinkProfile>((set) => ({
   profile: null,
-
+  avatar: null,
   reset: () => set({ profile: null }),
   updateProfile: (profile) =>
     set((state) => ({
@@ -19,10 +13,5 @@ export const useProfileStore = create<LinkProfile>((set) => ({
         : ({ ...profile } as User),
     })),
 
-  updateAvatar: (avatarUrl) =>
-    set((state) => ({
-      profile: state.profile
-        ? { ...state.profile, avatarUrl }
-        : ({ avatarUrl } as User),
-    })),
+  updateAvatar: (avatar) => set({ avatar }),
 }));

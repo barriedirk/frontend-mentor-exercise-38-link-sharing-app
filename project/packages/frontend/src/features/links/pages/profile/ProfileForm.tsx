@@ -10,7 +10,7 @@ import { User } from '@src/models/User';
 
 import InputForm from '@src/components/forms/fields/InputForm';
 import ChecboxForm from '@src/components/forms/fields/ChecboxForm';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { shallowEqual } from '@src/shared/utils';
 
 interface ProfileFormProps {
@@ -36,6 +36,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
     },
   });
 
+  const prevIsValidRef = useRef<boolean>(false);
   const prevDataRef = useRef<User | null>(null);
   const prevUpdatePasswordRef = useRef<boolean>(false);
 
@@ -57,9 +58,15 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
 
     const hasChanged = !shallowEqual(prevDataRef.current, newData);
 
-    if (hasChanged || prevUpdatePasswordRef.current !== updatePassword) {
+    if (
+      hasChanged ||
+      prevUpdatePasswordRef.current !== updatePassword ||
+      isValid !== prevIsValidRef.current
+    ) {
       prevDataRef.current = newData;
       prevUpdatePasswordRef.current = updatePassword;
+      prevIsValidRef.current = isValid;
+
       onChange(newData, isValid);
     }
   }, [watched, onChange, isValid, updatePassword]);

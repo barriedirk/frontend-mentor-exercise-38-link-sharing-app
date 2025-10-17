@@ -20,6 +20,7 @@ import styles from './MainLinks.module.css';
 import { useLinksStore } from '@src/store/useLinksStore';
 import { useAuthStore } from '@src/store/useAuthStore';
 import { useProfileStore } from '@src/store/useProfileStore';
+import toast from 'react-hot-toast';
 
 export default function MainLinks() {
   useSignals();
@@ -37,6 +38,8 @@ export default function MainLinks() {
 
   useEffect(() => {
     loadingSignal.show();
+    const idToast = toast.loading('Loading');
+
     setIsLoaded(false);
     updateLinks([]);
     resetProfile();
@@ -52,8 +55,11 @@ export default function MainLinks() {
         updateProfile(fetchedProfile);
 
         setIsLoaded(true);
+        toast.success('Profile was loaded', { id: idToast });
       } catch (error) {
         console.error('Failed to fetch links', error);
+
+        toast.error('Failed to fetch profile', { id: idToast });
       } finally {
         loadingSignal.hide();
       }

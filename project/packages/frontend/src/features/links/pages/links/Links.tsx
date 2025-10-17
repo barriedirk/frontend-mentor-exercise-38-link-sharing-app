@@ -9,6 +9,7 @@ import { loadingSignal } from '@src/services/loadingSignal';
 
 import { useLinksStore } from '@src/store/useLinksStore';
 import { linkFormSchema } from './schemas/link';
+import toast from 'react-hot-toast';
 
 export default function Links() {
   const links = useLinksStore((state) => state.links);
@@ -69,14 +70,18 @@ export default function Links() {
   const save = async () => {
     if (!allFormsValid) return;
 
+    const idToast = toast.loading('Saving links ...');
+
     loadingSignal.show();
 
     try {
-      const fetchedLinks = await updateLinks(links);
+      await updateLinks(links);
 
-      console.log('@fetchedLinks => ', fetchedLinks);
+      toast.success('Success', { id: idToast });
     } catch (error) {
       console.error('Failed to save links', error);
+
+      toast.success('Failed to save links', { id: idToast });
     } finally {
       loadingSignal.hide();
     }

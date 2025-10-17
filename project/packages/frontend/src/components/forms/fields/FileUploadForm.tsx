@@ -19,7 +19,7 @@ interface FileUploadFormProps<T extends FieldValues> {
   label: string;
   error?: FieldError;
   helperText?: string;
-  defaultImage?: string;
+  currentImage?: string;
   styleName?: 'column' | 'row' | undefined;
   icon?: IconProps['name'];
 }
@@ -30,7 +30,7 @@ const FileUploadForm = <T extends FieldValues>({
   label,
   error,
   helperText,
-  defaultImage,
+  currentImage,
   styleName,
   icon,
 }: FileUploadFormProps<T>) => {
@@ -41,7 +41,7 @@ const FileUploadForm = <T extends FieldValues>({
   const fileList = useWatch({ name, control });
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(
-    defaultImage ?? null
+    currentImage ?? null
   );
 
   useEffect(() => {
@@ -52,11 +52,11 @@ const FileUploadForm = <T extends FieldValues>({
 
       return () => URL.revokeObjectURL(url);
     } else {
-      setPreviewUrl(defaultImage ?? null);
+      setPreviewUrl(currentImage ?? null);
 
       return undefined;
     }
-  }, [fileList, defaultImage]);
+  }, [fileList, currentImage]);
 
   const handleClick = () => {
     inputRef.current?.click();
@@ -64,7 +64,9 @@ const FileUploadForm = <T extends FieldValues>({
 
   const handleRemove = (onChange: (value: FileList | undefined) => void) => {
     onChange(undefined);
-    setPreviewUrl(defaultImage ?? null);
+    setPreviewUrl(null);
+    // setPreviewUrl(currentImage ?? null);
+
     if (inputRef.current) inputRef.current.value = '';
   };
 

@@ -27,7 +27,7 @@ export const getProfile = async (id: number): Promise<User> => {
 
 export const updateProfile = async (
   profile: User,
-  pictureFile?: File | undefined
+  pictureFile?: File | null
 ): Promise<void> => {
   const formData = new FormData();
 
