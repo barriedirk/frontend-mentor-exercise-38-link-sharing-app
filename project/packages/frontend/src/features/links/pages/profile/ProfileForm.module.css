@@ -1,3 +1,10 @@
 .profile-form {
   background-color: var(--clr-dr-white);
 }
+
+@media screen and (min-height: 50em) {
+  .profile-form {
+    overflow-y: scroll;
+    height: calc(100dvh - 700px);
+  }
+}

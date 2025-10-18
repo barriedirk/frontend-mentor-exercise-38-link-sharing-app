@@ -1,12 +1,15 @@
-.profile-form {
-  background-color: var(--clr-dr-white);
-}
-
-.profile-actions {
+.link-actions {
   position: sticky;
   bottom: 0;
 
   padding-block: 20px;
   border-top: 1px solid var(--clr-grey-200);
   background-color: var(--clr-white);
+}
+
+@media screen and (min-width: 50em) {
+  .link-list {
+    overflow-y: scroll;
+    height: calc(100dvh - 565px);
+  }
 }

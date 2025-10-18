@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import LinkForm from './LinkForm';
 
-import styles from './LinkForm.module.css';
+import styles from './Links.module.css';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { updateLinks } from '@src/services/linksApi';
@@ -101,7 +101,7 @@ export default function Links() {
       </p>
 
       <button
-        className="button button--secondary w-full button--small"
+        className="button button--secondary w-full button--small mb-5"
         type="button"
         aria-label="+ Add new link"
         onClick={addNewLink}
@@ -109,7 +109,10 @@ export default function Links() {
         + Add new link
       </button>
 
-      <div id="link-list" className={clsx('link-list flex flex-col gap-5')}>
+      <div
+        id="link-list"
+        className={clsx(styles['link-list'], 'flex flex-col gap-5')}
+      >
         {links.map((value, index) => (
           <LinkForm
             key={value.id}
@@ -125,13 +128,12 @@ export default function Links() {
             onRemove={() => removeLink(index)}
           />
         ))}
+        <div
+          ref={bottomRef}
+          className="h-px pointer-events-none select-none"
+          aria-hidden="true"
+        />
       </div>
-      <div
-        ref={bottomRef}
-        className="h-px pointer-events-none select-none"
-        aria-hidden="true"
-      />
-
       <div id="link-actions" className={clsx(styles['link-actions'], 'mt-5')}>
         <button
           className="button button--primary w-full"

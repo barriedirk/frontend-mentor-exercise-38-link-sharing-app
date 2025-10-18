@@ -10,8 +10,9 @@ import { User } from '@src/models/User';
 
 import InputForm from '@src/components/forms/fields/InputForm';
 import ChecboxForm from '@src/components/forms/fields/ChecboxForm';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { shallowEqual } from '@src/shared/utils';
+import { useFocusFirstInput } from '@src/hooks/useFocusFirstInput';
 
 interface ProfileFormProps {
   onChange: (profile: User, isValid: boolean) => void;
@@ -19,6 +20,9 @@ interface ProfileFormProps {
 }
 
 export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const inputFirstRef = useFocusFirstInput();
+
   const {
     control,
     formState: { errors, isValid },
@@ -64,15 +68,21 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
       isValid !== prevIsValidRef.current
     ) {
       prevDataRef.current = newData;
-      prevUpdatePasswordRef.current = updatePassword;
-      prevIsValidRef.current = isValid;
 
+      if (prevUpdatePasswordRef.current !== updatePassword) {
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+
+        prevUpdatePasswordRef.current = updatePassword;
+      }
+
+      prevIsValidRef.current = isValid;
       onChange(newData, isValid);
     }
   }, [watched, onChange, isValid, updatePassword]);
 
   return (
     <form
+      ref={inputFirstRef}
       className={clsx(
         styles['profile-form'],
         'flex flex-col gap-5 px-4 py-6 mb-5'
@@ -155,6 +165,11 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
           />
         </>
       )}
+      <div
+        ref={bottomRef}
+        className="h-px pointer-events-none select-none"
+        aria-hidden="true"
+      ></div>
     </form>
   );
 }

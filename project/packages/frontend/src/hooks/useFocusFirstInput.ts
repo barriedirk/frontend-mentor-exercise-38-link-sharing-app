@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
-export function useFocusFirstInput<T extends HTMLElement>() {
+export function useFocusFirstInput<T extends HTMLElement = HTMLFormElement>() {
   const containerRef = useRef<T | null>(null);
 
   useEffect(() => {

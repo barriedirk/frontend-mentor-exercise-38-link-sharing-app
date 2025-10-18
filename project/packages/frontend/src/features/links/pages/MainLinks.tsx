@@ -38,6 +38,7 @@ export default function MainLinks() {
 
   useEffect(() => {
     loadingSignal.show();
+
     const idToast = toast.loading('Loading');
 
     setIsLoaded(false);
