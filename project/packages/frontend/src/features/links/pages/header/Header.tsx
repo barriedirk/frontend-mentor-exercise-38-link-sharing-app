@@ -54,7 +54,7 @@ export default function Header() {
               tabHeader.value = 'profile';
             }}
           >
-            <Icon name="IconPreviewHeader" className="header__icon" />
+            <Icon name="IconProfileDetailsHeader" className="header__icon" />
             <span className="header__text text-preset-3-semibold">
               Profile Details
             </span>
