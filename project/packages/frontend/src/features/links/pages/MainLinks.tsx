@@ -10,7 +10,7 @@ import { useSignals } from '@preact/signals-react/runtime';
 import { tabHeader } from './MainLinksStateSignal';
 
 import Header from './header/Header';
-import Preview from './preview/Preview';
+import Mockup from './mockup/Mockup';
 import Profile from './profile/Profile';
 import Links from './links/Links';
 
@@ -73,7 +73,7 @@ export default function MainLinks() {
       <Header />
       <div className={clsx(styles['links__main'], 'mt-5')}>
         <aside className={clsx(styles['links__phone-preview'])}>
-          <Preview />
+          <Mockup />
         </aside>
 
         <div className={clsx(styles['links__editor-wrapper'])}>

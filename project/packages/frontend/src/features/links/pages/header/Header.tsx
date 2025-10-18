@@ -6,8 +6,16 @@ import { tabHeader } from '../MainLinksStateSignal';
 import clsx from 'clsx';
 import Icon from '@src/components/icon/Icon';
 
+import { useNavigate } from 'react-router-dom';
+
 export default function Header() {
   useSignals();
+
+  const navigate = useNavigate();
+
+  const onPreview = () => {
+    navigate('/preview');
+  };
 
   return (
     <div className="header">
@@ -58,6 +66,7 @@ export default function Header() {
             type="button"
             className="button button--secondary h-[52px] min-h-[52px] min-w-[52px]"
             title="Preview"
+            onClick={onPreview}
           >
             <Icon name="IconPreviewHeader" className="header__icon" />
             <span className="header__text text-preset-3-semibold px-3">

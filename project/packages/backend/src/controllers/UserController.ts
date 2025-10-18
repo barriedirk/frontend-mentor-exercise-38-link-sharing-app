@@ -15,7 +15,8 @@ import {
   updateSchema,
   UpdateInput,
 } from '../schemas/auth.schema';
-import { removeAvatar } from '../utils/utils';
+import { parseJwt, removeAvatar } from '../utils/utils';
+import { PayloadJWT } from '../models/PayloadJWT';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 
@@ -67,8 +68,13 @@ export class UserController {
   }
 
   static async update(req: Request, res: Response) {
-    console.log('update body => ', req.body);
-    console.log('update file => ', req.file);
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const payload = parseJwt<PayloadJWT>(authHeader.split(' ')[1]);
 
     const result = updateSchema.safeParse(req.body);
 
@@ -89,8 +95,8 @@ export class UserController {
 
     const data: UpdateInput = result.data;
 
-    if (!data.id) {
-      return res.status(400).json({ error: 'Missing user ID' });
+    if (!data.id || data.id !== payload?.userId) {
+      return res.status(400).json({ error: 'Invalid Id' });
     }
 
     const duplicate = await UserModel.checkEmailAndSlugNotDuplicated(

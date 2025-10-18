@@ -1,4 +1,4 @@
-import './Preview.css';
+import './Mockup.css';
 
 import Icon, { IconProps } from '@src/components/icon/Icon';
 
@@ -11,7 +11,7 @@ import clsx from 'clsx';
 const API_URL =
   import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks/uploads/';
 
-export default function Preview() {
+export default function Mockup() {
   const profile = useProfileStore((state) => state.profile);
   const avatar = useProfileStore((state) => state.avatar);
   const links = useLinksStore((state) => state.links);

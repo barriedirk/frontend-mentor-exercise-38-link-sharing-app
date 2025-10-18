@@ -19,3 +19,11 @@ export function shallowEqual(obj1: any, obj2: any): boolean {
 
   return true;
 }
+
+export async function copyTextToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+  }
+}
