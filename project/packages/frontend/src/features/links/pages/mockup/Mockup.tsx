@@ -1,5 +1,6 @@
 import './Mockup.css';
 
+import { getApiUrl } from '@src/shared/getApiUrl';
 import Icon, { IconProps } from '@src/components/icon/Icon';
 
 import IllustrationPhoneMockup from '@src/components/svg/IllustrationPhoneMockup';
@@ -8,8 +9,7 @@ import { useLinksStore } from '@src/store/useLinksStore';
 import { useProfileStore } from '@src/store/useProfileStore';
 import clsx from 'clsx';
 
-const API_URL =
-  import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks/uploads/';
+const API_URL = `${getApiUrl()}/uploads/`;
 
 export default function Mockup() {
   const profile = useProfileStore((state) => state.profile);

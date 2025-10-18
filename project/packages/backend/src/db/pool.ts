@@ -13,5 +13,6 @@ export const pool = new Pool({
   idleTimeoutMillis: 30000, // close idle clients after 30s
 });
 
+// example:
 // import { pool } from '../db/pool';
 // const result = await pool.query('SELECT * FROM users');

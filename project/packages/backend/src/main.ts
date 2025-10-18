@@ -1,7 +1,13 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import path from 'path';
+
 import { devLinksRouter } from './routes/devlink';
 import { corsMiddleware } from './middlewares/cors.middleware';
-import path from 'path';
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
+});
 
 console.log('main.ts loaded');
 

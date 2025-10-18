@@ -1,12 +1,10 @@
+import { getApiUrl } from '@src/shared/getApiUrl';
 import { Link } from '@src/models/Types';
 import { fetchWithAuth } from '@src/shared/fetchWithAuth';
 import { mapLinkFromApi, mapLinkToApi } from '@src/shared/mappers/link.mapper';
 
-const API_URL =
-  import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks';
-
 export const getLinks = async () => {
-  const res = await fetchWithAuth(`${API_URL}/links`, {
+  const res = await fetchWithAuth(`${getApiUrl()}/links`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +25,7 @@ export const getLinks = async () => {
 export const updateLinks = async (
   links: Array<{ platform: string; url: string }>
 ) => {
-  const res = await fetchWithAuth(`${API_URL}/links`, {
+  const res = await fetchWithAuth(`${getApiUrl()}/links`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

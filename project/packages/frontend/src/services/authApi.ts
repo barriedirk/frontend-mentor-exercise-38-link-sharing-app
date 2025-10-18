@@ -1,10 +1,8 @@
 import { mapUserFromApi } from '@src/shared/mappers/user.mapper';
-
-const API_URL =
-  import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks';
+import { getApiUrl } from '@src/shared/getApiUrl';
 
 export const loginUser = async (data: { email: string; password: string }) => {
-  const res = await fetch(`${API_URL}/login`, {
+  const res = await fetch(`${getApiUrl()}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -25,7 +23,7 @@ export const loginUser = async (data: { email: string; password: string }) => {
 };
 
 export const signUpUser = async (data: { email: string; password: string }) => {
-  const res = await fetch(`${API_URL}/create`, {
+  const res = await fetch(`${getApiUrl()}/create`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),

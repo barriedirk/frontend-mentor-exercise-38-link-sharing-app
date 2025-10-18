@@ -1,12 +1,11 @@
+import { getApiUrl } from '@src/shared/getApiUrl';
+
 import { User } from '@src/models/User';
 import { fetchWithAuth } from '@src/shared/fetchWithAuth';
 import { mapProfileFromApi } from '@src/shared/mappers/link.mapper';
 
-const API_URL =
-  import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks';
-
 export const getProfile = async (id: number): Promise<User> => {
-  const res = await fetchWithAuth(`${API_URL}/get`, {
+  const res = await fetchWithAuth(`${getApiUrl()}/get`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -43,7 +42,7 @@ export const updateProfile = async (
     formData.append('avatar', pictureFile);
   }
 
-  const res = await fetchWithAuth(`${API_URL}/update`, {
+  const res = await fetchWithAuth(`${getApiUrl()}/update`, {
     method: 'put',
     body: formData,
   });

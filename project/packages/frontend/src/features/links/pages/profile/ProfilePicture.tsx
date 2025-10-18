@@ -1,3 +1,5 @@
+import { getApiUrl } from '@src/shared/getApiUrl';
+
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -14,8 +16,7 @@ import FileUploadForm from '@src/components/forms/fields/FileUploadForm';
 import { User } from '@src/models/User';
 import { useEffect } from 'react';
 
-const API_URL =
-  import.meta.env.VITE_API_URL ?? 'http://localhost:1234/api/devlinks/uploads/';
+const API_URL = `${getApiUrl()}/uploads/`;
 
 interface ProfilePictureProps {
   onChange: (avatar: FileList | undefined) => void;
