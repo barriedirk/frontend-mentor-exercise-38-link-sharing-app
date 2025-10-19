@@ -10,6 +10,7 @@ import { loadingSignal } from '@src/services/loadingSignal';
 import { useLinksStore } from '@src/store/useLinksStore';
 import { linkFormSchema } from './schemas/link';
 import toast from 'react-hot-toast';
+import IllustrationEmpty from '@src/components/svg/IllustrationEmpty';
 
 export default function Links() {
   const links = useLinksStore((state) => state.links);
@@ -113,30 +114,51 @@ export default function Links() {
         id="link-list"
         className={clsx(styles['link-list'], 'flex flex-col gap-5')}
       >
-        {links.map((value, index) => (
-          <LinkForm
-            key={value.id}
-            idx={index}
-            value={value}
-            onDragStart={() => onDragStart(index)}
-            onDragOver={(e: React.DragEvent<HTMLFormElement>) => onDragOver(e)}
-            onDrop={() => onDrop(index)}
-            onChange={(updated) => {
-              updateLink(updated, index);
-            }}
-            onValidityChange={(isValid) => handleValidityChange(index, isValid)}
-            onRemove={() => removeLink(index)}
-          />
-        ))}
+        {links.length === 0 && (
+          <div className="p-7 flex flex-col justify-center items-center gap-4 bg-grey-50">
+            <IllustrationEmpty className="w-[124px] h-[80px] md:w-[249px] md:h-[160px]" />
+            <h2 className="text-preset-2 text-grey-900 max-w-[488px]">
+              Let's get you started
+            </h2>
+            <p className="text-preset-3-regular text-grey-500 max-w-[488px]">
+              Use the “Add new link” button to get started. Once you have more
+              than one link, you can reorder and edit them. We're here to help
+              you share your profiles with everyone!
+            </p>
+          </div>
+        )}
+        {links.length > 0 &&
+          links.map((value, index) => (
+            <LinkForm
+              key={value.id}
+              idx={index}
+              value={value}
+              onDragStart={() => onDragStart(index)}
+              onDragOver={(e: React.DragEvent<HTMLFormElement>) =>
+                onDragOver(e)
+              }
+              onDrop={() => onDrop(index)}
+              onChange={(updated) => {
+                updateLink(updated, index);
+              }}
+              onValidityChange={(isValid) =>
+                handleValidityChange(index, isValid)
+              }
+              onRemove={() => removeLink(index)}
+            />
+          ))}
         <div
           ref={bottomRef}
           className="h-px pointer-events-none select-none"
           aria-hidden="true"
         />
       </div>
-      <div id="link-actions" className={clsx(styles['link-actions'], 'mt-5')}>
+      <div
+        id="link-actions"
+        className={clsx(styles['link-actions'], 'mt-5  flex flex-row-reverse')}
+      >
         <button
-          className="button button--primary w-full"
+          className="button button--primary w-full md:w-[85px]"
           disabled={!allFormsValid}
           type="button"
           aria-label="Save"

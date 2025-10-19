@@ -86,10 +86,16 @@ export default function Profile() {
         onChange={(profile, isValid) => onChangeProfile(profile, isValid)}
       />
 
-      <div id="link-actions" className={clsx(styles['link-actions'], 'mt-5')}>
+      <div
+        id="profile-actions"
+        className={clsx(
+          styles['profile-actions'],
+          'mt-5 flex flex-row-reverse'
+        )}
+      >
         <button
           disabled={!isValidForm}
-          className="button button--primary w-full"
+          className="button button--primary w-full  md:w-[85px]"
           type="button"
           aria-label="Save"
           onClick={() => save()}
