@@ -9,10 +9,12 @@ dotenv.config({
   path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
 });
 
+import { getJWTValues } from './utils/utils';
+
 console.log('main.ts loaded');
 
 try {
-  const PORT = process.env.PORT ?? 1234;
+  const { PORT } = getJWTValues();
   const app = express();
 
   app.use(corsMiddleware());

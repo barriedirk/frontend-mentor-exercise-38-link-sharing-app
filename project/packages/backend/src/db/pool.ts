@@ -1,14 +1,14 @@
 import { Pool } from 'pg';
-import dotenv from 'dotenv';
+import { getJWTValues } from '../utils/utils';
 
-dotenv.config();
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = getJWTValues();
 
 export const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: Number(process.env.DB_PORT) || 5432,
-  user: process.env.DB_USER || 'linkuser',
-  password: process.env.DB_PASSWORD || 'linkpassword',
-  database: process.env.DB_NAME || 'linkdb',
+  host: DB_HOST,
+  port: DB_PORT,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_NAME,
   max: 10, // max number of clients in the pool
   idleTimeoutMillis: 30000, // close idle clients after 30s
 });

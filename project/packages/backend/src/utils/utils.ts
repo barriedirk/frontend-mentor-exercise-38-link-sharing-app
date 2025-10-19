@@ -1,5 +1,7 @@
 import path from 'path';
 import fs from 'fs/promises';
+import { Request } from 'express';
+import { PayloadJWT } from '../models/PayloadJWT';
 
 export const readJSON = (path: string) => require(path);
 
@@ -37,3 +39,98 @@ export function parseJwt<T>(token: string): T | null {
     return null;
   }
 }
+
+export function getIdFromJWT(req: Request): {
+  errorStatus?: number;
+  errorMessage?: string;
+  userId: number;
+} {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return {
+      errorStatus: 401,
+      errorMessage: 'Unauthorized',
+      userId: 0,
+    };
+  }
+
+  const payload = parseJwt<PayloadJWT>(authHeader.split(' ')[1]);
+
+  if (!payload) {
+    return {
+      errorStatus: 400,
+      errorMessage: 'Invalid Payload',
+      userId: 0,
+    };
+  }
+
+  if (!payload.userId) {
+    return {
+      errorStatus: 400,
+      errorMessage: 'Invalid Payload',
+      userId: 0,
+    };
+  }
+
+  return {
+    userId: payload.userId,
+  };
+}
+
+export function memoize<T>(fn: () => T): () => T {
+  let cached: T | undefined;
+
+  return () => {
+    if (cached === undefined) {
+      cached = fn();
+    }
+    return cached;
+  };
+}
+
+interface JWTValues {
+  JWT_SECRET: string;
+  PORT: string | number;
+  DB_HOST: string;
+  DB_PORT: number;
+  DB_USER: string;
+  DB_PASSWORD: string;
+  DB_NAME: string;
+  ACCEPTED_ORIGINS: string[];
+}
+
+export const getJWTValues = memoize(() => {
+  const jwtValues: JWTValues = {
+    JWT_SECRET: process.env.JWT_SECRET || 'default_secret',
+    PORT: process.env.PORT ?? 1234,
+    DB_HOST: process.env.DB_HOST || 'localhost',
+    DB_PORT: Number(process.env.DB_PORT) || 5432,
+    DB_USER: process.env.DB_USER || 'linkuser',
+    DB_PASSWORD: process.env.DB_PASSWORD || 'linkpassword',
+    DB_NAME: process.env.DB_NAME || 'linkdb',
+    ACCEPTED_ORIGINS: process.env.CORS_ACCEPTED_ORIGINS
+      ? process.env.CORS_ACCEPTED_ORIGINS.split(',')
+      : [
+          'http://localhost:8080',
+          'http://localhost:3333',
+          'http://localhost:4200',
+        ],
+  };
+
+  const allKeysHaveValue = (
+    Object.keys(jwtValues) as (keyof JWTValues)[]
+  ).every((key) => !!jwtValues[key]);
+
+  if (!allKeysHaveValue) {
+    throw new Error(
+      'Missing required environment variables: ' +
+        Object.entries(jwtValues)
+          .filter(([_, value]) => !value)
+          .map(([key]) => key)
+          .join(', ')
+    );
+  }
+
+  return jwtValues;
+});

@@ -15,10 +15,9 @@ import {
   updateSchema,
   UpdateInput,
 } from '../schemas/auth.schema';
-import { parseJwt, removeAvatar } from '../utils/utils';
-import { PayloadJWT } from '../models/PayloadJWT';
+import { getIdFromJWT, getJWTValues, removeAvatar } from '../utils/utils';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
+const { JWT_SECRET } = getJWTValues();
 
 export class UserController {
   static async helloWorld(req: Request, res: Response) {
@@ -68,13 +67,11 @@ export class UserController {
   }
 
   static async update(req: Request, res: Response) {
-    const authHeader = req.headers.authorization;
+    const { errorStatus, errorMessage, userId } = getIdFromJWT(req);
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ error: 'Unauthorized' });
+    if (errorStatus) {
+      return res.status(errorStatus).json({ error: errorMessage });
     }
-
-    const payload = parseJwt<PayloadJWT>(authHeader.split(' ')[1]);
 
     const result = updateSchema.safeParse(req.body);
 
@@ -90,19 +87,15 @@ export class UserController {
     } else if (req.body.avatar_url) {
       avatarUrl = req.body.avatar_url;
     } else {
-      console.log('No file uploaded');
+      // console.log('No file uploaded');
     }
 
     const data: UpdateInput = result.data;
 
-    if (!data.id || data.id !== payload?.userId) {
-      return res.status(400).json({ error: 'Invalid Id' });
-    }
-
     const duplicate = await UserModel.checkEmailAndSlugNotDuplicated(
       data.email,
       data.slug,
-      data.id
+      userId
     );
 
     if (duplicate) {
@@ -114,7 +107,7 @@ export class UserController {
       : undefined;
 
     const updatedUser = await UserModel.update({
-      id: data.id,
+      id: userId,
       email: data.email,
       password: hashedPassword,
       first_name: data.firstName,
@@ -171,10 +164,10 @@ export class UserController {
     const user = await UserModel.create({
       email: data.email,
       password: hashed,
-      first_name: data.first_name,
-      last_name: data.last_name,
+      first_name: data.firstName,
+      last_name: data.lastName,
       slug: data.slug,
-      avatar_url: data.avatar_url,
+      avatar_url: '',
     });
 
     const token = jwt.sign(

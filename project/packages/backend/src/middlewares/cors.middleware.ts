@@ -1,6 +1,7 @@
 import cors from 'cors';
+import { getJWTValues } from '../utils/utils';
 
-const ACCEPTED_ORIGINS = process.env.CORS_ACCEPTED_ORIGINS!.split(',');
+const { ACCEPTED_ORIGINS } = getJWTValues();
 
 export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
   cors({

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { LinkModel } from '../models/postgress/LinkModel';
 import { linkArraySchema } from '../schemas/link.schema';
+import { getIdFromJWT } from '../utils/utils';
 
 export class LinksController {
   static async getLinks(req: Request, res: Response, next: NextFunction) {
@@ -19,20 +20,30 @@ export class LinksController {
     res: Response,
     next: NextFunction
   ) {
+    const { errorStatus, errorMessage, userId } = getIdFromJWT(req);
+
+    if (errorStatus) {
+      return res.status(errorStatus).json({ error: errorMessage });
+    }
+
     try {
-      const user = (req as any).user;
       const parsed = linkArraySchema.safeParse(req.body);
+
       if (!parsed.success) {
         return res
           .status(400)
           .json({ errors: parsed.error.flatten().fieldErrors });
       }
 
-      await LinkModel.replaceLinks(user.userId, parsed.data);
+      await LinkModel.replaceLinks(userId, parsed.data);
 
       return res.status(204).send();
     } catch (err) {
       next(err);
+
+      return res
+        .status(409)
+        .json({ error: 'Error when try to replace the links' });
     }
   }
 
