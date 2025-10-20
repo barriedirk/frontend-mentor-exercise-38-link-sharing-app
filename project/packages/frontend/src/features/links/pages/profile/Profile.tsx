@@ -13,9 +13,12 @@ import { updateProfile as updateProfileApi } from '@src/services/profileApi';
 import { useSignals } from '@preact/signals-react/runtime';
 
 import toast from 'react-hot-toast';
+import { useLogout } from '@src/hooks/useLogout';
 
 export default function Profile() {
   useSignals();
+
+  const logout = useLogout();
 
   const profile = useProfileStore((state) => state.profile);
   const avatar = useProfileStore((state) => state.avatar);
@@ -66,12 +69,21 @@ export default function Profile() {
 
   return (
     <>
-      <h2
-        id="profile-heading"
-        className="text-preset-2 md:text-preset-1 text-grey-900 mb-2.5"
-      >
-        Profile Details
-      </h2>
+      <header className="flex items-center gap-6 mb-2.5">
+        <h2
+          id="profile-heading"
+          className="text-preset-2 md:text-preset-1 text-grey-900"
+        >
+          Profile Details
+        </h2>
+        <button
+          type="button"
+          className="button button--small button--secondary px-5"
+          onClick={logout}
+        >
+          Logout
+        </button>
+      </header>
       <p className="text-preset-3-regular text-grey-500 mb-10">
         Add your details to create a personal touch to your profile.
       </p>

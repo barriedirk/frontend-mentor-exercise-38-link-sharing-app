@@ -1,6 +1,5 @@
 import './PreviewProfile.css';
 
-import { Link } from '@src/models/Types';
 import clsx from 'clsx';
 import Icon, { IconProps } from '../icon/Icon';
 
@@ -8,33 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { copyTextToClipboard } from '@src/shared/utils';
 import useChangeBodyStyle from '@src/hooks/useChangeBodyStyle';
-
-const linksMockup: Link[] = [
-  {
-    platform: 'Github',
-    url: 'https://www.github',
-    id: 2,
-  },
-  {
-    platform: 'Github',
-    url: 'https://www.github',
-    id: 3,
-  },
-  {
-    platform: 'Github',
-    url: 'https://www.github',
-    id: 4,
-  },
-];
+import { FullProfile } from '@src/models/FullProfile';
 
 interface PreviewProfileProps {
+  fullProfile: FullProfile;
   showBackToEditor?: boolean;
   showshareLink?: boolean;
 }
 
+const HOST = import.meta.env.VITE_HOST;
+
 export function PreviewProfile({
-  showshareLink = true,
-  showBackToEditor = true,
+  fullProfile: { user, links },
+  showshareLink = false,
+  showBackToEditor = false,
 }: PreviewProfileProps) {
   useChangeBodyStyle('background-color: var(--clr-grey-50)');
 
@@ -42,7 +28,10 @@ export function PreviewProfile({
 
   const shareLink = () => {
     toast.loading('Share Link copied.');
-    copyTextToClipboard('This text will be copied to your clipboard.');
+
+    const host = `${HOST}/view/${user.slug}`;
+
+    copyTextToClipboard(host);
   };
 
   return (
@@ -86,9 +75,9 @@ export function PreviewProfile({
           aria-label="User avatar"
         >
           <img
-            src="https://placeit-img-1-p.cdn.aws.placeit.net/uploads/stage/stage_image/44548/optimized_product_thumb_stage.jpg"
-            alt="Avatar of John Doe"
-            className="preview-profile__image h-[104px] w-[104px] rounded-full border-purple-600 border"
+            src={user.avatarUrl}
+            alt={`Avatar of ${user.firstName} ${user.lastName}`}
+            className="preview-profile__image h-[104px] w-[104px] rounded-full border-purple-600 border flex justify-center items-center text-center"
           />
         </section>
         <section
@@ -98,11 +87,15 @@ export function PreviewProfile({
           <p
             id="profile-name"
             className="text-preset-1 text-grey-950 text-ellipsis overflow-hidden whitespace-nowrap px-4"
+            aria-label="Full Name"
           >
-            John Doe
+            {`${user.firstName} ${user.lastName}`}
           </p>
-          <p className="text-preset-3-regular text-grey-500 text-ellipsis overflow-hidden whitespace-nowrap px-4 mt-4">
-            johndoe@email.com
+          <p
+            className="text-preset-3-regular text-grey-500 text-ellipsis overflow-hidden whitespace-nowrap px-4 mt-4"
+            aria-label={`Email of ${user.firstName} ${user.lastName}`}
+          >
+            {user.email}
           </p>
         </section>
         <section
@@ -113,7 +106,7 @@ export function PreviewProfile({
             External profile links
           </h2>
           <ul className="profile__links flex flex-col gap-7">
-            {linksMockup.map(({ platform, url, id }, index) => (
+            {links.map(({ platform, url, id }, index) => (
               <li
                 key={id}
                 className={clsx(

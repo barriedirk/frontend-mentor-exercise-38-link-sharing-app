@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { UserController } from '../controllers/UserController';
 import { LinksController } from '../controllers/LinksController';
+import { ViewController } from '../controllers/ViewController';
 
 import upload from '../middlewares/upload.middleware';
 
@@ -20,6 +21,8 @@ devLinksRouter.put(
   upload.single('avatar'),
   UserController.update
 );
+
+devLinksRouter.get('/view/:slug', ViewController.viewProfile);
 
 devLinksRouter.get('/links', authenticateJWT, LinksController.getLinks);
 devLinksRouter.put('/links', authenticateJWT, LinksController.replaceAllLinks);

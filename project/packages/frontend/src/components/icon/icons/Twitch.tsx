@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function Twitch({ className }: { className?: string }) {
   return (
     <svg
@@ -10,11 +8,11 @@ export default function Twitch({ className }: { className?: string }) {
       height="16"
       fill="none"
       viewBox="0 0 16 16"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <path
-        fill="#737373"
+        fill="currentColor"
         d="M7.76 3.954h.954v2.853H7.76m2.62-2.854h.954v2.854h-.954M4.667 1.333l-2.38 2.38v8.574H5.14v2.38l2.387-2.38h1.9L13.714 8V1.333m-.954 6.194-1.9 1.9H8.954l-1.667 1.667V9.427H5.14v-7.14h7.62v5.24Z"
       />
     </svg>

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Link } from '@src/models/Types';
+import { Link } from '@src/models/Link';
 import { LinkState } from './LinkState';
 import { generateNumericId } from '@src/shared/utils';
 

@@ -1,13 +1,5 @@
-export type Link = {
-  id?: number;
-  platform: string;
-  url: string;
-};
-
-export type Profile = {
-  name: string;
-  avatarUrl: string;
-};
+import { Profile } from './Profile';
+import { Link } from './Link';
 
 export type MainStore = {
   profile: Profile | null;

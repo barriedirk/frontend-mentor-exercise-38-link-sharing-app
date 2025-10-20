@@ -12,7 +12,7 @@ import SelectForm from '@src/components/forms/fields/SelectForm';
 import Icon from '@src/components/icon/Icon';
 
 import { platforms } from './platforms';
-import { Link } from '@src/models/Types';
+import { Link } from '@src/models/Link';
 import { useEffect, useMemo, useRef } from 'react';
 
 interface LinkFormProps {

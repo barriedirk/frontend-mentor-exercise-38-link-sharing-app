@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import styles from './Icons.module.css';
-
 export default function Devto({ className }: { className?: string }) {
   return (
     <svg
@@ -10,12 +8,12 @@ export default function Devto({ className }: { className?: string }) {
       height="16"
       fill="none"
       viewBox="0 0 16 16"
-      className={clsx(styles['icon-empty'], className)}
+      className={clsx(className)}
       aria-hidden="true"
     >
       <g clip-path="url(#a)">
         <path
-          fill="#737373"
+          fill="currentColor"
           d="M12.25 0h-8.5A3.75 3.75 0 0 0 0 3.75v8.5A3.75 3.75 0 0 0 3.75 16h8.5A3.75 3.75 0 0 0 16 12.25v-8.5A3.75 3.75 0 0 0 12.25 0Z"
         />
         <path

@@ -1,4 +1,4 @@
-import { Link } from '@src/models/Types';
+import { Link } from '@src/models/Link';
 
 export interface LinkState {
   links: Link[];

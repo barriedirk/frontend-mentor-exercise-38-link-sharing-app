@@ -1,5 +1,5 @@
 import { getApiUrl } from '@src/shared/getApiUrl';
-import { Link } from '@src/models/Types';
+import { Link } from '@src/models/Link';
 import { fetchWithAuth } from '@src/shared/fetchWithAuth';
 import { mapLinkFromApi, mapLinkToApi } from '@src/shared/mappers/link.mapper';
 

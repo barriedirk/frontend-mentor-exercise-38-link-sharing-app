@@ -8,6 +8,7 @@ import MainLayout from '@src/layout/mainLayout/MainLayout';
 import PublicLayout from '@src/layout/publicLayout/PublicLayout';
 
 import { AuthRedirect } from '@src/components/auth/AuthRedirect';
+import { MainDataLoader } from '@src/components/loader/MainDataLoader';
 
 const Login = lazy(() => import('../features/auth/pages/Login'));
 const SignUp = lazy(() => import('../features/auth/pages/SignUp'));
@@ -30,17 +31,23 @@ export function App() {
         </Route>
 
         <Route element={<AuthGuard />}>
-          <Route path="/" element={<MainLayout />}>
+          <Route
+            path="/"
+            element={
+              <MainDataLoader>
+                <MainLayout />
+              </MainDataLoader>
+            }
+          >
             <Route index element={<MainLinks />} />
-            <Route path="/preview" element={<Preview />} />
+            <Route path="preview" element={<Preview />} />
           </Route>
         </Route>
 
         <Route element={<PublicLayout />}>
-          <Route path="/view/:token" element={<PublicLinkPage />} />
+          <Route path="/view/:slug" element={<PublicLinkPage />} />
         </Route>
 
-        {/* 404 Fallback */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

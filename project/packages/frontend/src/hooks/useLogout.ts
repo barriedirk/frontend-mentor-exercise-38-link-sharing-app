@@ -1,4 +1,4 @@
-import { useAuthStore } from '@src/store/auth';
+import { useAuthStore } from '@src/store/useAuthStore';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
