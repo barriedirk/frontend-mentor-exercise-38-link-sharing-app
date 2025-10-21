@@ -66,6 +66,23 @@ export class UserController {
     });
   }
 
+  static async deleteUserByEmail(req: Request, res: Response) {
+    try {
+      const { email } = req.body;
+      if (!email) return res.status(400).json({ error: 'Email required' });
+
+      const deletedCount = await UserModel.deleteOne(email);
+      if (deletedCount === 0) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      return res.status(200).json({ message: 'User deleted' });
+    } catch (error) {
+      console.log('DeleteUserByEmail ', error);
+      return res.status(500).json({ error: 'Server error' });
+    }
+  }
+
   static async update(req: Request, res: Response) {
     const { errorStatus, errorMessage, userId } = getIdFromJWT(req);
 

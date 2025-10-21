@@ -22,5 +22,9 @@
         ]
       }
     }
+  },
+  "devDependencies": {
+    "@swc/core": "~1.5.29",
+    "@swc/jest": "^0.2.39"
   }
 }

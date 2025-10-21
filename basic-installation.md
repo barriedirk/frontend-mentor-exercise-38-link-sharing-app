@@ -199,3 +199,17 @@ pnpm add @tanstack/react-query --filter=frontend
 pnpm add zod --filter=frontend
 
 
+
+pnpm add -D jest supertest ts-jest @types/jest @types/supertest
+
+
+pnpm nx test backend-e2e
+pnpm nx test backend
+pnpm nx test backend-e2e --no-interactive
+
+
+# If using Nx
+pnpm nx run backend-e2e:test
+
+# Or plain Jest
+pnpm jest --config jest.config.ts

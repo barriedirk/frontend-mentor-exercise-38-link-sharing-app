@@ -1,0 +1,16 @@
+{
+  "name": "@project/backend-e2e",
+  "projectType": "application",
+  "sourceRoot": "packages/backend-e2e/src",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/packages/backend-e2e"],
+      "options": {
+        "jestConfig": "packages/backend-e2e/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

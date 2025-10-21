@@ -14,6 +14,7 @@ devLinksRouter.get('/test', UserController.helloWorld);
 devLinksRouter.post('/create', UserController.create);
 devLinksRouter.post('/login', UserController.login);
 devLinksRouter.get('/me', authenticateJWT, UserController.getProfile);
+devLinksRouter.delete('/delete-account', UserController.deleteUserByEmail);
 devLinksRouter.post('/get', authenticateJWT, UserController.getProfileById);
 devLinksRouter.put(
   '/update',

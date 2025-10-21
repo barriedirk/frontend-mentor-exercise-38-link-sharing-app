@@ -98,6 +98,7 @@ interface JWTValues {
   DB_PASSWORD: string;
   DB_NAME: string;
   ACCEPTED_ORIGINS: string[];
+  DATABASE_URL: string;
 }
 
 export const getJWTValues = memoize(() => {
@@ -109,6 +110,9 @@ export const getJWTValues = memoize(() => {
     DB_USER: process.env.DB_USER || 'linkuser',
     DB_PASSWORD: process.env.DB_PASSWORD || 'linkpassword',
     DB_NAME: process.env.DB_NAME || 'linkdb',
+    DATABASE_URL:
+      process.env.DB_NAME ||
+      'postgresql://linkuser:linkpassword@localhost:5432/linkdb',
     ACCEPTED_ORIGINS: process.env.CORS_ACCEPTED_ORIGINS
       ? process.env.CORS_ACCEPTED_ORIGINS.split(',')
       : [

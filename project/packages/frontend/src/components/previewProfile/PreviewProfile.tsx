@@ -3,7 +3,7 @@ import './PreviewProfile.css';
 import clsx from 'clsx';
 import Icon, { IconProps } from '../icon/Icon';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { copyTextToClipboard } from '@src/shared/utils';
 import useChangeBodyStyle from '@src/hooks/useChangeBodyStyle';
@@ -11,6 +11,7 @@ import { FullProfile } from '@src/models/FullProfile';
 
 interface PreviewProfileProps {
   fullProfile: FullProfile;
+  showLogo?: boolean;
   showBackToEditor?: boolean;
   showshareLink?: boolean;
 }
@@ -19,6 +20,7 @@ const HOST = import.meta.env.VITE_HOST;
 
 export function PreviewProfile({
   fullProfile: { user, links },
+  showLogo = false,
   showshareLink = false,
   showBackToEditor = false,
 }: PreviewProfileProps) {
@@ -42,6 +44,12 @@ export function PreviewProfile({
           aria-label="Profile controls"
         >
           <ul className="preview-profile__control-list flex flex-row justify-between p-5">
+            {showLogo && (
+              <Link to="/login">
+                <Icon name="LogoDevlinksLarge" className="w-[110px] h-[32px]" />
+                <h1 className="sr-only">devlinks App</h1>
+              </Link>
+            )}
             {showBackToEditor && (
               <li>
                 <button

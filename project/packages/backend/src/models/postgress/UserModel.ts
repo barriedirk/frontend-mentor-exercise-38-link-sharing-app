@@ -39,6 +39,15 @@ export class UserModel {
     return result.rows[0];
   }
 
+  static async deleteOne(email: string): Promise<number> {
+    const result = await pool.query(
+      `DELETE FROM devlinks_users WHERE email = $1`,
+      [email]
+    );
+
+    return result.rowCount ?? 0;
+  }
+
   static async findBySlug(slug: string): Promise<UserRow | null> {
     const result = await pool.query<UserRow>(
       `SELECT * FROM devlinks_users WHERE slug = $1`,
