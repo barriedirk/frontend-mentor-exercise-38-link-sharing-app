@@ -92,6 +92,7 @@ function SignUp() {
           autoComplete="email"
           icon="IconEmail"
           placeholder="e.g. alex@email.com"
+          dataTestid="email"
         />
         <InputForm<SignUpFormValues>
           name="password"
@@ -102,6 +103,7 @@ function SignUp() {
           autoComplete="password"
           icon="IconPassword"
           placeholder="At least 8 characters"
+          dataTestid="password"
         />
         <InputForm<SignUpFormValues>
           name="confirmPassword"
@@ -113,8 +115,10 @@ function SignUp() {
           icon="IconPassword"
           placeholder="At least 8 characters"
           helperText="Password must contain at least 8 characters"
+          dataTestid="confirmPassword"
         />
         <button
+          data-testid="button-sign-up-submit"
           className="btn--submit mt-5 button button--primary"
           type="submit"
           aria-label="Create your account"

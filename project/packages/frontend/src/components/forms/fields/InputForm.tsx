@@ -21,6 +21,7 @@ interface Props<T extends FieldValues> {
   placeholder?: string;
   styleName?: 'column' | 'row' | undefined;
   helperText?: string;
+  dataTestid?: string;
 }
 
 const InputForm = <T extends FieldValues>({
@@ -34,6 +35,7 @@ const InputForm = <T extends FieldValues>({
   placeholder,
   styleName,
   helperText,
+  dataTestid,
 }: Props<T>) => {
   const inputId = `${name}-input`;
   const errorId = `${name}-error`;
@@ -72,6 +74,7 @@ const InputForm = <T extends FieldValues>({
           control={control}
           render={({ field }) => (
             <input
+              data-testid={dataTestid}
               id={inputId}
               type={type}
               {...field}

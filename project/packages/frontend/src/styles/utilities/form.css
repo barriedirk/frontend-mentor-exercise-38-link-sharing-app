@@ -92,6 +92,7 @@
   transform: translateY(5%);
   color: var(--clr-pelati);
   max-width: 200px;
+  text-align: right;
 }
 
 .select-dropdown {

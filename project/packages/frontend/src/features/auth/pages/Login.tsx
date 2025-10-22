@@ -98,6 +98,7 @@ export default function Login() {
           autoComplete="email"
           icon="IconEmail"
           placeholder="e.g. alex@email.com"
+          dataTestid="email"
         />
         <InputForm<LoginFormValues>
           name="password"
@@ -108,8 +109,10 @@ export default function Login() {
           autoComplete="password"
           icon="IconPassword"
           placeholder="Enter your password"
+          dataTestid="password"
         />
         <button
+          data-testid="button-login-submit"
           className="btn--submit mt-5 button button--primary"
           type="submit"
           aria-label="Log in to your account"

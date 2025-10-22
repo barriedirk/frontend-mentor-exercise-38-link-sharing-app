@@ -22,6 +22,7 @@ interface FileUploadFormProps<T extends FieldValues> {
   currentImage?: string;
   styleName?: 'column' | 'row' | undefined;
   icon?: IconProps['name'];
+  dataTestid?: string;
 }
 
 const FileUploadForm = <T extends FieldValues>({
@@ -33,6 +34,7 @@ const FileUploadForm = <T extends FieldValues>({
   currentImage,
   styleName,
   icon,
+  dataTestid,
 }: FileUploadFormProps<T>) => {
   const inputId = `${name}-input`;
   const errorId = `${name}-error`;
@@ -65,7 +67,6 @@ const FileUploadForm = <T extends FieldValues>({
   const handleRemove = (onChange: (value: FileList | undefined) => void) => {
     onChange(undefined);
     setPreviewUrl(null);
-    // setPreviewUrl(currentImage ?? null);
 
     if (inputRef.current) inputRef.current.value = '';
   };
@@ -103,6 +104,7 @@ const FileUploadForm = <T extends FieldValues>({
             )}
           >
             <input
+              data-testid={dataTestid}
               id={inputId}
               type="file"
               accept="image/*"

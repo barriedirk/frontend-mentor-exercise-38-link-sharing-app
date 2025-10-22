@@ -14,6 +14,7 @@ interface Props<T extends FieldValues> {
   label: string;
   error?: FieldError;
   helperText?: string;
+  dataTestid?: string;
 }
 
 const ChecboxForm = <T extends FieldValues>({
@@ -22,6 +23,7 @@ const ChecboxForm = <T extends FieldValues>({
   label,
   error,
   helperText,
+  dataTestid,
 }: Props<T>) => {
   const checkboxId = `${name}-checkbox`;
   const errorId = `${name}-error`;
@@ -41,6 +43,7 @@ const ChecboxForm = <T extends FieldValues>({
           control={control}
           render={({ field }) => (
             <input
+              data-testid={dataTestid}
               id={checkboxId}
               type="checkbox"
               {...field}

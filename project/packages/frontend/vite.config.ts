@@ -46,6 +46,7 @@ export default defineConfig(({ mode }) => {
         reportsDirectory: './test-output/vitest/coverage',
         provider: 'v8' as const,
       },
+      setupFiles: ['./src/test-utils/setup.ts'],
     },
     define: {
       __API_URL__: JSON.stringify(env.VITE_API_URL),

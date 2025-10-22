@@ -1,17 +1,19 @@
-import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import App from './app';
 
-describe('App', () => {
-  it('should render successfully', () => {
-    const { baseElement } = render(<App />);
-    expect(baseElement).toBeTruthy();
-  });
+import { AppProviders } from '../test-utils/providers';
 
-  it('should have a greeting as the title', () => {
-    const { getAllByText } = render(<App />);
-    expect(
-      getAllByText(new RegExp('Welcome @project/frontend', 'gi')).length > 0
-    ).toBeTruthy();
+describe('App', () => {
+  it('should render without crashing', () => {
+    render(
+      <AppProviders>
+        <App />
+      </AppProviders>
+    );
+
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 });

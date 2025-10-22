@@ -213,3 +213,7 @@ pnpm nx run backend-e2e:test
 
 # Or plain Jest
 pnpm jest --config jest.config.ts
+
+
+
+pnpm nx test frontend
