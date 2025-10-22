@@ -9,6 +9,15 @@ Content-Type: application/json
 
 }
 
+### Login test@example.com
+POST http://localhost:1234/api/devlinks/login
+Content-Type: application/json
+
+{
+      "email": "test@example.com",
+      "password": "TestPassword123!"
+}
+
 
 ### 📥 Get links (REQUIRES TOKEN)
 GET http://localhost:1234/api/devlinks/links

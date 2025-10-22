@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { createApp } from './createApp';
+import { createApp } from '../createApp';
 
 describe('UserController - Hello World Route', () => {
   it('GET /api/devlinks/test should return Hello World', async () => {

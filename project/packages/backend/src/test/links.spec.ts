@@ -1,10 +1,11 @@
 import request from 'supertest';
-import { createApp } from './createApp';
+import { createApp } from '../createApp';
 
 const testEmail = 'links-test@example.com';
 const testPassword = 'StrongP@ssw0rd!';
 let app: ReturnType<typeof createApp>;
 let token: string;
+
 // let createdLinkId: number;
 
 describe('LinksController - API Tests', () => {

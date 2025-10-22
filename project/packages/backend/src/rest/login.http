@@ -2,6 +2,25 @@
 GET http://localhost:1234/api/devlinks/test HTTP/1.1
 
 
+### DELETE an demo account
+DELETE http://localhost:1234/api/devlinks/delete-account HTTP/1.1
+content-type: application/json
+
+{
+    "email": "teste2ebackend@fakeemail.com"
+}
+
+### POST an demo account
+POST http://localhost:1234/api/devlinks/create HTTP/1.1
+content-type: application/json
+
+{
+    "email": "teste2ebackend@fakeemail.com",
+    "password": "TestPassword123!"
+}
+
+
+
 ### Create an demo account
 POST http://localhost:1234/api/devlinks/create HTTP/1.1
 content-type: application/json

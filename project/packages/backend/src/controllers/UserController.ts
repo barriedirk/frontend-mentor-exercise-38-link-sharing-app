@@ -207,39 +207,47 @@ export class UserController {
   static async login(req: Request, res: Response) {
     const result = loginSchema.safeParse(req.body);
 
-    if (!result.success) {
-      const flattened = result.error.flatten();
-      return res.status(400).json({ errors: flattened.fieldErrors });
+    try {
+      if (!result.success) {
+        const flattened = result.error.flatten();
+        return res.status(400).json({ errors: flattened.fieldErrors });
+      }
+
+      const data: LoginInput = result.data;
+      const user = await UserModel.findByEmail(data.email);
+
+      if (!user) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+
+      const match = await bcrypt.compare(data.password, user.password);
+
+      if (!match) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+
+      const token = jwt.sign(
+        {
+          userId: user.id,
+          tokenVersion: user.token_version,
+        },
+        JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+
+      const { password: _, ...userWithoutPwd } = user;
+
+      return res.json({
+        user: userWithoutPwd,
+        token,
+      });
+    } catch (err) {
+      console.log('Invalid Credentials', err);
+
+      return res
+        .status(401)
+        .json({ error: 'Invalid credentials', errorMessage: err as string });
     }
-
-    const data: LoginInput = result.data;
-    const user = await UserModel.findByEmail(data.email);
-
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    const match = await bcrypt.compare(data.password, user.password);
-
-    if (!match) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    const token = jwt.sign(
-      {
-        userId: user.id,
-        tokenVersion: user.token_version,
-      },
-      JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    const { password: _, ...userWithoutPwd } = user;
-
-    return res.json({
-      user: userWithoutPwd,
-      token,
-    });
   }
 
   static async getProfile(req: Request, res: Response, next: NextFunction) {
