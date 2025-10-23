@@ -8,6 +8,7 @@ export interface UserRow {
   last_name: string | null;
   slug: string | null;
   avatar_url: string | null;
+  avatar_public_id: string | null;
   token_version: number;
   created_at: Date;
 }
@@ -99,9 +100,18 @@ export class UserModel {
     last_name: string;
     slug: string;
     avatar_url?: string | null;
+    avatar_public_id?: string | null;
   }): Promise<UserRow> {
-    const { id, email, password, first_name, last_name, slug, avatar_url } =
-      user;
+    const {
+      id,
+      email,
+      password,
+      first_name,
+      last_name,
+      slug,
+      avatar_url,
+      avatar_public_id,
+    } = user;
 
     const values: any[] = [
       email,
@@ -109,6 +119,7 @@ export class UserModel {
       last_name,
       slug,
       avatar_url ?? null,
+      avatar_public_id ?? null,
     ];
     let query = `
     UPDATE devlinks_users
@@ -117,12 +128,13 @@ export class UserModel {
       first_name = $2,
       last_name = $3,
       slug = $4,
-      avatar_url = $5
+      avatar_url = $5,
+      avatar_public_id = $6
   `;
 
     if (password) {
       values.push(password);
-      query += `, password = $6`;
+      query += `, password = $7`;
     }
 
     values.push(id);

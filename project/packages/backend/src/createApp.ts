@@ -1,15 +1,24 @@
 import express, { Express } from 'express';
+import { v2 as cloudinary } from 'cloudinary';
+
 import path from 'path';
 import dotenv from 'dotenv';
 
 import { devLinksRouter } from './routes/devlink';
 import { corsMiddleware } from './middlewares/cors.middleware';
+import { getJWTValues } from './utils/utils';
 
 dotenv.config({
   path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
 });
 
 export function createApp(): Express {
+  cloudinary.config({
+    cloud_name: getJWTValues().CLOUD_NAME,
+    api_key: getJWTValues().CLOUD_API_KEY,
+    api_secret: getJWTValues().CLOUD_API_SECRET,
+  });
+
   const app = express();
 
   app.use(corsMiddleware());

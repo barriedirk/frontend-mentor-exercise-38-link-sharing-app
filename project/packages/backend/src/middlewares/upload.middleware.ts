@@ -3,21 +3,6 @@ import multer, { FileFilterCallback } from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-// @todo, for memory
-// const upload = multer({
-//   storage: multer.memoryStorage(),
-//   fileFilter: (
-//     req: Request,
-//     file: Express.Multer.File,
-//     callback: FileFilterCallback
-//   ) => {
-//     if (!file.mimetype.startsWith('image/')) {
-//       return callback(new Error('Only images are allowed!'));
-//     }
-//     callback(null, true);
-//   },
-// });
-
 const uploadDir = path.join(__dirname, '../uploads');
 
 if (!fs.existsSync(uploadDir)) {
@@ -36,7 +21,8 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({
+// to save the image locally in your own server
+export const uploadToLocal = multer({
   storage,
   fileFilter: (
     req: Request,
@@ -47,6 +33,17 @@ const upload = multer({
       return callback(new Error('Only images are allowed!'));
     }
     callback(null, true);
+  },
+});
+
+// to use for cloudinary
+const upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(new Error('Only images are allowed!'));
+    }
+    cb(null, true);
   },
 });
 

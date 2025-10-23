@@ -99,6 +99,10 @@ interface JWTValues {
   DB_NAME: string;
   ACCEPTED_ORIGINS: string[];
   DATABASE_URL: string;
+  CLOUD_NAME: string;
+  CLOUD_API_KEY: string;
+  CLOUD_API_SECRET: string;
+  CLOUDINARY_URL: string;
 }
 
 export const getJWTValues = memoize(() => {
@@ -120,11 +124,19 @@ export const getJWTValues = memoize(() => {
           'http://localhost:3333',
           'http://localhost:4200',
         ],
+    CLOUD_NAME: process.env.CLOUD_NAME || '',
+    CLOUD_API_KEY: process.env.CLOUD_API_KEY || '',
+    CLOUD_API_SECRET: process.env.CLOUD_API_SECRET || '',
+    CLOUDINARY_URL: process.env.CLOUDINARY_URL || '',
   };
 
   const allKeysHaveValue = (
     Object.keys(jwtValues) as (keyof JWTValues)[]
-  ).every((key) => !!jwtValues[key]);
+  ).every((key) => {
+    const value = jwtValues[key];
+
+    return value !== undefined && value !== null && value !== '';
+  });
 
   if (!allKeysHaveValue) {
     throw new Error(

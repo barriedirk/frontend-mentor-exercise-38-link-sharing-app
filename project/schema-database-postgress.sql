@@ -7,6 +7,7 @@ CREATE TABLE devlinks_users (
   last_name VARCHAR(100),                      -- display last name
   slug VARCHAR(100) UNIQUE NOT NULL,
   avatar_url TEXT,                             -- profile image URL
+  avatar_public_id TEXT,
   token_version INT DEFAULT 0,                 -- for JWT invalidation
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
