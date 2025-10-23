@@ -109,6 +109,7 @@ export default function LinkForm({
         error={errors.platform}
         placeholder="Select Platform"
         options={platforms}
+        dataTestid={`platform-link-${idx + 1}`}
       />
 
       <InputForm<LinkFormValues>
@@ -120,6 +121,7 @@ export default function LinkForm({
         autoComplete="url"
         icon="IconLink"
         placeholder="e.g. https://www.github.com/johnappleseed"
+        dataTestid={`url-link-${idx + 1}`}
       />
     </form>
   );

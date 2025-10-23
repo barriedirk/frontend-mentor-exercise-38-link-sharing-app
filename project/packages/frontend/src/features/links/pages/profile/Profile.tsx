@@ -37,7 +37,6 @@ export default function Profile() {
 
   const onChangeAvatar = useCallback(
     (avatar: FileList | undefined) => {
-      console.log('onchangeAvatar', avatar);
       if (avatar && avatar.length > 0) {
         updateAvatar(avatar[0]);
       } else {
@@ -59,7 +58,7 @@ export default function Profile() {
 
       toast.success('Successed to save Profile', { id: idToast });
     } catch (error) {
-      console.error('Failed to save profile', error);
+      // console.error('Failed to save profile', error);
 
       toast.error('Failed to save Profile', { id: idToast });
     } finally {
@@ -111,6 +110,7 @@ export default function Profile() {
           type="button"
           aria-label="Save"
           onClick={() => save()}
+          data-testid="submit-save-profile"
         >
           Save
         </button>

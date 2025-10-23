@@ -37,6 +37,8 @@ export default function Header() {
             onClick={() => {
               tabHeader.value = 'link';
             }}
+            aria-label="Show links Form"
+            data-testid="tab-show-links-form"
           >
             <Icon name="IconLinksHeader" className="header__icon" />
             <span className="header__text text-preset-3-semibold">Links</span>
@@ -53,6 +55,8 @@ export default function Header() {
             onClick={() => {
               tabHeader.value = 'profile';
             }}
+            aria-label="Show Profile Form"
+            data-testid="tab-show-profile-form"
           >
             <Icon name="IconProfileDetailsHeader" className="header__icon" />
             <span className="header__text text-preset-3-semibold">
@@ -67,6 +71,8 @@ export default function Header() {
             className="button button--secondary h-[52px] min-h-[52px] min-w-[52px]"
             title="Preview"
             onClick={onPreview}
+            aria-label="Show Preview"
+            data-testid="tab-show-preview"
           >
             <Icon name="IconPreviewHeader" className="header__icon" />
             <span className="header__text text-preset-3-semibold px-3">

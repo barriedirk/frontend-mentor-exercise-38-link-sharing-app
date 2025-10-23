@@ -27,6 +27,7 @@ interface Props<T extends FieldValues> {
   placeholder?: string;
   helperText?: string;
   options: Option[];
+  dataTestid?: string;
 }
 
 const SelectForm = <T extends FieldValues>({
@@ -38,6 +39,7 @@ const SelectForm = <T extends FieldValues>({
   placeholder = 'Select an option',
   helperText,
   options,
+  dataTestid,
 }: Props<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
@@ -172,6 +174,7 @@ const SelectForm = <T extends FieldValues>({
                 error && 'is-invalid'
               )}
               onClick={toggleDropdown}
+              data-testid={dataTestid ? `${dataTestid}-toggle-dropdown` : null}
             >
               {icon && <Icon name={icon} />}
               <div
@@ -183,6 +186,7 @@ const SelectForm = <T extends FieldValues>({
                 )}
                 aria-invalid={!!error}
                 aria-describedby={error ? errorId : undefined}
+                data-testid={dataTestid ? `${dataTestid}-${inputId}` : null}
               >
                 {selected?.icon}
                 <span
@@ -200,6 +204,9 @@ const SelectForm = <T extends FieldValues>({
                   onClick={clearSelection}
                   aria-label="Clear selected option"
                   className="button--simple text-red-500 hover:text-red-550 ml-auto"
+                  data-testid={
+                    dataTestid ? `${dataTestid}-clear-selection` : null
+                  }
                 >
                   <Icon name="IconRemove" className="h-[12px] w-[12px]" />
                 </button>
@@ -208,11 +215,16 @@ const SelectForm = <T extends FieldValues>({
               <button
                 type="button"
                 onClick={toggleDropdown}
-                aria-label="Clear selected option"
+                aria-label="Show options"
                 className={clsx(
                   'button--simple text-purple-600 hover:text-purple-950 h-[12px] w-[12px]',
                   !selected && 'ml-auto'
                 )}
+                data-testid={
+                  dataTestid
+                    ? `${dataTestid}-toggle-dropdown-show-options`
+                    : null
+                }
               >
                 <Icon name="IconChevronDown" />
               </button>
@@ -234,6 +246,11 @@ const SelectForm = <T extends FieldValues>({
                 role="listbox"
                 ref={dropdownRef}
                 className="select-dropdown"
+                data-testid={
+                  dataTestid
+                    ? `${dataTestid}-${listboxId}-select-dropdown`
+                    : null
+                }
               >
                 {options.map((option, index) => {
                   const isSelected = field.value === option.value;
@@ -247,6 +264,9 @@ const SelectForm = <T extends FieldValues>({
                       aria-selected={isSelected}
                       data-index={index}
                       onClick={() => handleSelect(option)}
+                      data-testid={
+                        dataTestid ? `${dataTestid}-option-${index}` : null
+                      }
                       className={clsx(
                         'flex cursor-pointer items-center gap-2 px-4 py-2',
                         isSelected && 'bg-purple-600 text-white font-semibold',

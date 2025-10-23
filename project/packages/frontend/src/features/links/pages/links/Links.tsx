@@ -106,6 +106,7 @@ export default function Links() {
         type="button"
         aria-label="+ Add new link"
         onClick={addNewLink}
+        data-testid="button-add-new-link"
       >
         + Add new link
       </button>
@@ -115,7 +116,10 @@ export default function Links() {
         className={clsx(styles['link-list'], 'flex flex-col gap-5')}
       >
         {links.length === 0 && (
-          <div className="p-7 flex flex-col justify-center items-center gap-4 bg-grey-50">
+          <div
+            className="p-7 flex flex-col justify-center items-center gap-4 bg-grey-50"
+            data-testid="wrapper-empty-links"
+          >
             <IllustrationEmpty className="w-[124px] h-[80px] md:w-[249px] md:h-[160px]" />
             <h2 className="text-preset-2 text-grey-900 max-w-[488px]">
               Let's get you started
@@ -151,6 +155,7 @@ export default function Links() {
           ref={bottomRef}
           className="h-px pointer-events-none select-none"
           aria-hidden="true"
+          data-testid="tag-bottom-ref-links"
         />
       </div>
       <div
@@ -163,6 +168,7 @@ export default function Links() {
           type="button"
           aria-label="Save"
           onClick={save}
+          data-testid="submit-save-links"
         >
           Save
         </button>

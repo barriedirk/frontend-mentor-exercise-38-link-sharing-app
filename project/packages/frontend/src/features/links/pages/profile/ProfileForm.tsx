@@ -93,6 +93,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         control={control}
         label="Update Password"
         error={errors.updatePassword}
+        dataTestid="profile-checkbox-update-password"
       />
 
       <InputForm<ProfileFormValues>
@@ -104,6 +105,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         autoComplete="firstName"
         placeholder="e.g. Ben"
         styleName="row"
+        dataTestid="profile-first-name"
       />
 
       <InputForm<ProfileFormValues>
@@ -115,6 +117,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         autoComplete="lastName"
         placeholder="e.g. Wright"
         styleName="row"
+        dataTestid="profile-last-name"
       />
 
       <InputForm<ProfileFormValues>
@@ -126,6 +129,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         autoComplete="email"
         placeholder="e.g. ben@example.com"
         styleName="row"
+        dataTestid="profile-email"
       />
 
       <InputForm<ProfileFormValues>
@@ -137,6 +141,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         autoComplete="slug"
         placeholder="e.g. ben-wright"
         styleName="row"
+        dataTestid="profile-slug"
       />
 
       {updatePassword && (
@@ -150,6 +155,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
             autoComplete="password"
             icon="IconPassword"
             placeholder="At least 8 characters"
+            dataTestid="profile-password"
           />
 
           <InputForm<ProfileFormValues>
@@ -162,6 +168,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
             icon="IconPassword"
             placeholder="At least 8 characters"
             helperText="Password must contain at least 8 characters"
+            dataTestid="profile-confirm-password"
           />
         </>
       )}
@@ -169,6 +176,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         ref={bottomRef}
         className="h-px pointer-events-none select-none"
         aria-hidden="true"
+        data-testid="profile-bottom-ref"
       ></div>
     </form>
   );
