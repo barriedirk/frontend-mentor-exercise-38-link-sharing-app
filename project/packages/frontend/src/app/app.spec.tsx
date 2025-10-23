@@ -14,6 +14,6 @@ describe('App', () => {
       </AppProviders>
     );
 
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   });
 });

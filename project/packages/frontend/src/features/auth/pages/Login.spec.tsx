@@ -1,14 +1,34 @@
 import '@testing-library/jest-dom';
-
+import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { Toaster } from 'react-hot-toast';
-import Login from './Login';
 
-import { AppProviders } from '@src/test-utils/providers';
+import { AppProvidersNoRouter } from '@src/test-utils/AppProvidersNoRouter';
+import { ProviderLoginWithRouter } from '@src/test-utils/ProviderLoginWithRouter';
 
 import * as authApi from '@src/services/authApi';
 import * as authStore from '@src/store/useAuthStore';
+
+// Error: to avoid this TypeError: matchMedia is not a function at prefersReducedMotion (react-hot-toast)
+//
+// Problem: "This is a classic issue when testing React components that use window.matchMedia in a Node environment like Vitest or Jest. The window.matchMedia API is not implemented in Node.js, so the test crashes.""
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: (query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    addListener: () => {}, // deprecated
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    removeListener: () => {}, // deprecated
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    addEventListener: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    removeEventListener: () => {},
+    dispatchEvent: () => false,
+  }),
+});
 
 beforeEach(() => {
   vi.restoreAllMocks();
@@ -16,10 +36,9 @@ beforeEach(() => {
 
 const renderLogin = () =>
   render(
-    <AppProviders>
-      <Login />
-      <Toaster />
-    </AppProviders>
+    <AppProvidersNoRouter>
+      <ProviderLoginWithRouter />
+    </AppProvidersNoRouter>
   );
 
 describe('Login page', () => {
@@ -53,40 +72,46 @@ describe('Login page', () => {
   });
 
   it('calls loginUser and navigates on successful login', async () => {
-    const mockLogin = vi.spyOn(authApi, 'loginUser').mockResolvedValue({
-      token: 'token123',
-      user: { email: 'test@test.com', firstName: '', lastName: '', slug: '' },
-    });
+    const user = userEvent.setup();
 
     const loginSpy = vi.spyOn(authStore.useAuthStore.getState(), 'login');
+    const mockLogin = vi.spyOn(authApi, 'loginUser').mockResolvedValue({
+      token: 'token123',
+      user: {
+        email: 'test@test.com',
+        firstName: '',
+        lastName: '',
+        slug: '',
+        password: 'mypassword123',
+      },
+    });
 
     renderLogin();
 
-    fireEvent.change(screen.getByTestId('email'), {
-      target: { value: 'test@example.com' },
-    });
+    await user.type(screen.getByTestId('email'), 'test@test.com');
+    await user.type(screen.getByTestId('password'), 'mypassword123');
 
-    fireEvent.change(screen.getByTestId('password'), {
-      target: { value: 'mypassword123' },
-    });
-
-    fireEvent.click(screen.getByTestId('button-login-submit'));
+    await user.click(screen.getByTestId('button-login-submit'));
 
     await waitFor(() => {
       expect(mockLogin).toHaveBeenCalledWith({
-        email: 'test@example.com',
+        email: 'test@test.com',
         password: 'mypassword123',
       });
       expect(loginSpy).toHaveBeenCalled();
     });
 
-    expect(
-      await screen.findByText(/success!/i, {}, { timeout: 1500 })
-    ).toBeInTheDocument();
+    // await waitFor(() => {
+    //   console.log('test => ', document.body.innerHTML);
+    // });
+
+    expect(await screen.findByText(/home page/i)).toBeInTheDocument();
+
+    expect(await screen.findByText(/success!/i)).toBeInTheDocument();
   });
 
   it('shows error message on login failure', async () => {
-    vi.spyOn(authApi, 'loginUser').mockRejectedValue({
+    const loginSpy = vi.spyOn(authApi, 'loginUser').mockRejectedValue({
       message: 'Invalid credentials',
     });
 
@@ -97,13 +122,28 @@ describe('Login page', () => {
     });
 
     fireEvent.change(screen.getByTestId('password'), {
-      target: { value: 'wrongpass' },
+      target: { value: 'Wrongpass@1234' },
     });
+
+    await waitFor(() =>
+      expect(screen.getByTestId('button-login-submit')).not.toBeDisabled()
+    );
+
+    fireEvent.click(screen.getByTestId('button-login-submit'));
 
     fireEvent.click(screen.getByTestId('button-login-submit'));
 
     await waitFor(() => {
-      expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
+      expect(loginSpy).toHaveBeenCalledWith({
+        email: 'wrong@example.com',
+        password: 'Wrongpass@1234',
+      });
     });
+
+    // await waitFor(() => {
+    //   console.log('test => ', document.body.innerHTML);
+    // });
+
+    expect(await screen.findByText(/invalid credentials/i)).toBeInTheDocument();
   });
 });
