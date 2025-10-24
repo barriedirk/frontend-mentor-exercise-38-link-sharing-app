@@ -97,6 +97,7 @@ export default function LinkForm({
           className="link"
           aria-label={`Remove Link #${idx + 1}`}
           onClick={onRemove}
+          data-testid={`button-platform-remove-link-${idx + 1}`}
         >
           remove
         </button>

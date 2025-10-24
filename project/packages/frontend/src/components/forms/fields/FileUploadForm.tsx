@@ -125,6 +125,7 @@ const FileUploadForm = <T extends FieldValues>({
                 error && 'border-error'
               )}
               onClick={handleClick}
+              data-testid={dataTestid ? `${dataTestid}-upload` : null}
             >
               {previewUrl && (
                 <img
@@ -153,6 +154,7 @@ const FileUploadForm = <T extends FieldValues>({
                 className="absolute top-0 right-0 bg-white border rounded-full p-1 text-xs text-red-550"
                 aria-label="Remove image"
                 title="Remove image"
+                data-testid={dataTestid ? `${dataTestid}-remove-image` : null}
               >
                 <Icon name="IconRemove" />
               </button>
@@ -162,13 +164,21 @@ const FileUploadForm = <T extends FieldValues>({
       />
 
       {error && (
-        <span id={errorId} role="alert" className="text-preset-4 error">
+        <span
+          id={errorId}
+          role="alert"
+          className="text-preset-4 error"
+          data-testid={dataTestid ? `${dataTestid}-error-message` : null}
+        >
           {error.message}
         </span>
       )}
 
       {helperText && (
-        <p className="form-helper-text text-preset-4 text-grey-500 mt-1">
+        <p
+          className="form-helper-text text-preset-4 text-grey-500 mt-1"
+          data-testid={dataTestid ? `${dataTestid}-helper-text` : null}
+        >
           {helperText}
         </p>
       )}

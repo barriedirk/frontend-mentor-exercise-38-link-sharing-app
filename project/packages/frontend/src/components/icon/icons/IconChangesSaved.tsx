@@ -17,7 +17,7 @@ export default function IconChangesSaved({
       className={clsx(styles['icon-empty'], className)}
       aria-hidden="true"
     >
-      <g clip-path="url(#a)">
+      <g clipPath="url(#a)">
         <path
           fill="#fff"
           d="M19.5 3h-1.875a.375.375 0 0 0-.375.375V7.5a1.5 1.5 0 0 1-1.5 1.5H8.275a.766.766 0 0 1-.775-.7.75.75 0 0 1 .75-.8h7.125a.375.375 0 0 0 .375-.375v-3.75A.375.375 0 0 0 15.375 3H8.56a1.487 1.487 0 0 0-1.06.44L3.44 7.5A1.487 1.487 0 0 0 3 8.56V19.5A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-15A1.5 1.5 0 0 0 19.5 3ZM12 17.25a3 3 0 1 1 0-5.999 3 3 0 0 1 0 5.999Z"

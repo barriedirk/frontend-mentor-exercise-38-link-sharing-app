@@ -34,6 +34,7 @@ export const updateProfile = async (
   formData.append('firstName', profile.firstName);
   formData.append('lastName', profile.lastName);
   formData.append('slug', profile.slug);
+
   if (profile.id !== undefined) formData.append('id', String(profile.id));
   if (profile.password) formData.append('password', profile.password);
   if (profile.avatarUrl) formData.append('avatar_url', profile.avatarUrl);
@@ -52,8 +53,6 @@ export const updateProfile = async (
 
     throw new Error(error?.error || 'Failed to update profile');
   }
-
-  const json = await res.json();
 
   return;
 };

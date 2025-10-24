@@ -1,5 +1,3 @@
-import { getApiUrl } from '@src/shared/getApiUrl';
-
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -15,8 +13,6 @@ import FileUploadForm from '@src/components/forms/fields/FileUploadForm';
 
 import { User } from '@src/models/User';
 import { useEffect } from 'react';
-
-const API_URL = `${getApiUrl()}/uploads/`;
 
 interface ProfilePictureProps {
   onChange: (avatar: FileList | undefined) => void;
@@ -43,10 +39,6 @@ export default function ProfilePicture({
     onChange(picture);
   }, [picture, onChange]);
 
-  const currentImage = profile.avatarUrl
-    ? `${API_URL}${profile.avatarUrl}`
-    : undefined;
-
   return (
     <form
       className={clsx(
@@ -62,7 +54,8 @@ export default function ProfilePicture({
         helperText="Image must be below 1024x1024px. Use PNG or JPG format."
         icon="IconUploadImage"
         styleName="row"
-        currentImage={currentImage}
+        currentImage={profile.avatarUrl ?? undefined}
+        dataTestid="picture"
       />
     </form>
   );

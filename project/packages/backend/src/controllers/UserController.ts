@@ -219,10 +219,13 @@ export class UserController {
         );
 
         avatarUrl = uploadResult.secure_url;
+
         const newAvatarPublicId = uploadResult.public_id;
 
         if (oldAvatarPublicId && oldAvatarPublicId !== newAvatarPublicId) {
-          await cloudinary.uploader.destroy(oldAvatarPublicId);
+          try {
+            await cloudinary.uploader.destroy(oldAvatarPublicId);
+          } catch (_) {}
         }
 
         oldAvatarPublicId = newAvatarPublicId;
@@ -248,8 +251,6 @@ export class UserController {
       avatar_url: avatarUrl,
       avatar_public_id: oldAvatarPublicId,
     });
-
-    // Optional: You could delete old avatar from Cloudinary here if needed
 
     const token = jwt.sign(
       {

@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
@@ -18,14 +19,18 @@ Object.defineProperty(window, 'matchMedia', {
     matches: false,
     media: query,
     onchange: null,
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    addListener: () => {}, // deprecated
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    removeListener: () => {}, // deprecated
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    addEventListener: () => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    removeEventListener: () => {},
+    addListener: () => {
+      /* empty */
+    },
+    removeListener: () => {
+      /* empty */
+    },
+    addEventListener: () => {
+      /* empty */
+    },
+    removeEventListener: () => {
+      /* empty */
+    },
     dispatchEvent: () => false,
   }),
 });
