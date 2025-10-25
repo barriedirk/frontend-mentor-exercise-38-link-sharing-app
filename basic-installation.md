@@ -217,3 +217,30 @@ pnpm jest --config jest.config.ts
 
 
 pnpm nx test frontend
+
+
+pnpm exec cypress install
+
+pnpm nx e2e frontend-e2e
+pnpm nx e2e frontend-e2e --watch
+pnpm nx run frontend-e2e:e2e --watch --no-headless
+
+
+
+
+
+
+
+pnpm add -D cypress
+
+pnpm nx serve @project/frontend
+
+pnpm cypress open --config-file packages/frontend-e2e/cypress.config.ts
+
+pnpm cypress open --config-file packages/frontend-e2e/cypress.config.ts --project packages/frontend-e2e
+
+
+
+
+
+

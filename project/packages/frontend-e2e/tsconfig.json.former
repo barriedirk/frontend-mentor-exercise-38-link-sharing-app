@@ -5,8 +5,7 @@
     "allowJs": true,
     "types": ["cypress", "node"],
     "sourceMap": false,
-    "moduleResolution": "node16",
-    "module": "node16"
+    "moduleResolution": "node16"
   },
   "include": [
     "**/*.ts",
@@ -18,5 +17,11 @@
     "**/*.cy.jsx",
     "**/*.d.ts"
   ],
-  "exclude": ["out-tsc", "test-output"]
+  "exclude": [
+    "out-tsc",
+    "test-output",
+    "eslint.config.js",
+    "eslint.config.cjs",
+    "eslint.config.mjs"
+  ]
 }

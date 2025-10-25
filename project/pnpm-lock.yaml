@@ -121,7 +121,7 @@ importers:
         specifier: ^9.2.1
         version: 9.2.1
       cypress:
-        specifier: ^14.2.1
+        specifier: ^14.5.4
         version: 14.5.4
       eslint:
         specifier: ^9.8.0
@@ -294,7 +294,11 @@ importers:
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.0)
 
-  packages/frontend-e2e: {}
+  packages/frontend-e2e:
+    devDependencies:
+      cypress:
+        specifier: ^14.5.4
+        version: 14.5.4
 
 packages:
 

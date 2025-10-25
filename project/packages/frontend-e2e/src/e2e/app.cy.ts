@@ -1,13 +1,15 @@
-import { getGreeting } from '../support/app.po';
+describe('Frontend App', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
 
-describe('@project/frontend-e2e', () => {
-  beforeEach(() => cy.visit('/'));
+  it('should redirect unauthenticated users to /login', () => {
+    cy.url().should('include', '/login');
+    cy.contains('Login');
+  });
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
-
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains(/Welcome/);
+  it('should navigate to signup page', () => {
+    cy.contains('Sign Up').click();
+    cy.url().should('include', '/signup');
   });
 });
