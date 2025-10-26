@@ -134,6 +134,7 @@ export default function Login() {
         <button
           className="link"
           type="button"
+          data-testid="button-login-demo-credentials"
           aria-label="Login with demo credentials"
           onClick={() => loginWithDemoCredential()}
         >

@@ -24,6 +24,7 @@ interface LinkFormProps {
   onChange: (link: Link) => void;
   onValidityChange: (isValid: boolean) => void;
   onRemove: () => void;
+  dataTestid?: string;
 }
 
 export default function LinkForm({
@@ -35,6 +36,7 @@ export default function LinkForm({
   onChange,
   onValidityChange,
   onRemove,
+  dataTestid,
 }: LinkFormProps) {
   const {
     control,
@@ -76,6 +78,7 @@ export default function LinkForm({
 
   return (
     <form
+      data-testid={dataTestid ? `${dataTestid}-form` : null}
       draggable
       onDragStart={onDragStart}
       onDragOver={onDragOver}

@@ -235,9 +235,7 @@ pnpm add -D cypress
 
 pnpm nx serve @project/frontend
 
-pnpm cypress open --config-file packages/frontend-e2e/cypress.config.ts
-
-pnpm cypress open --config-file packages/frontend-e2e/cypress.config.ts --project packages/frontend-e2e
+not working properly => pnpm cypress open --config-file packages/frontend-e2e/cypress.config.ts --project packages/frontend-e2e
 
 pnpm nx open-cypress frontend-e2e
 

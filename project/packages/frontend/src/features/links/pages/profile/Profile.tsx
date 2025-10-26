@@ -79,6 +79,7 @@ export default function Profile() {
           type="button"
           className="button button--small button--secondary px-5"
           onClick={logout}
+          data-testid="button-profile-logout"
         >
           Logout
         </button>

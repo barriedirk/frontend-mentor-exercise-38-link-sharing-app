@@ -45,10 +45,15 @@ export function PreviewProfile({
         >
           <ul className="preview-profile__control-list flex flex-row justify-between p-5">
             {showLogo && (
-              <Link to="/login">
-                <Icon name="LogoDevlinksLarge" className="w-[110px] h-[32px]" />
-                <h1 className="sr-only">devlinks App</h1>
-              </Link>
+              <li className="flex justify-center items-center">
+                <Link to="/login" data-testid="link-main">
+                  <Icon
+                    name="LogoDevlinksLarge"
+                    className="w-[110px] h-[32px]"
+                  />
+                  <h1 className="sr-only">devlinks App</h1>
+                </Link>
+              </li>
             )}
             {showBackToEditor && (
               <li>
@@ -56,6 +61,7 @@ export function PreviewProfile({
                   className="preview-profile__btn-back-editor button button--secondary px-4"
                   aria-label="Back to profile editor"
                   type="button"
+                  data-testid="btn-back-profile-editor"
                   onClick={() => navigate('/')}
                 >
                   Back to Editor
@@ -67,6 +73,7 @@ export function PreviewProfile({
                 <button
                   className="preview-profile__btn-share-link button button--primary px-4"
                   aria-label="Copy shareable link"
+                  data-testid="btn-copy-shareable-link"
                   type="button"
                   onClick={shareLink}
                 >
@@ -94,7 +101,7 @@ export function PreviewProfile({
         >
           <p
             id="profile-name"
-            className="text-preset-1 text-grey-950 text-ellipsis overflow-hidden whitespace-nowrap px-4"
+            className="text-preset-1 text-grey-950 text-ellipsis overflow-hidden text-center px-4"
             aria-label="Full Name"
           >
             {`${user.firstName} ${user.lastName}`}
