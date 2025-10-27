@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm nx serve backend --configuration=development"
+    "dev": "pnpm nx serve backend --configuration=development",
+    "start": "node dist/main.js",
+    "build": "nx build backend"
   },
   "nx": {
     "targets": {
@@ -86,5 +88,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
     "@types/pg": "^8.15.5"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
