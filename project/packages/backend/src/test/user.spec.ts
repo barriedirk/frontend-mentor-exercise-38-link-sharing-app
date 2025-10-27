@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { createApp } from './createApp';
+import { createApp } from '../createApp';
 
 const emailTest = 'demo-devlinks-app-2@fakeemail.com';
 const passwordTest = '3nT3rt#4inMen1';

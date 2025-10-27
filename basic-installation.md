@@ -217,13 +217,13 @@ pnpm jest --config jest.config.ts
 
 
 pnpm nx test frontend
+pnpm nx test frontend -- --verbose
+pnpm nx test frontend --watch
 
 
 pnpm exec cypress install
 
-pnpm nx e2e frontend-e2e
-pnpm nx e2e frontend-e2e --watch
-pnpm nx run frontend-e2e:e2e --watch --no-headless
+no working - pnpm nx run frontend-e2e:e2e --watch --no-headless
 
 
 
@@ -240,5 +240,11 @@ not working properly => pnpm cypress open --config-file packages/frontend-e2e/cy
 pnpm nx open-cypress frontend-e2e
 
 
+
+-- deploy to render
+
+
+pnpm nx build backend
+pnpm nx serve backend
 
 
