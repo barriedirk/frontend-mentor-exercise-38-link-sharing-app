@@ -1,0 +1,19 @@
+{
+  "name": "@project/frontend",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@preact/signals-react": "^3.3.0",
+    "@tanstack/react-query": "^5.90.2",
+    "clsx": "^2.1.1",
+    "react-hook-form": "^7.63.0",
+    "react-hot-toast": "^2.6.0",
+    "react-router-dom": "^6.23.1",
+    "zod": "^4.1.11",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@testing-library/user-event": "^14.6.1"
+  }
+}

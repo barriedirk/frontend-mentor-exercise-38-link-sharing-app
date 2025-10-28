@@ -1,4 +1,5 @@
 I am using nx with pnpm
+pnpm nx test frontend --codeC
 
 ```bash
 $ pnpm create nx-workspace@latest project --pm=pnpm
@@ -24,6 +25,36 @@ $ pnpm create nx-workspace@latest project --pm=pnpm
 
 
 # plugin
+
+
+❯ pnpm nx add @nx/express
+
+✔ Installing @nx/express@22.0.1...
+
+ NX  Generating @nx/express:init
+
+UPDATE package.json
+Scope: all 3 workspace projects
+ WARN  7 deprecated subdependencies found: @types/minimatch@6.0.0, abab@2.0.6, domexception@4.0.0, glob@7.2.3, glob@8.1.0, inflight@1.0.6, stable@0.1.8
+Already up to date
+Progress: resolved 1512, reused 1381, downloaded 0, added 0, done
+ WARN  Issues with peer dependencies found
+.
+└─┬ @swc-node/register 1.9.2
+  └─┬ @swc-node/core 1.14.1
+    └── ✕ unmet peer @swc/core@">= 1.13.3": found 1.5.29
+
+dependencies:
++ express 4.21.2 (5.1.0 is available)
+
+Done in 1.5s using pnpm v10.11.1
+✔ Initializing @nx/express...
+
+ NX   Package @nx/express added successfully.
+
+
+
+
 
  $ pnpm nx add @nx/react
 

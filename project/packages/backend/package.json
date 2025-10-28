@@ -2,53 +2,8 @@
   "name": "@project/backend",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "dev": "pnpm nx serve backend --configuration=development",
-    "build:prod": "pnpm nx build backend --configuration=production",
-    "start:prod": "node dist/main.js"
-  },
   "nx": {
     "targets": {
-      "build": {
-        "executor": "@nx/js:tsc",
-        "outputs": [
-          "{options.outputPath}"
-        ],
-        "options": {
-          "outputPath": "dist",
-          "main": "packages/backend/src/main.ts",
-          "tsConfig": "packages/backend/tsconfig.app.json"
-        },
-        "configurations": {
-          "development": {
-            "sourceMap": true
-          },
-          "production": {
-            "sourceMap": false,
-            "optimization": true
-          }
-        }
-      },
-      "serve": {
-        "continuous": true,
-        "executor": "@nx/js:node",
-        "defaultConfiguration": "development",
-        "dependsOn": [
-          "build"
-        ],
-        "options": {
-          "buildTarget": "@project/backend:build",
-          "runBuildTargetDependencies": false
-        },
-        "configurations": {
-          "development": {
-            "buildTarget": "@project/backend:build:development"
-          },
-          "production": {
-            "buildTarget": "@project/backend:build:production"
-          }
-        }
-      },
       "prune-lockfile": {
         "dependsOn": [
           "build"
@@ -83,19 +38,34 @@
         ],
         "executor": "nx:noop"
       },
-      "test": {
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
         "options": {
-          "passWithNoTests": true
+          "buildTarget": "@project/backend:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@project/backend:build:development"
+          },
+          "production": {
+            "buildTarget": "@project/backend:build:production"
+          }
         }
       }
     }
   },
   "dependencies": {
+    "express": "^4.21.2",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.8.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
-    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "pg": "^8.16.3",
