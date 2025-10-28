@@ -4,11 +4,51 @@
   "private": true,
   "scripts": {
     "dev": "pnpm nx serve backend --configuration=development",
-    "start": "node dist/main.js",
-    "build": "nx build backend"
+    "build:prod": "pnpm nx build backend --configuration=production",
+    "start:prod": "node dist/main.js"
   },
   "nx": {
     "targets": {
+      "build": {
+        "executor": "@nx/js:tsc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "dist",
+          "main": "packages/backend/src/main.ts",
+          "tsConfig": "packages/backend/tsconfig.app.json"
+        },
+        "configurations": {
+          "development": {
+            "sourceMap": true
+          },
+          "production": {
+            "sourceMap": false,
+            "optimization": true
+          }
+        }
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@project/backend:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@project/backend:build:development"
+          },
+          "production": {
+            "buildTarget": "@project/backend:build:production"
+          }
+        }
+      },
       "prune-lockfile": {
         "dependsOn": [
           "build"
@@ -42,26 +82,6 @@
           "copy-workspace-modules"
         ],
         "executor": "nx:noop"
-      },
-      "serve": {
-        "continuous": true,
-        "executor": "@nx/js:node",
-        "defaultConfiguration": "development",
-        "dependsOn": [
-          "build"
-        ],
-        "options": {
-          "buildTarget": "@project/backend:build",
-          "runBuildTargetDependencies": false
-        },
-        "configurations": {
-          "development": {
-            "buildTarget": "@project/backend:build:development"
-          },
-          "production": {
-            "buildTarget": "@project/backend:build:production"
-          }
-        }
       },
       "test": {
         "options": {

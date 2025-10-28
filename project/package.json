@@ -7,7 +7,7 @@
     "build:backend": "pnpm nx build backend",
     "start:backend": "node packages/backend/dist/main.js",
     "build:backend:prod": "pnpm nx build backend --configuration=production",
-    "start:backend:prod": "node dist/packages/backend/main.js"
+    "start:backend:prod": "node packages/backend/dist/main.js"
   },
   "private": true,
   "devDependencies": {

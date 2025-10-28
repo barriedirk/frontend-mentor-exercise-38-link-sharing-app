@@ -39,6 +39,8 @@ export function authenticateJWT(
     };
 
     next();
+
+    return;
   } catch (err) {
     return res.status(403).json({ error: 'Invalid or expired token' });
   }
@@ -62,6 +64,8 @@ export function authenticateJWTv2(
 
     (req as any).user = decoded;
     next();
+
+    return;
   } catch (err) {
     return res.status(401).json({ error: 'Invalid or expired token' });
   }

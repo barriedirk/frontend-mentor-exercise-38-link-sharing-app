@@ -12,6 +12,8 @@ export class LinksController {
       return res.json({ links });
     } catch (err) {
       next(err);
+
+      return;
     }
   }
 
@@ -56,9 +58,12 @@ export class LinksController {
         url,
         position,
       });
+
       return res.status(201).json({ link: newLink });
     } catch (err) {
       next(err);
+
+      return;
     }
   }
 
@@ -73,9 +78,12 @@ export class LinksController {
           .status(404)
           .json({ error: 'Link not found or not authorized' });
       }
+
       return res.json({ link: updated });
     } catch (err) {
       next(err);
+
+      return;
     }
   }
 
@@ -89,9 +97,12 @@ export class LinksController {
           .status(404)
           .json({ error: 'Link not found or not authorized' });
       }
+
       return res.status(204).send();
     } catch (err) {
       next(err);
+
+      return;
     }
   }
 }
