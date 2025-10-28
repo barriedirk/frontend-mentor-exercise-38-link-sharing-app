@@ -7,7 +7,7 @@
     "serve:frontend": "pnpm nx serve frontend",
     "build:frontend": "pnpm nx build frontend",
     "serve:backend": "pnpm nx serve backend",
-    "build:serve": "pnpm nx build backend"
+    "build:backend": "pnpm nx build backend"
   },
   "private": true,
   "devDependencies": {
