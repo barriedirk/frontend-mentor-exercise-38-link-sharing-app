@@ -8,7 +8,6 @@ import { getProfile } from '@src/services/profileApi';
 import { useLinksStore } from '@src/store/useLinksStore';
 import { useAuthStore } from '@src/store/useAuthStore';
 import { useProfileStore } from '@src/store/useProfileStore';
-import toast from 'react-hot-toast';
 
 import { redirect } from 'react-router-dom';
 import { useSignals } from '@preact/signals-react/runtime';
@@ -33,8 +32,6 @@ export function MainDataLoader({ children }: MainDataLoaderProps) {
 
     loadingSignal.show();
 
-    const idToast = toast.loading('Loading');
-
     setIsLoaded(false);
     updateLinks([]);
     resetProfile();
@@ -47,11 +44,8 @@ export function MainDataLoader({ children }: MainDataLoaderProps) {
         ]);
         updateLinks(fetchedLinks);
         updateProfile(fetchedProfile);
-
-        toast.success('Profile was loaded', { id: idToast });
       } catch (error) {
         console.error('Failed to fetch links', error);
-        toast.error('Failed to fetch profile', { id: idToast });
 
         setError(error as Error);
 
@@ -69,5 +63,5 @@ export function MainDataLoader({ children }: MainDataLoaderProps) {
   if (!isLoaded) return <p>Loading...</p>;
   if (error) return <div>Error loading data: {error.message}</div>;
 
-  return <>{children}</>;
+  return { children };
 }
