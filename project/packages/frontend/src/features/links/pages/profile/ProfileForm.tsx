@@ -125,7 +125,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         control={control}
         label="Email"
         type="text"
-        error={errors.lastName}
+        error={errors.email}
         autoComplete="email"
         placeholder="e.g. ben@example.com"
         styleName="row"
@@ -137,7 +137,7 @@ export default function ProfileForm({ profile, onChange }: ProfileFormProps) {
         control={control}
         label="Slug"
         type="text"
-        error={errors.lastName}
+        error={errors.slug}
         autoComplete="slug"
         placeholder="e.g. ben-wright"
         styleName="row"

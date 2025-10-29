@@ -82,7 +82,7 @@ export default function Links() {
     } catch (error) {
       console.error('Failed to save links', error);
 
-      toast.success('Failed to save links', { id: idToast });
+      toast.error('Failed to save links', { id: idToast });
     } finally {
       loadingSignal.hide();
     }
