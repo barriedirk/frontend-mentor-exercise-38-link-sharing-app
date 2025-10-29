@@ -14,6 +14,6 @@ describe('App', () => {
       </AppProviders>
     );
 
-    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /login/i })).toBeInTheDocument();
   });
 });

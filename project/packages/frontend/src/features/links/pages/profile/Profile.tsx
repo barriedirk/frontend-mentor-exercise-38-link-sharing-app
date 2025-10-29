@@ -2,6 +2,7 @@ import clsx from 'clsx';
 
 import styles from './Profile.module.css';
 
+import toast from 'react-hot-toast';
 import ProfilePicture from './ProfilePicture';
 import ProfileForm from './ProfileForm';
 
@@ -12,7 +13,6 @@ import { loadingSignal } from '@src/services/loadingSignal';
 import { updateProfile as updateProfileApi } from '@src/services/profileApi';
 import { useSignals } from '@preact/signals-react/runtime';
 
-import toast from 'react-hot-toast';
 import { useLogout } from '@src/hooks/useLogout';
 
 export default function Profile() {
@@ -57,10 +57,14 @@ export default function Profile() {
       await updateProfileApi(profile, avatar);
 
       toast.success('Successed to save Profile', { id: idToast });
-    } catch (error) {
-      // console.error('Failed to save profile', error);
+    } catch (err) {
+      console.log(err);
 
-      toast.error('Failed to save Profile', { id: idToast });
+      const errorMessage =
+        (err instanceof Error ? err.message : String(err)) ||
+        'Failed to save profile';
+
+      toast.error(errorMessage, { id: idToast });
     } finally {
       loadingSignal.hide();
     }

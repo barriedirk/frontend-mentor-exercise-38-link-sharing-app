@@ -7,7 +7,11 @@
     "serve:frontend": "pnpm nx serve frontend",
     "build:frontend": "pnpm nx build frontend",
     "serve:backend": "pnpm nx serve backend",
-    "build:backend": "pnpm nx build backend"
+    "build:backend": "pnpm nx build backend",
+    "test:backend": "pnpm nx test backend",
+    "test:backend-e2e": "pnpm nx test backend-e2e --no-interactive",
+    "test:frontend": "pnpm nx test frontend",
+    "test:frontend-e2e": "pnpm nx open-cypress frontend-e2e"
   },
   "private": true,
   "devDependencies": {

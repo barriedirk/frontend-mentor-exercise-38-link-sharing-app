@@ -18,7 +18,7 @@ export default function Devto({ className }: { className?: string }) {
         />
         <path
           fill="#fff"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M5.46 9.201c0 .639-.393 1.606-1.638 1.604H2.25V5.188h1.605c1.201 0 1.605.966 1.606 1.605V9.2ZM3.912 6.24c.132 0 .264.049.395.147.131.099.197.247.198.444v2.365c0 .197-.066.345-.197.443a.657.657 0 0 1-.395.148H3.32V6.239h.591Z"
           clipRule="evenodd"
         />

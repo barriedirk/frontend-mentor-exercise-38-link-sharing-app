@@ -10,8 +10,10 @@ import PublicLayout from '@src/layout/publicLayout/PublicLayout';
 import { AuthRedirect } from '@src/components/auth/AuthRedirect';
 import { MainDataLoader } from '@src/components/loader/MainDataLoader';
 
-const Login = lazy(() => import('../features/auth/pages/Login'));
-const SignUp = lazy(() => import('../features/auth/pages/SignUp'));
+import Splash from '@src/components/splash/Splash';
+import Login from '@src/features/auth/pages/Login';
+import SignUp from '@src/features/auth/pages/SignUp';
+
 const MainLinks = lazy(() => import('../features/links/pages/MainLinks'));
 const Preview = lazy(() => import('../features/links/pages/Preview'));
 const NotFound = lazy(() => import('../features/notFound/pages/NotFound'));
@@ -22,7 +24,7 @@ const PublicLinkPage = lazy(
 
 export function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Splash />}>
       <AuthRedirect />
       <Routes>
         <Route element={<AuthLayout />}>

@@ -63,5 +63,5 @@ export function MainDataLoader({ children }: MainDataLoaderProps) {
   if (!isLoaded) return <p>Loading...</p>;
   if (error) return <div>Error loading data: {error.message}</div>;
 
-  return { children };
+  return <>{children}</>;
 }

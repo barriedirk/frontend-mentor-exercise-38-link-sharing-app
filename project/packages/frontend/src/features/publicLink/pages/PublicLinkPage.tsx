@@ -20,6 +20,7 @@ export default function PublicLinkPage() {
   useEffect(() => {
     if (!slug) {
       setError(new Error('Missing slug'));
+
       return;
     }
 
@@ -35,11 +36,10 @@ export default function PublicLinkPage() {
           : undefined;
 
         setFullProfile(profile);
-
-        toast.success('Public profile was loaded', { id: idToast });
       } catch (err) {
         console.error('Failed to fetch profile', err);
         toast.error('Failed to fetch profile', { id: idToast });
+
         setError(err as Error);
       } finally {
         loadingSignal.hide();
