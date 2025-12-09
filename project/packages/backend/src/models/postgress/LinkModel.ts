@@ -23,6 +23,7 @@ export class LinkModel {
     links: { platform: string; url: string; position?: number | undefined }[]
   ) {
     const client = await pool.connect();
+
     try {
       await client.query('BEGIN');
       await client.query('DELETE FROM devlinks_links WHERE user_id = $1', [
