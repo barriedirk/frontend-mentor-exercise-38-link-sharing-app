@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 import { Request, Response, NextFunction } from 'express';
 
-import { UserModel } from '../models/postgress/UserModel';
+import { UserModel } from '../models';
 
 import {
   registerSchema,

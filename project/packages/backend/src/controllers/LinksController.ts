@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { LinkModel } from '../models/postgress/LinkModel';
+import { LinkModel } from '../models';
 import { linkArraySchema } from '../schemas/link.schema';
 import { getIdFromJWT } from '../utils/utils';
 

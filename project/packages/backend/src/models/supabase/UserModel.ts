@@ -127,10 +127,10 @@ export class UserModel {
   }
 
   static async incrementTokenVersion(userId: number): Promise<void> {
-    const { error } = await supabase
-      .from('devlinks_users')
-      .update({ token_version: supabase.raw('token_version + 1') })
-      .eq('id', userId);
+    const { error } = await supabase.rpc(
+      'devlinks_users_increment_token_version',
+      { uid: userId }
+    );
 
     if (error) throw error;
   }

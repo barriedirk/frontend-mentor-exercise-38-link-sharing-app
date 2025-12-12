@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { UserModel } from '../models/postgress/UserModel';
-import { LinkModel } from '../models/postgress/LinkModel';
+import { UserModel } from '../models';
+import { LinkModel } from '../models';
 
 export class ViewController {
   static async viewProfile(req: Request, res: Response, next: NextFunction) {

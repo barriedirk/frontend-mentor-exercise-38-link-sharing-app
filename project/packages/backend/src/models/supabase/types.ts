@@ -1,3 +1,5 @@
+// supabase gen types typescript --project-id "---" > supabase.types.ts
+
 export type Json =
   | string
   | number
@@ -56,7 +58,10 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      devlinks_users_increment_token_version: {
+        Args: { uid: number };
+        Returns: void;
+      };
     };
     Enums: {
       [_ in never]: never;
